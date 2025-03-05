@@ -1,0 +1,1 @@
+(self.webpackChunkrekalogika_docs=self.webpackChunkrekalogika_docs||[]).push([[7918],{5741:()=>{},8974:(k,s,a)=>{"use strict";a.d(s,{A:()=>c});var e=a(8291);const c=e}}]);
