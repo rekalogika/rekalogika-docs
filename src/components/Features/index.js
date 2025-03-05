@@ -3,24 +3,15 @@ import clsx from 'clsx';
 import styles from './styles.module.css';
 import Link from '@docusaurus/Link';
 
-const FeatureList = [
+const frameworks = [
   {
-    title: 'rekalogika/rekapager',
-    link: 'rekapager',
-    tags: ['php', 'symfony', 'doctrine'],
+    title: 'rekalogika/analytics',
+    link: 'analytics',
+    tags: ['doctrine', 'symfony'],
     description: (
       <>
-        Pagination library for PHP, supporting both offset-based and keyset-based pagination.
-      </>
-    ),
-  },
-  {
-    title: 'rekalogika/collections',
-    link: 'collections',
-    tags: ['doctrine'],
-    description: (
-      <>
-        Pragmatic, opinionated extensions to Doctrine's Collections library.
+        Creates and maintains pre-aggregated summary tables for Doctrine entities.
+        Provides a fast and easy way to perform analytical queries.
       </>
     ),
   },
@@ -35,12 +26,22 @@ const FeatureList = [
     ),
   },
   {
-    title: 'rekalogika/mapper',
-    link: 'mapper',
-    tags: ['symfony', 'php'],
+    title: 'rekalogika/collections',
+    link: 'collections',
+    tags: ['doctrine'],
     description: (
       <>
-        An object mapper for PHP and Symfony. Maps an object to another object. Primarily used for transforming an entity to a DTO and vice versa.
+        Pragmatic, opinionated extensions to Doctrine's Collections library.
+      </>
+    ),
+  },
+  {
+    title: 'rekalogika/domain-event',
+    link: 'domain-event',
+    tags: ['symfony', 'doctrine'],
+    description: (
+      <>
+        Domain event pattern implementation for Symfony and Doctrine.
       </>
     ),
   },
@@ -76,34 +77,22 @@ const FeatureList = [
     ),
   },
   {
-    title: 'rekalogika/domain-event',
-    link: 'domain-event',
-    tags: ['symfony', 'doctrine'],
+    title: 'rekalogika/mapper',
+    link: 'mapper',
+    tags: ['symfony', 'php'],
     description: (
       <>
-        Domain event pattern implementation for Symfony and Doctrine.
+        An object mapper for PHP and Symfony. Maps an object to another object. Primarily used for transforming an entity to a DTO and vice versa.
       </>
     ),
   },
   {
-    title: 'rekalogika/reconstitutor',
-    link: 'reconstitutor',
-    tags: ['doctrine'],
+    title: 'rekalogika/rekapager',
+    link: 'rekapager',
+    tags: ['php', 'symfony', 'doctrine'],
     description: (
       <>
-        Augments Doctrine's reconstitution/hydration with your logic in a concise and expressive class.
-      </>
-    ),
-  },
-  {
-    title: 'rekalogika/doctrine-collections-decorator',
-    link: 'doctrine-collections-decorator',
-    tags: ['doctrine'],
-    description: (
-      <>
-        Lets you easily create decorator classes to modify the behaviors of Doctrine
-Collection objects, including the collection objects used by Doctrine ORM in
-your entities.
+        Pagination library for PHP, supporting both offset-based and keyset-based pagination.
       </>
     ),
   },
@@ -117,6 +106,9 @@ your entities.
       </>
     ),
   },
+]
+
+const libraries = [
   {
     title: 'rekalogika/direct-property-access',
     link: 'direct-property-access',
@@ -125,6 +117,28 @@ your entities.
       <>
         Implementation of PropertyAccessor that reads & writes directly into
         properties, bypassing getters & setters.
+      </>
+    ),
+  },
+  {
+    title: 'rekalogika/doctrine-advanced-group-by',
+    link: 'doctrine-advanced-group-by',
+    tags: ['doctrine'],
+    description: (
+      <>
+        Allows the use of the more complex GROUP BY clauses in Doctrine ORM. These include GROUPING SETS, CUBE, and ROLLUP.
+      </>
+    ),
+  },
+  {
+    title: 'rekalogika/doctrine-collections-decorator',
+    link: 'doctrine-collections-decorator',
+    tags: ['doctrine'],
+    description: (
+      <>
+        Lets you easily create decorator classes to modify the behaviors of Doctrine
+        Collection objects, including the collection objects used by Doctrine ORM in
+        your entities.
       </>
     ),
   },
@@ -138,16 +152,26 @@ your entities.
       </>
     ),
   },
-];
+  {
+    title: 'rekalogika/reconstitutor',
+    link: 'reconstitutor',
+    tags: ['doctrine'],
+    description: (
+      <>
+        Augments Doctrine's reconstitution/hydration with your logic in a concise and expressive class.
+      </>
+    ),
+  },
+]
 
 function Feature({ title, description, link, tags }) {
   return (
     <article className="col col--6 margin-bottom--lg">
       <Link className={clsx('card padding--lg', styles.cardContainer)} to={`${link}`}>
         <h2>{title}</h2>
-        <p class="">{description}</p>
-        <p class="">
-          {tags.map((tag) => 
+        <p>{description}</p>
+        <p>
+          {tags.map((tag) =>
             <span class="badge badge--secondary margin-right--sm">#{tag}</span>
           )}
         </p>
@@ -159,9 +183,17 @@ function Feature({ title, description, link, tags }) {
 export default function Features() {
   return (
     <div class="margin--lg">
+      <h1 class="margin-bottom--lg">Frameworks, Symfony Bundles, and Large Libraries</h1>
       <section className="row">
-        {FeatureList.map((props, idx) => (
-          <Feature key={idx} {...props} />
+        {frameworks.map((props) => (
+          <Feature {...props} />
+        ))}
+      </section>
+
+      <h1 class="margin-bottom--lg margin-top--lg">Smaller and More Specific Libraries</h1>
+      <section className="row">
+        {libraries.map((props) => (
+          <Feature {...props} />
         ))}
       </section>
     </div>
