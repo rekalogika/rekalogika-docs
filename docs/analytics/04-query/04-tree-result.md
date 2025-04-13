@@ -49,7 +49,7 @@ $rawValue = $node->getRawValue();
 Example of getting a single value:
 
 ```php
-use Rekalogika\Analytics\SummaryManagerRegistry;
+use Rekalogika\Analytics\Contracts\SummaryManagerRegistry;
 
 /** @var SummaryManagerRegistry $summaryManagerRegistry */
 
@@ -84,7 +84,7 @@ By default, the measures are placed at the leaf of the tree. You can group the
 measures earlier by using the special `@values` keyword:
 
 ```php
-use Rekalogika\Analytics\SummaryManagerRegistry;
+use Rekalogika\Analytics\Contracts\SummaryManagerRegistry;
 
 /** @var SummaryManagerRegistry $summaryManagerRegistry */
 

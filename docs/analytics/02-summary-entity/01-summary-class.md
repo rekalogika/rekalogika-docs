@@ -227,7 +227,7 @@ can make the summary entity implement the `HasQueryBuilderModifier` interface.
 
 ```php
 use Doctrine\ORM\QueryBuilder;
-use Rekalogika\Analytics\HasQueryBuilderModifier;
+use Rekalogika\Analytics\Contracts\Summary\HasQueryBuilderModifier;
 
 class OrderSummary extends Summary implements HasQueryBuilderModifier
 {

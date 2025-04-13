@@ -12,7 +12,7 @@ entity. To get an instance of `SummaryManager`, you can use the
 `SummaryManagerRegistry` service.
 
 ```php
-use Rekalogika\Analytics\SummaryManagerRegistry;
+use Rekalogika\Analytics\Contracts\SummaryManagerRegistry;
 
 /** @var SummaryManagerRegistry $summaryManagerRegistry */
 
@@ -26,7 +26,7 @@ returns an instance of `Query` that you can use to build your query.
 
 ```php
 use Doctrine\Common\Collections\Criteria;
-use Rekalogika\Analytics\SummaryManagerRegistry;
+use Rekalogika\Analytics\Contracts\SummaryManagerRegistry;
 
 /** @var SummaryManagerRegistry $summaryManagerRegistry */
 
