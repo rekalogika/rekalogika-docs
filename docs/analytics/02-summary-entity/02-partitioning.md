@@ -10,8 +10,7 @@ attribute. This property must be a Doctrine embeddable that implements
 :::warning
 
 The partitioning term used here is different from the partitioning term used in
-the database. Although, it might be possible to use the summary partitioning key
-as the database partition key.
+the database.
 
 :::
 
@@ -109,6 +108,10 @@ of each level correspond to the following intervals:
 - 27 bits: corresponds to 1.6 days interval
 - 32 bits: corresponds to 50 days interval
 - 37 bits: corresponds to 4.3 years interval
+
+It means the lowest level will contain rolled-up records of those created within
+1.165 hour interval. The second level will contain rolled-up records of those
+created within 1.6 days interval, and so on.
 
 ### Custom Integer Partition
 
