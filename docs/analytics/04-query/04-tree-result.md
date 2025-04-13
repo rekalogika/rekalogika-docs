@@ -3,8 +3,26 @@ title: Tree Result
 ---
 
 To get the result in a tree format, call the `getTree()` method on the `Result`
-object. Each node in the tree represents a dimension or one of the measures. The
-previous example will produce a result like this:
+object. Each node in the tree represents a dimension.
+
+## Example Query
+
+```php
+use Doctrine\Common\Collections\Criteria;
+use Rekalogika\Analytics\Contracts\SummaryManagerRegistry;
+
+/** @var SummaryManagerRegistry $summaryManagerRegistry */
+
+$treeResult = $summaryManagerRegistry
+    ->getManager(OrderSummary::class)
+    ->createQuery()
+    ->groupBy('time.year', 'customerCountry') // property names of the dimension
+    ->select('price', 'count') // property names of the measures
+    ->getResult()
+    ->getTree();
+```
+
+The above query will produce a tree like this:
 
 ![Result tree example](./diagrams/simple.light.svg#light)
 ![Result tree example](./diagrams/simple.dark.svg#dark)
