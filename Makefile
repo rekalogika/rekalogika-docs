@@ -12,17 +12,9 @@ all: static/img/social.png diagrams
 static/img/social.png: src/images/social.svg
 	inkscape -o $@ -w 1200 -h 600 $<
 
-.PHONY: start
-start:
-	npx docusaurus start
-
-.PHONY: build
-build:
-	npx docusaurus build
-
 .PHONY: serve
 serve:
-	npx docusaurus serve
+	npx docusaurus start
 
 .PHONY: clean
 clean: clean-diagrams
