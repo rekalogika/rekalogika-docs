@@ -49,6 +49,17 @@ services:
             - { name: 'rekalogika.file.association.object_id_resolver' }
 ```
 
+## Overriding How the Framework Determines Where to Store the Files
+
+To override the algorithm that determines where to store the files, you can
+create your own implementation of `ClassBasedFileLocationResolverInterface`. It
+takes the class name of the object, the ID, and the property name. It returns a
+`FilePointerInterface`.
+
+Alternatively, you can also implement `FileLocationResolverInterface` that takes
+the object and the property name. But here you need to be careful to normalize
+the class name, the object you get might be a proxy of the real object.
+
 ## About File Names
 
 Like modern key-value cloud storage services, this framework uses the concept of
