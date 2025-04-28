@@ -49,11 +49,21 @@ services:
             - { name: 'rekalogika.file.association.object_id_resolver' }
 ```
 
+## Determining the File Location
+
+To determine the location of a file, you can use the `rekalogika:file:resolve`
+command. The command takes the entity class, the identifier, and the property
+name of the file in the class, in that order:
+
+```bash
+$ php bin/console rekalogika:file:resolve 'App\Entity\Article' 01955f6c-f3ff-7830-b78b-1b06603c1c98 image
+```
+
 ## Overriding How the Framework Determines Where to Store the Files
 
 To override the algorithm that determines where to store the files, you can
 create your own implementation of `ClassBasedFileLocationResolverInterface`. It
-takes the class name of the object, the ID, and the property name. It returns a
+takes the class name of the object, the ID, and the property name; and returns a
 `FilePointerInterface`.
 
 Alternatively, you can also implement `FileLocationResolverInterface` that takes
