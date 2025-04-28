@@ -25,22 +25,46 @@ entity/ffa87ef3fc5388bc8b666e2cec17d27cc493d0c1/image/e5/80/72/6d/31337
 * E: The entity ID.
 
 This default should be sufficient in most cases, for all entities, and all
-filesystems. It masks internal details (entity class names). It does not pile
-too many files in one directory (some filesystems struggle with a huge amount of
-files in a directory). The ordering is chosen to make it easier for manual
-administration tasks.
+types of file system. It is chosen with the following objectives in mind:
+
+* It masks internal details (entity class names) because we may need to expose
+  the name to the Internet.
+* It does not store too many files in a single directory because some
+  file system types struggle with a huge number of files in a directory.
+* The ordering is chosen to make it easier for manual administration tasks.
 
 To obtain the entity's ID, `DefaultFileLocationResolver` calls
-`ObjectIdResolverInterface`. By default, it is `DefaultObjectIdResolver` which
-calls `getId()` of the entity.
+`ObjectIdResolverInterface`. By default, it is `DoctrineObjectIdResolver` which
+obtains the ID from Doctrine Entity Manager.
 
-To override this default behavior, you can create your own implementation of
-either `FileLocationResolverInterface` or `ObjectIdResolverInterface`. If you
-are using autoconfiguration, then you are good to go. Otherwise, you need to
-tag them in the service container:
+`DefaultFileLocationResolver` then uses
+`ClassBasedFileLocationResolverInterface` to determine the location of the file
+which ultimately provides the above logic.
+
+## Overriding How the Framework Determines Where to Store the Files
+
+To override the algorithm that determines where to store the files, you can
+create your own implementation of `ClassBasedFileLocationResolverInterface`. It
+takes the class name of the object, the ID, and the property name; then returns
+a `FilePointerInterface`.
+
+Alternatively, you can also implement `FileLocationResolverInterface` that takes
+the object and the property name instead. But here you need to be careful to
+normalize the class name, as the object you get might be a proxy of the real
+object.
+
+You can also create an `ObjectIdResolverInterface` if you need to override how
+the framework obtains an object's identifier. This is usually only necessary if
+your object's ID cannot be serialized to string.
+
+If you are using autoconfiguration, then you don't need to do anything else.
+Otherwise, you have to tag them in the service container. Example:
 
 ```yaml
 services:
+    App\MyClassBasedFileLocationResolver:
+        tags:
+            - { name: 'rekalogika.file.association.class_based_file_location_resolver' }
     App\MyFileLocationResolver:
         tags:
             - { name: 'rekalogika.file.association.file_location_resolver' }
@@ -59,23 +83,13 @@ name of the file in the class, in that order:
 $ php bin/console rekalogika:file:resolve 'App\Entity\Article' 01955f6c-f3ff-7830-b78b-1b06603c1c98 image
 ```
 
-## Overriding How the Framework Determines Where to Store the Files
-
-To override the algorithm that determines where to store the files, you can
-create your own implementation of `ClassBasedFileLocationResolverInterface`. It
-takes the class name of the object, the ID, and the property name; and returns a
-`FilePointerInterface`.
-
-Alternatively, you can also implement `FileLocationResolverInterface` that takes
-the object and the property name. But here you need to be careful to normalize
-the class name, the object you get might be a proxy of the real object.
-
 ## About File Names
 
 Like modern key-value cloud storage services, this framework uses the concept of
-'keys', not 'paths'. The file name is not part of the key but is stored in the
-metadata, along with other properties of the file. The original file name is
-never taken into consideration when determining where to store the file.
+'keys', not 'paths'. The file name is not used as the name of the key but is
+stored in the metadata, along with other properties of the file (file size,
+type, etc.). The original file name is never considered when determining where to
+store the file.
 
 The metadata itself is stored in a sidecar file. Using the example above, the
 metadata will be stored in this location:
@@ -90,9 +104,8 @@ The caller can obtain the file name using the appropriate methods:
 $imageFilename = $entity->getImage()?->getName();
 ```
 
-When possible, the framework should have copied the file name of the original
-file to the destination metadata when the file was first associated with the
-entity.
+When possible, the framework should copy the file name of the original file to
+the destination metadata when the file was first associated with the entity.
 
 ## How It Works
 
