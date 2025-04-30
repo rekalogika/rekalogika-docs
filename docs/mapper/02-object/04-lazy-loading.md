@@ -13,10 +13,13 @@ will the hydration take place.
 
 :::warning
 
-If the target is `final`, then lazy-loading will not be possible. There are also
-other cases that can prevent a lazy-loading proxy from being created. To see if
-a proxy is being used, or the reason why it is not, you can see that in the
+Under PHP < 8.4, if the target is `final`, then lazy-loading is possible. There
+are also cases that can prevent a lazy-loading proxy from being created. To see
+if a proxy is being used, or the reason why it is not, you can see that in the
 Mapper panel in the Symfony profiler.
+
+Under PHP 8.4 and later, Mapper uses native PHP lazy objects, which support
+lazy-loading for `final` classes.
 
 :::
 
@@ -109,9 +112,7 @@ class TargetDto
 
 ### Other Ways of Disabling Lazy-Loading
 
-* Currently, if the target is `final`, then it will not use a proxy. But in
-  future versions of PHP, final objects might be finally allowed to be proxied.
 * You can instantiate manually, and pass the object as the mapper's target.
-* You can decorate `ProxyGeneratorInterface`, and throw
+* You can decorate `ProxyFactoryInterface`, and throw
   `ProxyNotSupportedException` if it asks for your specific class. Read
-  `DoctrineProxyGenerator` for an example.
+  `DoctrineProxyFactory` for an example.
