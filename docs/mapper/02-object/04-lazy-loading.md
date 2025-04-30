@@ -2,9 +2,10 @@
 title: Lazy Loading
 ---
 
-Mapper will attempt to create a lazy-loading proxy for the target object, and
-use it in place of the real object. The benefit is that the target object will
-not be hydrated until it is actually used.
+If the specified target is a class, not an existing object, Mapper will attempt
+to create a lazy object as the target. The benefit is that Mapper will not
+perform the actual mapping until the target is actually used, or never if it is
+not used.
 
 If the source object is a Doctrine entity, the mapping will not trigger the
 hydration of the source; even accessing ID properties on the target will also
@@ -80,7 +81,7 @@ There should be no practical difference between the native lazy objects and
 older `symfony/var-exporter` lazy objects, except that the new mechanism
 supports `final` classes.
 
-Old-style proxy classes will still be generated during warming up, this is done
+Old-style proxy classes will still be generated during warming up. This is done
 to anticipate the case where the target environment uses different PHP versions.
 
 ## Disabling Lazy-Loading
