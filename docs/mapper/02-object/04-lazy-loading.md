@@ -72,6 +72,17 @@ then everything in the constructor will be mapped eagerly.
 
 :::
 
+## PHP 8.4 Lazy Objects
+
+Since Mapper 2.0, if you are using PHP 8.4 or later, Mapper will use native [PHP
+lazy objects](https://www.php.net/manual/en/language.oop5.lazy-objects.php).
+There should be no practical difference between the native lazy objects and
+older `symfony/var-exporter` lazy objects, except that the new mechanism
+supports `final` classes.
+
+Old-style proxy classes will still be generated during warming up, this is done
+to anticipate the case where the target environment uses different PHP versions.
+
 ## Disabling Lazy-Loading
 
 There should be no downside to using a lazy-loading proxy in place of the real
