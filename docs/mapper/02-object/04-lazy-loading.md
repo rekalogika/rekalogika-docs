@@ -13,10 +13,10 @@ will the hydration take place.
 
 :::warning
 
-Under PHP < 8.4, if the target is `final`, then lazy-loading is possible. There
-are also cases that can prevent a lazy-loading proxy from being created. To see
-if a proxy is being used, or the reason why it is not, you can see that in the
-Mapper panel in the Symfony profiler.
+Under PHP < 8.4, if the target is `final`, then lazy-loading is not possible.
+There are also cases that can prevent a lazy-loading proxy from being created.
+To see if a proxy is being used, or the reason why it is not, you can see that
+in the Mapper panel in the Symfony profiler.
 
 Under PHP 8.4 and later, Mapper uses native PHP lazy objects, which support
 lazy-loading for `final` classes.
