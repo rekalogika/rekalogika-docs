@@ -1,5 +1,6 @@
 ---
 title: Architecture
+draft: true
 ---
 
 import Badge from '@site/src/components/Badge';
