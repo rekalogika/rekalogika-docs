@@ -23,13 +23,14 @@ cases exist:
 * Linking objects that are managed by different object managers, or non-Doctrine
   entities.
 
-These days we usually call the process *hydration*. *Reconstitution* is the term
-used by Eric Evans in the Blue Book: *"Domain-Driven Design: Tackling Complexity
-in the Heart of Software"*.
+These days, we usually call the process *hydration*. *Reconstitution* is the
+term used by Eric Evans in the Blue Book: *"Domain-Driven Design: Tackling
+Complexity in the Heart of Software"*.
 
 Features
 --------
 
+* Streamlines a very specific, yet very common use case of Doctrine events.
 * Simple declaration in a class. You can create a reconstitutor class to handle
   the reconstitution of a specific entity class, entities that implement a
   specific interface, entities in a class hierarchy, or those with a specific

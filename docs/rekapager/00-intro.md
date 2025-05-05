@@ -5,6 +5,23 @@ title: Introduction
 Rekapager is a pagination library for PHP, supporting both offset-based and
 keyset-based pagination (also called cursor-based pagination).
 
+## Demo
+
+You can try the demo by running the following command:
+
+```bash
+docker run --rm -p 8187:80 ghcr.io/rekalogika/rekapager:latest
+```
+
+Then access the demo at [http://localhost:8187](http://localhost:8187).
+
+## Acknowledgements
+
+* [Use the Index, Luke](https://use-the-index-luke.com/no-offset)
+* [Pagerfanta](https://www.babdev.com/open-source/packages/pagerfanta/docs/4.x/intro)
+* [PagerWave](https://gitlab.com/pagerwave/PagerWave)
+* [fast-doctrine-paginator](https://github.com/mentionapp/fast-doctrine-paginator)
+
 ## Keyset Pagination (or Cursor-Based Pagination)
 
 Keyset pagination is a method of pagination that uses the last row of the
@@ -13,7 +30,7 @@ compared to the traditional offset-based pagination:
 
 * It is more efficient because it leverages the index. It does not require the
   database to scan all rows from the beginning to reach the desired page.
-* It is more resilient to data changes. The data will not drift when rows are
+* It is more resilient to data changes, as the data will not drift when rows are
   inserted or deleted.
 
 ### Identifying Pages
@@ -29,8 +46,8 @@ page numbers in the URL, we'll be getting an 'ugly' identifier, which is opaque
 to the user, but meaningful to the application.
 
 It also easily allows us to keep the pagination job separate from the filtering
-and sorting logic. The library does not require a specific way to filter or sort
-your data.
+and sorting logic. The library does not require you to use a specific way to
+filter or sort your data.
 
 ### Queries
 
@@ -96,8 +113,8 @@ can query the count from the underlying data.
 ### Page Number Limit
 
 It also limits the maximum page number that can be navigated to. By default, the
-limit is 100. The UI will indicate that the disabled page exists, but the user
-is not allowed to navigate to it:
+limit is 100. The UI indicates the existence of the disabled page but prevents
+navigation to it:
 
 ![page limit](/rekapager/limit.png)
 
@@ -127,7 +144,7 @@ of service to the web server, application, and the database.
 
 After the AI craze, there is a surge of web crawlers that are looking for
 contents for AI training. Unlike traditional search engine crawlers, these new
-crawlers tend to be much dumber and much less respectful. Some would foolishly
+crawlers are often less sophisticated and less respectful. Some would foolishly
 traverse thousands of paginated contents with a sub-second delay, causing a
 denial of service to the server. If your application is public and uses
 pagination, this library can help to prevent this problem.
@@ -143,23 +160,6 @@ pagination, this library can help to prevent this problem.
 
 * Symfony
 * API Platform
-
-## Demo
-
-You can try the demo by running the following command:
-
-```bash
-docker run --rm -p 8187:80 ghcr.io/rekalogika/rekapager:latest
-```
-
-Then access the demo at [http://localhost:8187](http://localhost:8187).
-
-## Acknowledgements
-
-* [Use the Index, Luke](https://use-the-index-luke.com/no-offset)
-* [Pagerfanta](https://www.babdev.com/open-source/packages/pagerfanta/docs/4.x/intro)
-* [PagerWave](https://gitlab.com/pagerwave/PagerWave)
-* [fast-doctrine-paginator](https://github.com/mentionapp/fast-doctrine-paginator)
 
 ## License
 
