@@ -1,14 +1,17 @@
 ---
-title: File Association Internal Details
+title: Where The Files Are Stored
 ---
 
-## Where The Files Are Stored
+The service `ChainedClassBasedFileLocationResolver` decides where to store the
+file. It takes the entity class, identifier, and the name of the property
+holding the file and outputs a `FilePointer` pointing to the location where the
+file in that property will be stored.
 
-`FileLocationResolverInterface` decides where to store the file. It takes the
-entity instance and the name of the property holding the file and outputs a
-`FilePointer` describing where the file in that property will be stored. The
-default implementation `DefaultFileLocationResolver` stores files into the
-filesystem with the identifier 'default' and the key similar to the following:
+## Default Algorithm
+
+The default implementation `DefaultClassBasedFileLocationResolver`
+stores files into the filesystem with the identifier 'default' and the key
+similar to the following:
 
 ```
 entity/ffa87ef3fc5388bc8b666e2cec17d27cc493d0c1/image/e5/80/72/6d/31337
@@ -17,7 +20,8 @@ entity/ffa87ef3fc5388bc8b666e2cec17d27cc493d0c1/image/e5/80/72/6d/31337
 ```
 
 * A: Prefix, defaults to 'entity'.
-* B: SHA-1 hash of the entity's fully-qualified class name.
+* B: The class signature, by default it is the SHA-1 hash of the entity's
+  fully-qualified class name.
 * C: Property name.
 * D: Hashed directories of the entity's ID. The ID is hashed using SHA-1, then
   split by 2 characters each. Then, the first four of them are taken to form
@@ -41,38 +45,6 @@ obtains the ID from Doctrine Entity Manager.
 `ClassBasedFileLocationResolverInterface` to determine the location of the file
 which ultimately provides the above logic.
 
-## Overriding How the Framework Determines Where to Store the Files
-
-To override the algorithm that determines where to store the files, you can
-create your own implementation of `ClassBasedFileLocationResolverInterface`. It
-takes the class name of the object, the ID, and the property name; then returns
-a `FilePointerInterface`.
-
-Alternatively, you can also implement `FileLocationResolverInterface` that takes
-the object and the property name instead. But here you need to be careful to
-normalize the class name, as the object you get might be a proxy of the real
-object.
-
-You can also create an `ObjectIdResolverInterface` if you need to override how
-the framework obtains an object's identifier. This is usually only necessary if
-your object's ID cannot be serialized to string.
-
-If you are using autoconfiguration, then you don't need to do anything else.
-Otherwise, you have to tag them in the service container. Example:
-
-```yaml
-services:
-    App\MyClassBasedFileLocationResolver:
-        tags:
-            - { name: 'rekalogika.file.association.class_based_file_location_resolver' }
-    App\MyFileLocationResolver:
-        tags:
-            - { name: 'rekalogika.file.association.file_location_resolver' }
-    App\MyObjectIdResolver:
-        tags:
-            - { name: 'rekalogika.file.association.object_id_resolver' }
-```
-
 ## Determining the File Location
 
 To determine the location of a file, you can use the `rekalogika:file:resolve`
@@ -80,8 +52,13 @@ command. The command takes the entity class, the identifier, and the property
 name of the file in the class, in that order:
 
 ```bash
-$ php bin/console rekalogika:file:resolve 'App\Entity\Article' 01955f6c-f3ff-7830-b78b-1b06603c1c98 image
+$ php bin/console rekalogika:file:resolve \
+      'App\Entity\Article' \
+      01955f6c-f3ff-7830-b78b-1b06603c1c98 \
+      image
 ```
+
+The information will also appear in Symfony's profiler panel.
 
 ## About File Names
 
@@ -126,13 +103,14 @@ file residing on each property:
 ## Architecture
 
 In a nutshell: Doctrine Unit Of Work ➡️ Doctrine Events ➡️
-rekalogika/reconstitutor ➡️ `InterfaceReconstitutor` & `AttributeReconstitutor`
-➡️ `FileAssociationManager` ➡️ `FileRepository` (from rekalogika/file).
+`rekalogika/reconstitutor` ➡️ `InterfaceReconstitutor` &
+`AttributeReconstitutor` ➡️ `ObjectManagerInterface` ➡️
+`PropertyManagerInterface` ➡️ `FileRepository` (from rekalogika/file).
 
 `InterfaceReconstitutor` & `AttributeReconstitutor` are the entry points of this
-package. They execute methods of `FileAssociationManager` which works with the
-entities and `FileRepository` to manage the association between the entities and
-files.
+package. They execute methods of `ObjectManagerInterface` which calls
+`PropertyManagerInterface`, which in turn  works with the entities and
+`FileRepository` to manage the association between the entities and files.
 
 `InterfaceReconstitutor` & `AttributeReconstitutor` are registered to the
 service container so that they are called by our `rekalogika/reconstitutor` when

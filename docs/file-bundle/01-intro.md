@@ -28,6 +28,7 @@ packages within a Symfony application.
 * Lazy loading for files.
 * ZIP download of multiple files.
 * Full-featured FilePond-based file upload form.
+* Symfony data collector and profiler integration.
 
 ## Demo
 
