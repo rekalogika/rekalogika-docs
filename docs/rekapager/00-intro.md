@@ -15,13 +15,6 @@ docker run --rm -p 8187:80 ghcr.io/rekalogika/rekapager:latest
 
 Then access the demo at [http://localhost:8187](http://localhost:8187).
 
-## Acknowledgements
-
-* [Use the Index, Luke](https://use-the-index-luke.com/no-offset)
-* [Pagerfanta](https://www.babdev.com/open-source/packages/pagerfanta/docs/4.x/intro)
-* [PagerWave](https://gitlab.com/pagerwave/PagerWave)
-* [fast-doctrine-paginator](https://github.com/mentionapp/fast-doctrine-paginator)
-
 ## Keyset Pagination (or Cursor-Based Pagination)
 
 Keyset pagination is a method of pagination that uses the last row of the
@@ -160,6 +153,13 @@ pagination, this library can help to prevent this problem.
 
 * Symfony
 * API Platform
+
+## Acknowledgements
+
+* [Use the Index, Luke](https://use-the-index-luke.com/no-offset)
+* [Pagerfanta](https://www.babdev.com/open-source/packages/pagerfanta/docs/4.x/intro)
+* [PagerWave](https://gitlab.com/pagerwave/PagerWave)
+* [fast-doctrine-paginator](https://github.com/mentionapp/fast-doctrine-paginator)
 
 ## License
 
