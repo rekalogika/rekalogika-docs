@@ -9,8 +9,9 @@ file uploads.
 
 :::info
 
-We also provide [`rekalogika/file`](../file) framework that handles file uploads
-and so much more. It also utilizes this library behind the scenes.
+We also provide [`rekalogika/file-bundle`](../file-bundle) framework that
+handles file uploads and so much more. It also utilizes this library behind the
+scenes.
 
 :::
 
@@ -68,6 +69,7 @@ removed.
 ```php
 use Rekalogika\Reconstitutor\AbstractClassReconstitutor;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @extends AbstractClassReconstitutor<Order>
@@ -86,6 +88,9 @@ final class OrderReconstitutor extends AbstractClassReconstitutor
     /**
      * When the object is being saved, we check if the paymentReceipt has been
      * just uploaded. If it is, we save it to a file.
+     * 
+     * Note: in Symfony, an uploaded file is represented by an instance of
+     * `UploadedFile`, otherwise it will be a `File` object.
      */
     public function onSave(object $order): void
     {
