@@ -7,7 +7,7 @@ Because everyone knows about file uploads, we are going to use it as an
 example, even if you probably won't use this framework as a means for handling
 file uploads.
 
-:::info
+:::info Shameless Plug
 
 We also provide [`rekalogika/file-bundle`](../file-bundle) framework that
 handles file uploads and so much more. It also utilizes this library behind the
