@@ -60,10 +60,12 @@ to iterate over large result sets. This, however, has several drawbacks:
   much slower to execute. The application must wait for the query to finish, and
   depending on the application, it may affect interactivity and user experience.
 
-* `toIterable()` may not trigger the [`postLoad` event
-  handlers](https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#postload).
-  Therefore, your entities might not behave the same way as when you load them
-  normally.
+* With `toIterable()`, during the `postLoad` event, the state of the entity is
+  [not guaranteed to be
+  consistent](https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#postload)
+  as when loading the entity normally. So, if you have `postLoad` listener on
+  your entities, your entities might not behave the same way as when you load
+  them normally.
 
 Using `PageableInterface` for batch processing should solve these issues.
 

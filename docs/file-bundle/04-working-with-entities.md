@@ -116,9 +116,13 @@ $entityManager->flush();
 
 ## Caveat: Avoid Doctrine's `Query::toIterable()`
 
-Doctrine documentation tells us to use `Query::toIterable()` to iterate over
-large result sets. This is not recommended because `toIterable()` may not
-trigger the `postLoad` event handler that is necessary for our use case.
+Doctrine's documentation [recommends using
+`Query::toIterable()`](https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/batch-processing.html#iterating-results)
+to iterate over large result sets. However, with `Query::toIterable()`, during
+the `postLoad` event, and in turn, when your `onSave()` method is called, the
+state of the entity is [not guaranteed to be
+consistent](https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#postload)
+as when loading the entity normally.
 
 We recommend using our `rekalogika/rekapager` package instead. Read more in our
 [batch processing](/rekapager/batch-processing) documentation.

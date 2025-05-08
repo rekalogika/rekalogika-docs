@@ -206,10 +206,11 @@ when using the original Symfony PropertyAccess.
 
 Doctrine's documentation [recommends using
 `Query::toIterable()`](https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/batch-processing.html#iterating-results)
-to iterate over large result sets. However, using `Query::toIterable()` may
-[prevent the triggering of the `postLoad` event
-handlers](https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#postload),
-and may prevent our reconstitutors from working correctly.
+to iterate over large result sets. However, with `Query::toIterable()`, during
+the `postLoad` event, and in turn, when your `onSave()` method is called, the
+state of the entity is [not guaranteed to be
+consistent](https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#postload)
+as when loading the entity normally.
 
 We recommend using our `rekalogika/rekapager` package instead. Read more in our
 [batch processing](/rekapager/batch-processing) documentation.
