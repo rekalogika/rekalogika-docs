@@ -1,0 +1,28 @@
+@startuml
+
+interface Result {
+    summaryClass: string
+    tree: TreeNode
+}
+
+Result o--- TreeNode
+
+interface Property {
+    key: string
+    label: TranslatableInterface
+}
+
+interface Dimension extends Property{
+    member: mixed
+    rawMember: mixed
+    displayMember: mixed
+}
+
+interface TreeNode extends Dimension {
+    measure: ?Measure
+    traverse(...$members): ?TreeNode
+}
+
+TreeNode o-- TreeNode
+
+@endu

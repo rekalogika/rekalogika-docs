@@ -5,6 +5,11 @@ title: Tree Result
 To get the result in a tree format, call the `getTree()` method on the `Result`
 object. Each node in the tree represents a dimension.
 
+## Class Diagram
+
+![Tree result class diagram](./diagrams/tree.light.svg#light)
+![Tree result class diagram](./diagrams/tree.dark.svg#dark)
+
 ## Example Query
 
 ```php
@@ -33,7 +38,7 @@ The root node is always an instance of `Tree`. The other nodes are instances
 of `TreeNode`. To locate a specific node you can use the `traverse()` method:
 
 ```php
-$node = $result->traverse('2023', 'DE');
+$node = $treeResult->traverse('2023', 'DE');
 ```
 
 `traverse()` accepts the instance values, or for convenience, you can use the
@@ -42,8 +47,8 @@ implements `Stringable`, the following `traverse()` calls give the same result:
 
 ```php
 $germany = $countryRepository->find('DE');
-$node = $result->traverse('2023', $germany);
-$node = $result->traverse('2023', 'DE');
+$node = $treeResult->traverse('2023', $germany);
+$node = $treeResult->traverse('2023', 'DE');
 ```
 
 Each node has other methods that you can use to get the data:
@@ -106,13 +111,14 @@ use Rekalogika\Analytics\Contracts\SummaryManagerRegistry;
 
 /** @var SummaryManagerRegistry $summaryManagerRegistry */
 
-$result = $summaryManagerRegistry
+$treeResult = $summaryManagerRegistry
     ->getManager(OrderSummary::class)
     ->createQuery()
     // highlight-next-line
     ->groupBy('time.year', '@values', 'customerCountry') // property name of the dimension
     ->select('price', 'count') // property names of the measures
-    ->getResult();
+    ->getResult()
+    ->getTree();
 ```
 
 In this case, the result will look like this:

@@ -153,7 +153,8 @@ And so forth until we reach the top level.
 
 :::info
 
-In the summary table, a partition is identified by its level and key.
+In the summary table, a partition is identified by its level and key. With our
+integer partition, the key is the same as the first possible source ID in the partition.
 
 :::
 
