@@ -14,13 +14,13 @@ object. Each node in the tree represents a dimension.
 
 ```php
 use Doctrine\Common\Collections\Criteria;
-use Rekalogika\Analytics\Contracts\SummaryManagerRegistry;
+use Rekalogika\Analytics\Contracts\SummaryManager;
 
-/** @var SummaryManagerRegistry $summaryManagerRegistry */
+/** @var SummaryManager $summaryManager */
 
-$treeResult = $summaryManagerRegistry
-    ->getManager(OrderSummary::class)
+$treeResult = $summaryManager
     ->createQuery()
+    ->from(OrderSummary::class) // the summary entity class name
     ->groupBy('time.year', 'customerCountry') // property names of the dimension
     ->select('price', 'count') // property names of the measures
     ->getResult()
@@ -72,13 +72,13 @@ $rawValue = $node->getRawValue();
 Example of getting a single value:
 
 ```php
-use Rekalogika\Analytics\Contracts\SummaryManagerRegistry;
+use Rekalogika\Analytics\Contracts\SummaryManager;
 
-/** @var SummaryManagerRegistry $summaryManagerRegistry */
+/** @var SummaryManager $summaryManager */
 
-$summaryManager = $summaryManagerRegistry
-    ->getManager(OrderSummary::class)
+$summaryManager = $summaryManager
     ->createQuery()
+    ->from(OrderSummary::class)
     ->groupBy('time.year', 'customerCountry')
     ->select('count')
     ->getResult()
@@ -107,13 +107,13 @@ By default, the measures are placed at the leaf of the tree. You can group the
 measures earlier by using the special `@values` keyword:
 
 ```php
-use Rekalogika\Analytics\Contracts\SummaryManagerRegistry;
+use Rekalogika\Analytics\Contracts\SummaryManager;
 
-/** @var SummaryManagerRegistry $summaryManagerRegistry */
+/** @var SummaryManager $summaryManager */
 
-$treeResult = $summaryManagerRegistry
-    ->getManager(OrderSummary::class)
+$treeResult = $summaryManager
     ->createQuery()
+    ->from(OrderSummary::class) // the summary entity class name
     // highlight-next-line
     ->groupBy('time.year', '@values', 'customerCountry') // property name of the dimension
     ->select('price', 'count') // property names of the measures

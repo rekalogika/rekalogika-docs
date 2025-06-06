@@ -51,7 +51,7 @@ $valueResolver = new PropertyValueResolver('customer.country.name');
 
 ## Getting the Alias of a Related Entity
 
-Some DQL functions expect the alias of a related entity to be passed as an
+Some DQL clauses expect the alias of a related entity to be passed as an
 argument, including the `INSTANCE OF` clause. You can use the `*` symbol to get
 the alias of a related entity:
 

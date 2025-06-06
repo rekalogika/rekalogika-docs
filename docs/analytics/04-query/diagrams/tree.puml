@@ -5,7 +5,7 @@ interface Result {
     tree: TreeNode
 }
 
-Result o--- TreeNode
+Result o- TreeNode
 
 interface Property {
     key: string

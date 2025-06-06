@@ -2,22 +2,8 @@
 title: Querying
 ---
 
-To work with the summary entities, the framework provides `SummaryManager`
-and `SummaryManagerRegistry`.
-
-## `SummaryManager`
-
-`SummaryManager` is a service that lets you interact with a specific summary
-entity. To get an instance of `SummaryManager`, you can use the
-`SummaryManagerRegistry` service.
-
-```php
-use Rekalogika\Analytics\Contracts\SummaryManagerRegistry;
-
-/** @var SummaryManagerRegistry $summaryManagerRegistry */
-
-$summaryManager = $summaryManagerRegistry->getManager(YourSummary::class);
-```
+To work with the summary entities, we interact with the service
+`SummaryManager`.
 
 ## Querying the Summary
 
@@ -26,13 +12,13 @@ returns an instance of `Query` that you can use to build your query.
 
 ```php
 use Doctrine\Common\Collections\Criteria;
-use Rekalogika\Analytics\Contracts\SummaryManagerRegistry;
+use Rekalogika\Analytics\Contracts\SummaryManager;
 
-/** @var SummaryManagerRegistry $summaryManagerRegistry */
+/** @var SummaryManager $summaryManager */
 
-$result = $summaryManagerRegistry
-    ->getManager(OrderSummary::class)
+$result = $summaryManager
     ->createQuery()
+    ->from(OrderSummary::class) // the summary entity class name
     ->groupBy('time.year', 'customerCountry') // property names of the dimension
     ->select('price', 'count') // property names of the measures
     ->where(Criteria::expr()->eq('time.year', 2023))
@@ -55,6 +41,11 @@ shapes, for user convenience:
 The methods of the `Query` object are modeled after the Doctrine `QueryBuilder`
 methods. The methods are chainable, so you can write the query in a fluent
 style.
+
+### `from`
+
+The `from` method is used to specify the summary entity class that you want to
+query.
 
 ### `groupBy` and `addGroupBy`
 
@@ -82,12 +73,12 @@ user's preferred format.
 use Rekalogika\Analytics\Contracts\Result\Result;
 
 /** @var Result $result */
-// Get the result in table format
+// Get the result in the table format
 $table = $result->getTable();
 
-// Get the result in normal table format
+// Get the result in the normal table format
 $normalTable = $result->getNormalTable();
 
-// Get the result in tree format
+// Get the result in the tree format
 $tree = $result->getTree();
 ```

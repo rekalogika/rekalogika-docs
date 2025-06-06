@@ -176,7 +176,7 @@ aggregation function.
 
 Read more about measures in the [measures](measures) section.
 
-## Getters
+## 4. Getters
 
 Just like a regular Doctrine entity, you can define getters in the summary
 entity. You can also have simple business logic in these getters. For example,
