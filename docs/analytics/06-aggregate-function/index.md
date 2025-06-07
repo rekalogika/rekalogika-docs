@@ -1,5 +1,5 @@
 ---
-title: Aggregate Function
+title: Aggregate Functions
 ---
 
 An `AggregateFunction` specifies how to get a value from the source entity, to

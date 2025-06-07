@@ -1,5 +1,5 @@
 ---
-title: Count, Sum, Max, and Min
+title: Count, Sum, Max, Min
 ---
 
 These are self-decomposable aggregation functions, which are the simplest form

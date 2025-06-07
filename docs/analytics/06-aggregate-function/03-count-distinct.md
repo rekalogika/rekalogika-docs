@@ -29,7 +29,8 @@ class OrderSummary extends Summary implements HasQueryBuilderModifier
 
 :::warning
 
-Like with other implementations of Count Distinct in data warehousing, this
-function returns an approximate count of distinct values, not an exact count.
+Like with other implementations of Count Distinct in data warehousing and
+parallel computing, this function returns an approximate count of distinct
+values, not an exact count.
 
 :::
