@@ -13,7 +13,6 @@ Currently none.
 * Allow customized generation of dirty flag (see `DirtyFlagGenerator`)
 * It should be possible for `DirtyFlagGenerator` to generate dirty partition
   signals for non-`IDENTITY` entities, bypassing 'new entity' phase.
-* Hyperloglog
 * Binning value resolver
 * Measure using getter (example: `getAverage()` that gets its value from
   `$this->sum / $this->count`)

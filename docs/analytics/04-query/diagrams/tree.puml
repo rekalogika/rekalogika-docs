@@ -12,15 +12,18 @@ interface Property {
     label: TranslatableInterface
 }
 
-interface Dimension extends Property{
+interface Dimension extends Property {
     member: mixed
     rawMember: mixed
     displayMember: mixed
 }
 
 interface TreeNode extends Dimension {
+    summaryClass: class-string
+    tuple: Tuple
     measure: ?Measure
     traverse(...$members): ?TreeNode
+    null: bool
 }
 
 TreeNode o-- TreeNode
