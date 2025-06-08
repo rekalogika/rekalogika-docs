@@ -246,9 +246,3 @@ class OrderSummary extends Summary implements HasQueryBuilderModifier
 
 With the above example, the resulting summary table will only consider the
 orders with an ID greater than 100000.
-
-:::warning
-
-This feature currently does not support template arguments and `setParameter()`.
-
-:::

@@ -28,11 +28,12 @@ Currently none.
 * Postgres `GROUP BY` maximum grouping set limit of 4096, can be circumvented by
   using multiple queries.
 
-## Refactors
+## Spinoffs
 
 * Spin off pivot table to its own package.
 * Spin off UI to its own package (including `DistinctValuesResolver`)
-* Use parameters for `QueryBuilder` (see `DoctrineQueryTest`)
+* SimpleQueryBuilder
 
 ## Tests
 
+Currently too many to list.
