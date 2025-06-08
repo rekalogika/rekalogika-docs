@@ -7,7 +7,7 @@ that other measures are defined for the sum and count of the property. The
 average is computed as the sum divided by the count. `Average` is a virtual
 measure and does not store its value in the database.
 
-Example:
+## Example
 
 ```php
 use Doctrine\ORM\Mapping as ORM;
@@ -40,7 +40,6 @@ class OrderSummary extends Summary
             countProperty: 'count',
         ),
         // highlight-end
-        label: new TranslatableMessage('Average order value'),
     )]
     private ?int $averageOrderValue = null;
 }

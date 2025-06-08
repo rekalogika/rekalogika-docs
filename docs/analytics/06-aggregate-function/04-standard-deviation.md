@@ -1,0 +1,57 @@
+---
+title: Standard Deviation
+---
+
+`StdDev` is an aggregate function that calculates the standard deviation of a
+specified property. It requires these other measures to be defined on the
+property:
+
+* `Sum` - to calculate the sum of the property values.
+* `Count` - to count the number of values.
+* `SumSquare` - to calculate the sum of the squares of the property values.
+
+`StdDev` is a virtual measure and does not store its value in the database.
+
+## Example
+
+```php
+use Doctrine\ORM\Mapping as ORM;
+use Rekalogika\Analytics\AggregateFunction\Count;
+use Rekalogika\Analytics\AggregateFunction\StdDev;
+use Rekalogika\Analytics\AggregateFunction\Sum;
+use Rekalogika\Analytics\AggregateFunction\SumSquare;
+use Rekalogika\Analytics\Attribute as Analytics;
+use Rekalogika\Analytics\ValueResolver\EntityValueResolver;
+
+class OrderSummary extends Summary
+{
+    #[ORM\Column(type: Types::INTEGER)]
+    #[Analytics\Measure(
+        function: new Sum('item.price'),
+    )]
+    private ?int $price = null;
+
+    #[ORM\Column(type: Types::FLOAT)]
+    #[Analytics\Measure(
+        function: new SumSquare('item.price'),
+    )]
+    private ?float $priceSumSquare = null;
+
+    #[ORM\Column(type: Types::INTEGER)]
+    #[Analytics\Measure(
+        function: new Count('id'),
+    )]
+    private ?int $count = null;
+
+    #[Analytics\Measure(
+        // highlight-start
+        function: new StdDev(
+            sumSquareProperty: 'priceSumSquare',
+            countProperty: 'count',
+            sumProperty: 'price',
+        ),
+        // highlight-end
+    )]
+    private ?int $priceStdDev = null;
+}
+```
