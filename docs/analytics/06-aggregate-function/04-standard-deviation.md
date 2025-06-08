@@ -21,7 +21,7 @@ use Rekalogika\Analytics\AggregateFunction\StdDev;
 use Rekalogika\Analytics\AggregateFunction\Sum;
 use Rekalogika\Analytics\AggregateFunction\SumSquare;
 use Rekalogika\Analytics\Attribute as Analytics;
-use Rekalogika\Analytics\ValueResolver\EntityValueResolver;
+use Rekalogika\Analytics\ValueResolver\IdentifierValueResolver;
 
 class OrderSummary extends Summary
 {

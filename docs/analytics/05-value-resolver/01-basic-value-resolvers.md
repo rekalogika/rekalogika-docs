@@ -3,7 +3,7 @@ title: Basic Value Resolvers
 ---
 
 Most of the time, we will use either `PropertyValueResolver` or
-`EntityValueResolver` to get the value from the source entity.
+`IdentifierValueResolver` to get the value from the source entity.
 
 ## `PropertyValueResolver`
 
@@ -31,16 +31,16 @@ class OrderSummary extends Summary
 }
 ```
 
-## `EntityValueResolver`
+## `IdentifierValueResolver`
 
-`EntityValueResolver` must be used if the value is not a simple property, but a
+`IdentifierValueResolver` must be used if the value is not a simple property, but a
 related entity.
 
 ```php
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\Attribute as Analytics;
-use Rekalogika\Analytics\ValueResolver\EntityValueResolver;
+use Rekalogika\Analytics\ValueResolver\IdentifierValueResolver;
 
 #[ORM\Entity()]
 #[Analytics\Summary(
@@ -51,7 +51,7 @@ class OrderSummary extends Summary
     #[ORM\ManyToOne()]
     #[Analytics\Dimension(
         // highlight-start
-        source: new EntityValueResolver('country'),
+        source: new IdentifierValueResolver('country'),
         // highlight-end
     )]
     private ?Country $country = null;

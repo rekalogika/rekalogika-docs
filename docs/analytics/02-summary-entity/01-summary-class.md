@@ -60,7 +60,7 @@ use Rekalogika\Analytics\Attribute as Analytics;
 use Rekalogika\Analytics\Model\Hierarchy\TimeDimensionHierarchy;
 use Rekalogika\Analytics\Model\Partition\DefaultIntegerPartition;
 use Rekalogika\Analytics\Model\Summary;
-use Rekalogika\Analytics\ValueResolver\EntityValueResolver;
+use Rekalogika\Analytics\ValueResolver\IdentifierValueResolver;
 use Rekalogika\Analytics\ValueResolver\PropertyValueResolver;
 use Symfony\Component\Translation\TranslatableMessage;
 
@@ -90,14 +90,14 @@ class OrderSummary extends Summary
 
     #[ORM\ManyToOne()]
     #[Analytics\Dimension(
-        source: new EntityValueResolver('customer.country'),
+        source: new IdentifierValueResolver('customer.country'),
         label: new TranslatableMessage('Customer Country'),
     )]
     private ?Country $customerCountry = null;
 
     #[ORM\ManyToOne()]
     #[Analytics\Dimension(
-        source: new EntityValueResolver('customer.country.region'),
+        source: new IdentifierValueResolver('customer.country.region'),
         label: new TranslatableMessage('Customer Region'),
     )]
     private ?Region $customerRegion = null;
@@ -156,7 +156,7 @@ are the fields that you would use in a `GROUP BY` and/or `WHERE` clause.
 All dimensions are indicated by the `#[Analytics\Dimension]` attribute. The most
 important argument is the `source` argument. This argument is used to resolve
 the value of the dimension from the source entity. A `PropertyValueResolver`
-points to the value of a property in the source entity. An `EntityValueResolver`
+points to the value of a property in the source entity. An `IdentifierValueResolver`
 points to a related entity.
 
 A dimension can be hierarchical, like the `time` dimension above. A hierarchical
