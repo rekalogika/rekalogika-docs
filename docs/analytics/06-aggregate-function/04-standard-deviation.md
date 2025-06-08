@@ -34,6 +34,7 @@ class OrderSummary extends Summary
     #[ORM\Column(type: Types::FLOAT)]
     #[Analytics\Measure(
         function: new SumSquare('item.price'),
+        hidden: true,
     )]
     private ?float $priceSumSquare = null;
 
@@ -55,3 +56,19 @@ class OrderSummary extends Summary
     private ?int $priceStdDev = null;
 }
 ```
+
+:::note
+
+It is not necessary to store the standard deviation value in the database, and
+therefore the property does not need the `ORM\Column` attribute.
+
+:::
+
+## `SumSquare` Function
+
+The `SumSquare` function is used to calculate the sum of the squares of the
+specified property values. It is a building block for many statistical
+functions, including `StdDev`. However, the end users are probably not
+interested in the result of the `SumSquare` function itself, and you can hide it
+from UI by using the `hidden` parameter in the `Measure` attribute like in the
+example above.
