@@ -57,11 +57,12 @@ use Rekalogika\Contracts\File\FileInterface;
 use Rekalogika\Contracts\File\FileProxy;
 use Rekalogika\Domain\File\Null\NullFile;
 use Rekalogika\File\Association\Attribute\AsFileAssociation;
+use Rekalogika\File\Association\Model\FetchMode;
 
 #[WithFileAssociation]
 class Product
 {
-    #[AsFileAssociation(fetch: 'LAZY')]
+    #[AsFileAssociation(fetch: FetchMode::Lazy)]
     private FileInterface $image;
 
     public function getImage(): FileInterface

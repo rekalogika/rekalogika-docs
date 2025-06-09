@@ -7,17 +7,18 @@ entities.
 
 ## Property Set-Up
 
-To lazy-load files in your entities, simply add the parameter `fetch: 'LAZY'` to
+To lazy-load files in your entities, simply add the parameter `fetch: FetchMode::Lazy` to
 the `AsFileAssociation` attribute:
 
 ```php
 use Rekalogika\Contracts\File\FileInterface;
 use Rekalogika\File\Association\Attribute\AsFileAssociation;
+use Rekalogika\File\Association\Model\FetchMode;
 
 class Product
 {
     // highlight-next-line
-    #[AsFileAssociation(fetch: 'LAZY')]
+    #[AsFileAssociation(fetch: FetchMode::Lazy)]
     private FileInterface $image;
 }
 ```
@@ -35,7 +36,7 @@ use Rekalogika\File\Association\Attribute\AsFileAssociation;
 
 class Product
 {
-    #[AsFileAssociation(fetch: 'LAZY')]
+    #[AsFileAssociation(fetch: FetchMode::Lazy)]
     private FileInterface $image;
 
     public function getImage(): ?FileInterface
