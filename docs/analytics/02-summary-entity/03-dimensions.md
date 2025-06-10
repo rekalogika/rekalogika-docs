@@ -16,7 +16,7 @@ attribute.
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\Attribute as Analytics;
-use Rekalogika\Analytics\ValueResolver\PropertyValueResolver;
+use Rekalogika\Analytics\ValueResolver\PropertyValue;
 use Symfony\Component\Translation\TranslatableMessage;
 
 class YourSummary extends Summary
@@ -24,7 +24,7 @@ class YourSummary extends Summary
     #[ORM\Column(type: Types::STRING)]
     // highlight-start
     #[Analytics\Dimension(
-        source: new PropertyValueResolver('status'),
+        source: new PropertyValue('status'),
         label: new TranslatableMessage('Status'),
     )]
     // highlight-end
@@ -36,7 +36,7 @@ Arguments:
 
 * `source`: A [`ValueResolver`](../value-resolver) or a string that defines how
   to get the value from the source entity. A string will be converted to a
-  `PropertyValueResolver` internally.
+  `PropertyValue` internally.
 * `label`: A label for the dimension. An output renderer will be able to use it
   as a column header or a chart legend. It can be a string or a
   `TranslatableInterface` instance, which allows it to be translated into
@@ -67,13 +67,13 @@ example uses a `TimeDimensionHierarchy`.
 use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\Attribute as Analytics;
 use Rekalogika\Analytics\Model\Hierarchy\TimeDimensionHierarchy;
-use Rekalogika\Analytics\ValueResolver\PropertyValueResolver;
+use Rekalogika\Analytics\ValueResolver\PropertyValue;
 
 class YourSummary extends Summary
 {
     #[ORM\Embedded()]
     #[Analytics\Dimension(
-        source: new PropertyValueResolver('time'),
+        source: new PropertyValue('time'),
         sourceTimeZone: new \DateTimeZone('UTC'),
         summaryTimeZone: new \DateTimeZone('Asia/Jakarta'),
     )]

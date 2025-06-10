@@ -2,18 +2,18 @@
 title: Basic Value Resolvers
 ---
 
-Most of the time, we will use either `PropertyValueResolver` or
-`IdentifierValueResolver` to get the value from the source entity.
+Most of the time, we will use either `PropertyValue` or
+`IdentifierValue` to get the value from the source entity.
 
-## `PropertyValueResolver`
+## `PropertyValue`
 
-`PropertyValueResolver` is used to get the value of a property. Example:
+`PropertyValue` is used to get the value of a property. Example:
 
 ```php
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\Attribute as Analytics;
-use Rekalogika\Analytics\ValueResolver\PropertyValueResolver;
+use Rekalogika\Analytics\ValueResolver\PropertyValue;
 
 #[ORM\Entity()]
 #[Analytics\Summary(
@@ -24,23 +24,23 @@ class OrderSummary extends Summary
     #[ORM\Column(type: Types::STRING)]
     #[Analytics\Dimension(
         // highlight-start
-        source: new PropertyValueResolver('status'),
+        source: new PropertyValue('status'),
         // highlight-end
     )]
     private ?string $status = null;
 }
 ```
 
-## `IdentifierValueResolver`
+## `IdentifierValue`
 
-`IdentifierValueResolver` must be used if the value is not a simple property, but a
-related entity.
+`IdentifierValue` is used to get the identifier of an entity. It must be used if
+the value is not a simple property, but a related entity.
 
 ```php
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\Attribute as Analytics;
-use Rekalogika\Analytics\ValueResolver\IdentifierValueResolver;
+use Rekalogika\Analytics\ValueResolver\IdentifierValue;
 
 #[ORM\Entity()]
 #[Analytics\Summary(
@@ -51,7 +51,7 @@ class OrderSummary extends Summary
     #[ORM\ManyToOne()]
     #[Analytics\Dimension(
         // highlight-start
-        source: new IdentifierValueResolver('country'),
+        source: new IdentifierValue('country'),
         // highlight-end
     )]
     private ?Country $country = null;

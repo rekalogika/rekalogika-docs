@@ -5,7 +5,7 @@ title: Count, Sum, Max, Min
 These are self-decomposable aggregation functions, which are the simplest form
 of aggregate functions. They all take a string or `ValueResolver` as an
 argument, which must point to the property to be aggregated. A string will be
-converted to a `PropertyValueResolver`.
+converted to a `PropertyValue`.
 
 Example:
 
@@ -16,14 +16,14 @@ use Rekalogika\Analytics\AggregateFunction\Count;
 use Rekalogika\Analytics\AggregateFunction\Sum;
 use Rekalogika\Analytics\Attribute as Analytics;
 use Rekalogika\Analytics\Model\Summary;
-use Rekalogika\Analytics\ValueResolver\PropertyValueResolver;
+use Rekalogika\Analytics\ValueResolver\PropertyValue;
 
 class OrderSummary extends Summary
 {
     #[ORM\Column(type: Types::INTEGER)]
     #[Analytics\Measure(
         // highlight-next-line
-        function: new Sum(new PropertyValueResolver('item.price'),
+        function: new Sum(new PropertyValue('item.price'),
     )]
     private ?int $price = null;
 

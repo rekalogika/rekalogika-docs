@@ -15,7 +15,7 @@ This is how you can use a property path in a dimension:
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\Attribute as Analytics;
-use Rekalogika\Analytics\ValueResolver\PropertyValueResolver;
+use Rekalogika\Analytics\ValueResolver\PropertyValue;
 
 #[ORM\Entity()]
 #[Analytics\Summary(
@@ -26,7 +26,7 @@ class OrderSummary extends Summary
     #[ORM\Column(type: Types::STRING)]
     #[Analytics\Dimension(
         // highlight-start
-        source: new PropertyValueResolver('customer.country.name'),
+        source: new PropertyValue('customer.country.name'),
         // highlight-end
     )]
     private ?string $countryName = null;
@@ -44,9 +44,9 @@ In the following sections, we will only include how to use property paths in
 The most common usage is to resolve to a property:
 
 ```php
-use Rekalogika\Analytics\ValueResolver\PropertyValueResolver;
+use Rekalogika\Analytics\ValueResolver\PropertyValue;
 
-$valueResolver = new PropertyValueResolver('customer.country.name');
+$valueResolver = new PropertyValue('customer.country.name');
 ```
 
 ## Getting the Alias of a Related Entity
@@ -56,9 +56,9 @@ argument, including the `INSTANCE OF` clause. You can use the `*` symbol to get
 the alias of a related entity:
 
 ```php
-use Rekalogika\Analytics\ValueResolver\CustomDQLValueResolver;
+use Rekalogika\Analytics\ValueResolver\CustomExpression;
 
-$valueResolver = new CustomDQLValueResolver("
+$valueResolver = new CustomExpression("
     CASE
         // highlight-start
         WHEN [customer.*] INSTANCE OF App\Entity\IndividualCustomer
@@ -75,12 +75,12 @@ $valueResolver = new CustomDQLValueResolver("
 It is possible to cast a related entity to a specific class using parentheses.
 This is useful if you need to access a property that is not defined in the root
 entity. This is an advanced feature, and probably only makes sense if you are
-using `CustomDQLValueResolver`.
+using `CustomExpression`.
 
 ```php
-use Rekalogika\Analytics\ValueResolver\CustomDQLValueResolver;
+use Rekalogika\Analytics\ValueResolver\CustomExpression;
 
-$valueResolver = new CustomDQLValueResolver("
+$valueResolver = new CustomExpression("
     CASE
         WHEN [customer.*] INSTANCE OF App\Entity\IndividualCustomer
         // highlight-start

@@ -13,7 +13,7 @@ Example:
 use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\AggregateFunction\CountDistinct;
 use Rekalogika\Analytics\Attribute as Analytics;
-use Rekalogika\Analytics\ValueResolver\IdentifierValueResolver;
+use Rekalogika\Analytics\ValueResolver\IdentifierValue;
 
 class OrderSummary extends Summary implements HasQueryBuilderModifier
 {
@@ -21,7 +21,7 @@ class OrderSummary extends Summary implements HasQueryBuilderModifier
     #[ORM\Column(type: 'rekalogika_hll')]
     #[Analytics\Measure(
         // highlight-next-line
-        function: new CountDistinct(new IdentifierValueResolver('customer')),
+        function: new CountDistinct(new IdentifierValue('customer')),
     )]
     private ?int $uniqueCustomers = null;
 }

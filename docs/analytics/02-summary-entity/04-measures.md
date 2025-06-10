@@ -33,14 +33,5 @@ class YourSummary extends Summary
 
 The above measure will sum the `price` property of the source entity.
 
-## Available Aggregate Functions
-
-The following aggregate functions are provided:
-
-* `Sum`
-* `Count`
-* `Max`
-* `Min`
-
-Additional aggregate functions can be created by implementing the
-`AggregateFunction` interface.
+Read more about aggregate functions in the [aggregate
+functions](../aggregate-function) section.

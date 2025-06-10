@@ -1,16 +1,16 @@
 ---
-title: Custom DQL Value Resolver
+title: Custom Expression
 ---
 
-The `CustomDQLValueResolver` allows you to define a custom DQL expression to get
-the value from the source entity. This is useful when you need to perform complex
-calculations to get the value.
+The `CustomExpression` value resolver allows you to define a custom DQL
+expression to get the value from the source entity. This is useful when you need
+to perform complex calculations to get the value.
 
 ```php
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\Attribute as Analytics;
-use Rekalogika\Analytics\ValueResolver\CustomDQLValueResolver;
+use Rekalogika\Analytics\ValueResolver\CustomExpression;
 
 #[ORM\Entity()]
 #[Analytics\Summary(
@@ -21,7 +21,7 @@ class OrderSummary extends Summary
     #[ORM\Column(enumType: Gender::class, nullable: true)]
     #[Analytics\Dimension(
         // highlight-start
-        source: new CustomDQLValueResolver("
+        source: new CustomExpression("
             CASE
                 WHEN [customer.*] INSTANCE OF Rekalogika\Analytics\Tests\App\Entity\IndividualCustomer
                 THEN [customer(Rekalogika\Analytics\Tests\App\Entity\IndividualCustomer).gender]

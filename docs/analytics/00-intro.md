@@ -30,8 +30,8 @@ A simpler and cheaper alternative to modern analytical solutions. Less
 sophisticated but probably good enough for many use cases.
 
 Sometimes things can be more challenging legally and politically, rather than
-technically. This framework does not send data to the cloud, so it complies with
-the 'no-cloud' policy if you happen to be bound by it.
+technically. This framework does not require you to send data to the cloud, so
+it complies with the 'no-cloud' policy if you happen to be bound by it.
 
 Architecturally sensible if the result of the analytical query will be used as
 an input of a business process in the same application, as opposed to being used

@@ -17,13 +17,13 @@ use Rekalogika\Analytics\AggregateFunction\Count;
 use Rekalogika\Analytics\AggregateFunction\Sum;
 use Rekalogika\Analytics\Attribute as Analytics;
 use Rekalogika\Analytics\Model\Summary;
-use Rekalogika\Analytics\ValueResolver\PropertyValueResolver;
+use Rekalogika\Analytics\ValueResolver\PropertyValue;
 
 class OrderSummary extends Summary
 {
     #[ORM\Column(type: Types::INTEGER)]
     #[Analytics\Measure(
-        function: new Sum(new PropertyValueResolver('item.price'),
+        function: new Sum(new PropertyValue('item.price'),
     )]
     private ?int $price = null;
 

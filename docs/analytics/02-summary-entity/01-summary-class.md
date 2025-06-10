@@ -60,8 +60,8 @@ use Rekalogika\Analytics\Attribute as Analytics;
 use Rekalogika\Analytics\Model\Hierarchy\TimeDimensionHierarchy;
 use Rekalogika\Analytics\Model\Partition\DefaultIntegerPartition;
 use Rekalogika\Analytics\Model\Summary;
-use Rekalogika\Analytics\ValueResolver\IdentifierValueResolver;
-use Rekalogika\Analytics\ValueResolver\PropertyValueResolver;
+use Rekalogika\Analytics\ValueResolver\IdentifierValue;
+use Rekalogika\Analytics\ValueResolver\PropertyValue;
 use Symfony\Component\Translation\TranslatableMessage;
 
 #[ORM\Entity()]
@@ -74,14 +74,14 @@ class OrderSummary extends Summary
     // 1. Partition
 
     #[ORM\Embedded()]
-    #[Analytics\Partition(new PropertyValueResolver('id'))]
+    #[Analytics\Partition(new PropertyValue('id'))]
     private DefaultIntegerPartition $partition;
 
     // 2. Dimensions
 
     #[ORM\Embedded()]
     #[Analytics\Dimension(
-        source: new PropertyValueResolver('time'),
+        source: new PropertyValue('time'),
         label: new TranslatableMessage('Time'),
         sourceTimeZone: new \DateTimeZone('UTC'),
         summaryTimeZone: new \DateTimeZone('Asia/Jakarta'),
@@ -90,21 +90,21 @@ class OrderSummary extends Summary
 
     #[ORM\ManyToOne()]
     #[Analytics\Dimension(
-        source: new IdentifierValueResolver('customer.country'),
+        source: new IdentifierValue('customer.country'),
         label: new TranslatableMessage('Customer Country'),
     )]
     private ?Country $customerCountry = null;
 
     #[ORM\ManyToOne()]
     #[Analytics\Dimension(
-        source: new IdentifierValueResolver('customer.country.region'),
+        source: new IdentifierValue('customer.country.region'),
         label: new TranslatableMessage('Customer Region'),
     )]
     private ?Region $customerRegion = null;
 
     #[ORM\Column(enumType: Gender::class, nullable: true)]
     #[Analytics\Dimension(
-        source: new PropertyValueResolver('customer.gender'),
+        source: new PropertyValue('customer.gender'),
         label: new TranslatableMessage('Customer Gender'),
     )]
     private ?Gender $customerGender = null;
@@ -155,8 +155,8 @@ are the fields that you would use in a `GROUP BY` and/or `WHERE` clause.
 
 All dimensions are indicated by the `#[Analytics\Dimension]` attribute. The most
 important argument is the `source` argument. This argument is used to resolve
-the value of the dimension from the source entity. A `PropertyValueResolver`
-points to the value of a property in the source entity. An `IdentifierValueResolver`
+the value of the dimension from the source entity. A `PropertyValue`
+points to the value of a property in the source entity. An `IdentifierValue`
 points to a related entity.
 
 A dimension can be hierarchical, like the `time` dimension above. A hierarchical
