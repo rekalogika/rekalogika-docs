@@ -11,7 +11,7 @@ Example:
 
 ```php
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\AggregateFunction\CountDistinct;
+use Rekalogika\Analytics\PostgreSQLHll\AggregateFunction\CountDistinct;
 use Rekalogika\Analytics\Attribute as Analytics;
 use Rekalogika\Analytics\ValueResolver\IdentifierValue;
 

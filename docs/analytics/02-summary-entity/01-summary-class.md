@@ -57,7 +57,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\AggregateFunction\Count;
 use Rekalogika\Analytics\AggregateFunction\Sum;
 use Rekalogika\Analytics\Attribute as Analytics;
-use Rekalogika\Analytics\Model\Hierarchy\TimeDimensionHierarchy;
+use Rekalogika\Analytics\Time\Model\Hierarchy\TimeDimensionHierarchy;
 use Rekalogika\Analytics\Model\Partition\DefaultIntegerPartition;
 use Rekalogika\Analytics\Model\Summary;
 use Rekalogika\Analytics\ValueResolver\IdentifierValue;

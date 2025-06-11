@@ -66,7 +66,7 @@ example uses a `TimeDimensionHierarchy`.
 ```php
 use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\Attribute as Analytics;
-use Rekalogika\Analytics\Model\Hierarchy\TimeDimensionHierarchy;
+use Rekalogika\Analytics\Time\Model\Hierarchy\TimeDimensionHierarchy;
 use Rekalogika\Analytics\ValueResolver\PropertyValue;
 
 class YourSummary extends Summary
