@@ -1,0 +1,11 @@
+@startuml
+interface AggregateFunction {
+    getAggregateToResultExpression(string, SummaryQueryContext): string
+}
+
+interface SummarizableAggregateFunction extends AggregateFunction {
+    getSourceToAggregateExpression(SourceQueryContext): string
+    getAggregateToAggregateExpression(string): string
+    getInvolvedProperties(): array;
+}
+@enduml

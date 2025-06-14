@@ -30,7 +30,7 @@ class OrderSummary extends Summary implements HasQueryBuilderModifier
 :::warning
 
 As with other implementations of Count Distinct in data warehousing and parallel
-computing, this function returns an approximate count of distinct values, not an
-exact count.
+computing, this function uses the Hyperloglog algorithm to return an
+approximate count of distinct values, not an exact count.
 
 :::

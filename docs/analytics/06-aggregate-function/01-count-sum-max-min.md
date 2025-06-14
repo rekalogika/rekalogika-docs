@@ -7,7 +7,7 @@ of aggregate functions. They all take a string or `ValueResolver` as an
 argument, which must point to the property to be aggregated. A string will be
 converted to a `PropertyValue`.
 
-Example:
+## Example
 
 ```php
 use Doctrine\ORM\Mapping as ORM;
