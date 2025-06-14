@@ -1,5 +1,5 @@
 ---
-title: Creating an Aggregate Functions
+title: Creating Aggregate Functions
 ---
 
 To create an aggregate function, you need to create an implementation of
