@@ -16,11 +16,11 @@ property:
 
 ```php
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\AggregateFunction\Count;
-use Rekalogika\Analytics\AggregateFunction\StdDev;
-use Rekalogika\Analytics\AggregateFunction\Sum;
-use Rekalogika\Analytics\AggregateFunction\SumSquare;
-use Rekalogika\Analytics\Attribute as Analytics;
+use Rekalogika\Analytics\Core\AggregateFunction\Count;
+use Rekalogika\Analytics\Core\AggregateFunction\StdDev;
+use Rekalogika\Analytics\Core\AggregateFunction\Sum;
+use Rekalogika\Analytics\Core\AggregateFunction\SumSquare;
+use Rekalogika\Analytics\Contracts\Metadata as Analytics;
 
 class OrderSummary extends Summary
 {

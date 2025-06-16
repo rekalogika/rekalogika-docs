@@ -9,6 +9,14 @@ down your data by year, month, day, hour, and other time units.
 ## Example
 
 ```php
+use Doctrine\Common\Collections\Order;
+use Doctrine\ORM\Mapping as ORM;
+use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Entity\Summary;
+use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
+use Rekalogika\Analytics\Time\Hierarchy\TimeDimensionHierarchy;
+use Symfony\Component\Translation\TranslatableMessage;
+
 class OrderSummary extends Summary
 {
     #[ORM\Embedded()]
@@ -18,7 +26,7 @@ class OrderSummary extends Summary
         label: new TranslatableMessage('Placed Time'),
         sourceTimeZone: new \DateTimeZone('UTC'),
         summaryTimeZone: new \DateTimeZone('Asia/Jakarta'),
-        orderBy: DoctrineOrder::Ascending,
+        orderBy: Order::Ascending,
     )]
     private TimeDimensionHierarchy $time;
     // highlight-end

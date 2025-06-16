@@ -12,8 +12,8 @@ Most of the time, we will use either `PropertyValue` or
 ```php
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Attribute as Analytics;
-use Rekalogika\Analytics\ValueResolver\PropertyValue;
+use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 
 #[ORM\Entity()]
 #[Analytics\Summary(
@@ -39,8 +39,8 @@ the value is not a simple property, but a related entity.
 ```php
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Attribute as Analytics;
-use Rekalogika\Analytics\ValueResolver\IdentifierValue;
+use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\ValueResolver\IdentifierValue;
 
 #[ORM\Entity()]
 #[Analytics\Summary(

@@ -12,12 +12,12 @@ measure and does not store its value in the database.
 ```php
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Types\Types;
-use Rekalogika\Analytics\AggregateFunction\Average;
-use Rekalogika\Analytics\AggregateFunction\Count;
-use Rekalogika\Analytics\AggregateFunction\Sum;
-use Rekalogika\Analytics\Attribute as Analytics;
-use Rekalogika\Analytics\Model\Summary;
-use Rekalogika\Analytics\ValueResolver\PropertyValue;
+use Rekalogika\Analytics\Core\AggregateFunction\Average;
+use Rekalogika\Analytics\Core\AggregateFunction\Count;
+use Rekalogika\Analytics\Core\AggregateFunction\Sum;
+use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Entity\Summary;
+use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 
 class OrderSummary extends Summary
 {

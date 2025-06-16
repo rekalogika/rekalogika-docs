@@ -21,10 +21,10 @@ partitioning scheme:
 
 ```php
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Attribute as Analytics;
-use Rekalogika\Analytics\Model\Summary;
+use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Entity\Summary;
 use Rekalogika\Analytics\Partition\DefaultIntegerPartition;
-use Rekalogika\Analytics\ValueResolver\PropertyValue;
+use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 
 class YourSummary extends Summary
 {
@@ -41,10 +41,10 @@ partitioning scheme:
 
 ```php
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Attribute as Analytics;
-use Rekalogika\Analytics\Model\Partition\UuidV7IntegerPartition;
-use Rekalogika\Analytics\Model\Summary;
-use Rekalogika\Analytics\ValueResolver\UuidToTruncatedInteger;
+use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Partition\UuidV7IntegerPartition;
+use Rekalogika\Analytics\Core\Entity\Summary;
+use Rekalogika\Analytics\Core\ValueResolver\UuidToTruncatedInteger;
 
 class YourSummary extends Summary
 {

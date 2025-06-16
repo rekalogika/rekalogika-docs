@@ -54,14 +54,14 @@ data is rolled up from the source entity:
 use Brick\Money\Money;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\AggregateFunction\Count;
-use Rekalogika\Analytics\AggregateFunction\Sum;
-use Rekalogika\Analytics\Attribute as Analytics;
-use Rekalogika\Analytics\Time\Model\Hierarchy\TimeDimensionHierarchy;
-use Rekalogika\Analytics\Model\Partition\DefaultIntegerPartition;
-use Rekalogika\Analytics\Model\Summary;
-use Rekalogika\Analytics\ValueResolver\IdentifierValue;
-use Rekalogika\Analytics\ValueResolver\PropertyValue;
+use Rekalogika\Analytics\Core\AggregateFunction\Count;
+use Rekalogika\Analytics\Core\AggregateFunction\Sum;
+use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Time\Hierarchy\TimeDimensionHierarchy;
+use Rekalogika\Analytics\Core\Partition\DefaultIntegerPartition;
+use Rekalogika\Analytics\Core\Entity\Summary;
+use Rekalogika\Analytics\Core\ValueResolver\IdentifierValue;
+use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 use Symfony\Component\Translation\TranslatableMessage;
 
 #[ORM\Entity()]

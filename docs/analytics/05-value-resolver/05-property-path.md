@@ -14,8 +14,8 @@ This is how you can use a property path in a dimension:
 ```php
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Attribute as Analytics;
-use Rekalogika\Analytics\ValueResolver\PropertyValue;
+use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 
 #[ORM\Entity()]
 #[Analytics\Summary(
@@ -44,7 +44,7 @@ In the following sections, we will only include how to use property paths in
 The most common usage is to resolve to a property:
 
 ```php
-use Rekalogika\Analytics\ValueResolver\PropertyValue;
+use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 
 $valueResolver = new PropertyValue('customer.country.name');
 ```
@@ -56,7 +56,7 @@ argument, including the `INSTANCE OF` clause. You can use the `*` symbol to get
 the alias of a related entity:
 
 ```php
-use Rekalogika\Analytics\ValueResolver\CustomExpression;
+use Rekalogika\Analytics\Core\ValueResolver\CustomExpression;
 
 $valueResolver = new CustomExpression("
     CASE
@@ -78,7 +78,7 @@ entity. This is an advanced feature, and probably only makes sense if you are
 using `CustomExpression`.
 
 ```php
-use Rekalogika\Analytics\ValueResolver\CustomExpression;
+use Rekalogika\Analytics\Core\ValueResolver\CustomExpression;
 
 $valueResolver = new CustomExpression("
     CASE

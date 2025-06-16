@@ -15,8 +15,8 @@ attribute.
 ```php
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Attribute as Analytics;
-use Rekalogika\Analytics\ValueResolver\PropertyValue;
+use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 use Symfony\Component\Translation\TranslatableMessage;
 
 class YourSummary extends Summary
@@ -65,9 +65,9 @@ example uses a `TimeDimensionHierarchy`.
 
 ```php
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Attribute as Analytics;
-use Rekalogika\Analytics\Time\Model\Hierarchy\TimeDimensionHierarchy;
-use Rekalogika\Analytics\ValueResolver\PropertyValue;
+use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Time\Hierarchy\TimeDimensionHierarchy;
+use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 
 class YourSummary extends Summary
 {
