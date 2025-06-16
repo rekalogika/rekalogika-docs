@@ -113,3 +113,8 @@ table.partitioning tr:nth-child(2n) {
 td.highlight {
   background-color: var(--ifm-table-stripe-background);
 }
+
+.text-vertical {
+  writing-mode: tb-rl;
+  transform: rotate(-180deg);
+}
