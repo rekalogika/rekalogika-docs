@@ -9,7 +9,7 @@ to perform complex calculations to get the value.
 ```php
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Metadata as Analytics;
 use Rekalogika\Analytics\Core\ValueResolver\CustomExpression;
 
 #[ORM\Entity()]

@@ -12,7 +12,7 @@ Most of the time, we will use either `PropertyValue` or
 ```php
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Metadata as Analytics;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 
 #[ORM\Entity()]
@@ -39,7 +39,7 @@ the value is not a simple property, but a related entity.
 ```php
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Metadata as Analytics;
 use Rekalogika\Analytics\Core\ValueResolver\IdentifierValue;
 
 #[ORM\Entity()]

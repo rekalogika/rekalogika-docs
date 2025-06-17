@@ -15,7 +15,7 @@ attribute.
 ```php
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Metadata as Analytics;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 use Symfony\Component\Translation\TranslatableMessage;
 
@@ -46,13 +46,7 @@ Arguments:
   specified, the default order is ascending.
 * `nullLabel`: Describes the dimension value when the source value is `null`, so
   the final output can be made more readable.
-* `sourceTimeZone`: The time zone of the source value.
-* `summaryTimeZone`: The time zone of the summary value.
   
-If the field type is time or date, `sourceTimeZone` and `summaryTimeZone`
-defines the time zone of the source value and the summary value, respectively.
-The framework will use the information for time zone conversion.
-
 ## Hierarchical Dimensions
 
 A dimension can be hierarchical. A common example is the `time` dimension. The
@@ -65,7 +59,7 @@ example uses a `TimeDimensionHierarchy`.
 
 ```php
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Metadata as Analytics;
 use Rekalogika\Analytics\Time\Hierarchy\TimeDimensionHierarchy;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 
@@ -74,8 +68,6 @@ class YourSummary extends Summary
     #[ORM\Embedded()]
     #[Analytics\Dimension(
         source: new PropertyValue('time'),
-        sourceTimeZone: new \DateTimeZone('UTC'),
-        summaryTimeZone: new \DateTimeZone('Asia/Jakarta'),
     )]
     private TimeDimensionHierarchy $time;
 }

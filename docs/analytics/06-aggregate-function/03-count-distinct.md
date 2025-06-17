@@ -12,7 +12,7 @@ Example:
 ```php
 use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\PostgreSQLHll\AggregateFunction\CountDistinct;
-use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Metadata as Analytics;
 use Rekalogika\Analytics\Core\ValueResolver\IdentifierValue;
 
 class OrderSummary extends Summary implements HasQueryBuilderModifier

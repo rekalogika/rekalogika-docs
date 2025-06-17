@@ -11,7 +11,7 @@ down your data by year, month, day, hour, and other time units.
 ```php
 use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Metadata as Analytics;
 use Rekalogika\Analytics\Core\Entity\Summary;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 use Rekalogika\Analytics\Time\Hierarchy\TimeDimensionHierarchy;
@@ -24,9 +24,11 @@ class OrderSummary extends Summary
     #[Analytics\Dimension(
         source: new PropertyValue('time'),
         label: new TranslatableMessage('Placed Time'),
+        orderBy: Order::Ascending,
+    )]
+    #[TimeProperties(
         sourceTimeZone: new \DateTimeZone('UTC'),
         summaryTimeZone: new \DateTimeZone('Asia/Jakarta'),
-        orderBy: Order::Ascending,
     )]
     private TimeDimensionHierarchy $time;
     // highlight-end

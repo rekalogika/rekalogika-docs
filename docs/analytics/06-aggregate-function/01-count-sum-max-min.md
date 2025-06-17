@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Types\Types;
 use Rekalogika\Analytics\Core\AggregateFunction\Count;
 use Rekalogika\Analytics\Core\AggregateFunction\Sum;
-use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Metadata as Analytics;
 use Rekalogika\Analytics\Core\Entity\Summary;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 

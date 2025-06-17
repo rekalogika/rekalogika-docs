@@ -21,7 +21,7 @@ partitioning scheme:
 
 ```php
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Metadata as Analytics;
 use Rekalogika\Analytics\Core\Entity\Summary;
 use Rekalogika\Analytics\Partition\DefaultIntegerPartition;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
@@ -41,7 +41,7 @@ partitioning scheme:
 
 ```php
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Metadata as Analytics;
 use Rekalogika\Analytics\Core\Partition\UuidV7IntegerPartition;
 use Rekalogika\Analytics\Core\Entity\Summary;
 use Rekalogika\Analytics\Core\ValueResolver\UuidToTruncatedInteger;

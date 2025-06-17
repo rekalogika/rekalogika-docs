@@ -17,7 +17,7 @@ The most important argument in the `#[Analytics\Measure]` attribute is the
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\Core\AggregateFunction\Sum;
-use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Metadata as Analytics;
 
 class YourSummary extends Summary
 {

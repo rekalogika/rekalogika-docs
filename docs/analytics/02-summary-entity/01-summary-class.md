@@ -56,12 +56,13 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\Core\AggregateFunction\Count;
 use Rekalogika\Analytics\Core\AggregateFunction\Sum;
-use Rekalogika\Analytics\Contracts\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Metadata as Analytics;
 use Rekalogika\Analytics\Time\Hierarchy\TimeDimensionHierarchy;
 use Rekalogika\Analytics\Core\Partition\DefaultIntegerPartition;
 use Rekalogika\Analytics\Core\Entity\Summary;
 use Rekalogika\Analytics\Core\ValueResolver\IdentifierValue;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
+use Rekalogika\Analytics\Time\Metadata\TimeProperties;
 use Symfony\Component\Translation\TranslatableMessage;
 
 #[ORM\Entity()]
@@ -83,6 +84,8 @@ class OrderSummary extends Summary
     #[Analytics\Dimension(
         source: new PropertyValue('time'),
         label: new TranslatableMessage('Time'),
+    )]
+    #[TimeProperties(
         sourceTimeZone: new \DateTimeZone('UTC'),
         summaryTimeZone: new \DateTimeZone('Asia/Jakarta'),
     )]
