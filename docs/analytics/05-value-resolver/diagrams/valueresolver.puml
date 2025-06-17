@@ -1,0 +1,26 @@
+@startuml
+
+interface ValueResolver {
+    getExpression(SourceQueryContext): string
+    getInvolvedProperties(): <string>
+}
+
+interface PartitionValueResolver extends ValueResolver {
+    getInvolvedProperties(): {string}
+    transformSourceValueToSummaryValue(mixed): int
+    transformSummaryValueToSourceValue(int): mixed
+}
+
+together {
+    interface HierarchyAware {
+        withInput(ValueResolver): HierarchyAware
+    }
+
+    interface UserValueTransformer {
+        getUserValue(mixed, ValueTransformerContext): mixed
+    }
+
+    HierarchyAware -[hidden]- UserValueTransformer
+}
+
+@enduml

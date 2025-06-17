@@ -138,6 +138,7 @@ class OrderSummary extends Summary
 
         return Money::ofMinor($this->price, 'EUR');
     }
+}
 ```
 
 ## Sections
