@@ -59,6 +59,11 @@ $groupBy->apply($query);
 $result = $query->getResult();
 ```
 
+## Class Diagram
+
+![GroupBy](./diagrams/groupby.light.svg#light)
+![GroupBY](./diagrams/groupby.dark.svg#dark)
+
 ## Flattening
 
 It is possible to flatten a `GroupBy` object into another instance of `GroupBy`

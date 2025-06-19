@@ -1,0 +1,43 @@
+@startuml
+
+hide empty members
+
+class GroupBy {
+}
+
+GroupBy o-- GroupingSet
+GroupBy o-- FieldSet
+GroupBy o-- Field
+GroupBy o-- Cube
+GroupBy o-- RollUp
+
+class GroupingSet {
+}
+
+GroupingSet o-- Cube
+GroupingSet o-- RollUp
+GroupingSet o-- FieldSet
+
+class Cube {
+}
+
+Cube o-- FieldSet
+Cube o-- Field
+
+class RollUp {
+}
+
+RollUp o-- FieldSet
+RollUp o-- Field
+
+class FieldSet {
+}
+
+FieldSet o-- Field
+
+class Field {
+}
+
+
+
+@enduml
