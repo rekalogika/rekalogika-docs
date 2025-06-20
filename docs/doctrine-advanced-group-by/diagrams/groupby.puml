@@ -17,6 +17,7 @@ class GroupingSet {
 GroupingSet o-- Cube
 GroupingSet o-- RollUp
 GroupingSet o-- FieldSet
+GroupingSet o-- GroupingSet
 
 class Cube {
 }
