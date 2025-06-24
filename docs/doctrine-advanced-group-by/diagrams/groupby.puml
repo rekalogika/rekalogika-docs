@@ -22,19 +22,19 @@ GroupingSet o-- GroupingSet
 class Cube {
 }
 
+Cube o-- FieldSet
 Cube o-- Field
 
 class RollUp {
 }
 
+RollUp o-- FieldSet
 RollUp o-- Field
 
 class FieldSet {
 }
 
-Cube o- FieldSet
 FieldSet o-- Field
-FieldSet -o RollUp
 
 class Field {
 }

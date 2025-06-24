@@ -1,0 +1,76 @@
+@startuml
+
+class SummaryMetadata {
+    summaryClass: class-string
+    sourceClass: class-string
+    label: TranslatableInterface
+    attributes: AttributeCollection
+    involvedProperties: <string>
+    groupByExpression: GroupBy
+    ---
+    properties: <string,PropertyMetadata>
+    getProperty(string): PropertyMetadata
+    ---
+    partition: PartitionMetadata
+    groupingsProperty: string
+    ---
+    rootDimensions: <string,DimensionMetadata>
+    getRootDimension(string): DimensionMetadata
+    leafDimensions: <string,DimensionMetadata|DimensionPropertyMetadata>
+    getLeafDimension(string): DimensionMetadata|DimensionPropertyMetadata
+    allDimensions: <string,DimensionMetadata>
+    ---
+    measures: <string,MeasureMetadata>
+    getMeasure(string): MeasureMetadata
+}
+
+abstract PropertyMetadata {
+    name: string
+    propertyName: string
+    label: TranslatableInterface
+    typeClass: class-string
+    hidden: bool
+    attributes: AttributeCollection
+    involvedSourceProperties: <string>
+    summaryMetadata: SummaryMetadata
+}
+
+SummaryMetadata *-- PropertyMetadata
+
+class PartitionMetadata {
+    source: PartitionValueResolver
+    partitionClass: class-string
+    partitionLevelProperty: string
+    partitionKeyProperty: string
+    fullyQualifiedPartitionKeyProperty: string
+    fullyQualifiedPartitionLevelProperty: string
+}
+
+PropertyMetadata <|-- PartitionMetadata
+
+class DimensionMetadata {
+    valueResolver: ValueResolver
+    orderBy: array|Ordering
+    nullLabel: TranslatableInterface
+    dqlAlias: string
+    orderBy: <string,Ordering>|Ordering
+    groupingStrategy: GroupingStrategy
+    groupByExpression: Item
+    parent: ?DimensionMetadata
+    children: <string,DimensionMetadata>
+    descendants: <string,DimensionMetadata>
+}
+
+PropertyMetadata <|--- DimensionMetadata
+DimensionMetadata *-- DimensionMetadata
+
+class MeasureMetadata {
+    function: AggregateFunction
+    unit: ?TranslatableInterface
+    unitSignature: ?string
+    virtual: bool
+}
+
+PropertyMetadata <|-- MeasureMetadata
+
+@enduml
