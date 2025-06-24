@@ -57,11 +57,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\Core\AggregateFunction\Count;
 use Rekalogika\Analytics\Core\AggregateFunction\Sum;
 use Rekalogika\Analytics\Core\Metadata as Analytics;
-use Rekalogika\Analytics\Time\Hierarchy\TimeDimensionHierarchy;
 use Rekalogika\Analytics\Core\Partition\DefaultIntegerPartition;
 use Rekalogika\Analytics\Core\Entity\Summary;
 use Rekalogika\Analytics\Core\ValueResolver\IdentifierValue;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
+use Rekalogika\Analytics\Time\Dimension\System\GregorianDateWithHour
 use Rekalogika\Analytics\Time\Metadata\TimeProperties;
 use Symfony\Component\Translation\TranslatableMessage;
 
@@ -89,7 +89,7 @@ class OrderSummary extends Summary
         sourceTimeZone: new \DateTimeZone('UTC'),
         summaryTimeZone: new \DateTimeZone('Asia/Jakarta'),
     )]
-    private TimeDimensionHierarchy $time;
+    private GregorianDateWithHour $time;
 
     #[ORM\ManyToOne()]
     #[Analytics\Dimension(
@@ -202,10 +202,7 @@ need to create any indexes manually.
 
 ## Changing Summary Entity
 
-A summary entity should not be changed after it is created and populated. Mainly
-because the summary entity has the `groupings` property, which relies on the
-entity's properties and their ordering. If you make any changes, then you will
-need to refresh the entire data anyway.
+A summary entity should not be changed after it is created and populated.
 
 If you need to change the summary entity, you should create a new one, refresh
 the data and wait until it is completed, and then retire the old one. If you
@@ -217,7 +214,7 @@ date-coding the summary entity class name, for example `OrderSummary20250115`.
 A summary entity is defined as a Doctrine entity. But it is mainly for defining
 the structure of the summary table and the summarization behavior. You will
 never interact with a real instance of the summary entity. Instead, you query
-the summary table using the `SummaryManager`, and gets the result not in the
+the summary table using the `SummaryManager`, and get the result not in the
 form of a summary entity.
 
 An event listener is installed to prevent you from accidentally persisting,

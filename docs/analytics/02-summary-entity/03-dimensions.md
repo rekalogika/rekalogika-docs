@@ -3,8 +3,8 @@ title: Dimensions
 ---
 
 A summary table can have one or more dimensions. Dimensions are properties of
-the source entity that are used to group the data. They have distinct, descriptive
-values.
+the source entity that are used to group the data. They have distinct,
+descriptive values.
 
 
 ## Dimension Definition
@@ -43,7 +43,9 @@ Arguments:
   different languages.
 * `orderBy`: Can be `Order::Ascending` or `Order::Descending`. This
   defines how the dimension values are ordered in the summary table. If not
-  specified, the default order is ascending.
+  specified, the default order is ascending. If the property is a relation, you
+  can specify an array of `Order` instead, where the key is the property
+  name of the relation and the value is the order direction.
 * `nullLabel`: Describes the dimension value when the source value is `null`, so
   the final output can be made more readable.
   
@@ -60,8 +62,8 @@ example uses a `TimeDimensionHierarchy`.
 ```php
 use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\Core\Metadata as Analytics;
-use Rekalogika\Analytics\Time\Hierarchy\TimeDimensionHierarchy;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
+use Rekalogika\Analytics\Time\Dimension\System\GregorianDateWithHour;
 
 class YourSummary extends Summary
 {
@@ -69,13 +71,10 @@ class YourSummary extends Summary
     #[Analytics\Dimension(
         source: new PropertyValue('time'),
     )]
-    private TimeDimensionHierarchy $time;
+    private GregorianDateWithHour $time;
 }
 ```
 
-The framework provides these predefined time hierarchies:
-
-* `TimeDimensionHierarchy`
-* `DateDimensionHierarchy`
-* `SimpleTimeDimensionHierarchy`
-* `SimpleDateDimensionHierarchy`
+Read more about hierarchical dimensions in the [Dimension
+Hierarchy](../dimension-hierarchy) section, and specifically about the time
+dimensions in the [Time Dimensions](../time-dimensions) section.

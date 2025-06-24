@@ -1,0 +1,96 @@
+@startuml
+
+' Group
+
+class TimeGroup {
+    civil
+    isoWeek
+}
+
+TimeGroup::civil o-- GregorianDateWithHour
+TimeGroup::isoWeek o-- IsoWeekDateWithHour
+
+' Systems
+
+class GregorianDate {
+    year
+    quarter
+    month
+    date
+}
+
+GregorianDate::quarter o-- QuarterSet
+GregorianDate::month o-- MonthSet
+GregorianDate::date o-- DateSet
+
+class GregorianDateWithHour {
+    year
+    quarter
+    month
+    date
+    hour
+}
+
+GregorianDateWithHour::quarter o-- QuarterSet
+GregorianDateWithHour::month o-- MonthSet
+GregorianDateWithHour::date o-- DateSet
+GregorianDateWithHour::hour o-- HourSet
+
+class IsoWeekDate {
+    weekYear
+    week
+    weekDate
+}
+
+IsoWeekDate::week o-- WeekSet
+IsoWeekDate::weekDate o-- WeekDateSet
+
+class IsoWeekDateWithHour {
+    weekYear
+    week
+    weekDate
+    hour
+}
+
+IsoWeekDateWithHour::week o-- WeekSet
+IsoWeekDateWithHour::weekDate o-- WeekDateSet
+IsoWeekDateWithHour::hour o-- HourSet
+
+' Sets
+
+class QuarterSet {
+    quarter
+    quarterOfYear
+}
+
+class MonthSet {
+    month
+    monthOfYear
+}
+
+class WeekSet {
+    week
+    weekOfYear
+    weekOfMonth
+}
+
+class DateSet {
+    date
+    dayOfWeek
+    dayOfMonth
+    dayOfYear
+}
+
+class WeekDateSet {
+    weekDate
+    dayOfWeek
+    dayOfWeekYear
+}
+
+class HourSet {
+    hour
+    hourOfDay
+}
+
+
+@enduml
