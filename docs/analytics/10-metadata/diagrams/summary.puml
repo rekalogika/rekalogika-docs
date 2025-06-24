@@ -16,8 +16,8 @@ class SummaryMetadata {
     ---
     rootDimensions: <string,DimensionMetadata>
     getRootDimension(string): DimensionMetadata
-    leafDimensions: <string,DimensionMetadata|DimensionPropertyMetadata>
-    getLeafDimension(string): DimensionMetadata|DimensionPropertyMetadata
+    leafDimensions: <string,DimensionMetadata>
+    getLeafDimension(string): DimensionMetadata
     allDimensions: <string,DimensionMetadata>
     ---
     measures: <string,MeasureMetadata>
