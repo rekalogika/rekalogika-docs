@@ -1,0 +1,64 @@
+@startuml pivot-table
+
+abstract Block {
+    #level
+    #headerRows
+    #dataRows
+}
+
+abstract BlockGroup {
+    #children
+    #balancedChildren
+}
+
+Block <|-- BlockGroup
+
+class HorizontalBlockGroup {
+}
+
+BlockGroup <|-- HorizontalBlockGroup
+
+class VerticalBlockGroup {
+}
+
+BlockGroup <|-- VerticalBlockGroup
+
+abstract NodeBlock {
+    #treeNode
+    #branchNode
+    #leafNode
+}
+
+Block <|---- NodeBlock
+
+class NormalBlock {
+}
+
+NodeBlock <|-- NormalBlock
+
+class NormalLeafBlock {
+}
+
+NodeBlock <|--- NormalLeafBlock
+
+class PivotBlock {
+}
+
+NodeBlock <|---- PivotBlock
+
+class PivotLeafBlock {
+}
+
+NodeBlock <|---- PivotLeafBlock
+
+class RootBlock {
+}
+
+NodeBlock <|--- RootBlock
+
+class SingleNodeLeafBlock {
+}
+
+NodeBlock <|-- SingleNodeLeafBlock
+
+@enduml
