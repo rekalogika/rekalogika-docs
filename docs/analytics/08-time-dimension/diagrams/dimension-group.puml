@@ -24,17 +24,11 @@ GregorianDate::month o-- MonthSet
 GregorianDate::date o-- DateSet
 
 class GregorianDateWithHour {
-    year
-    quarter
-    month
-    date
     hour
 }
 
-GregorianDateWithHour::quarter o-- QuarterSet
-GregorianDateWithHour::month o-- MonthSet
-GregorianDateWithHour::date o-- DateSet
-GregorianDateWithHour::hour o-- HourSet
+GregorianDateWithHour --|> GregorianDate
+GregorianDateWithHour o--- HourSet
 
 class IsoWeekDate {
     weekYear
@@ -46,15 +40,11 @@ IsoWeekDate::week o-- WeekSet
 IsoWeekDate::weekDate o-- WeekDateSet
 
 class IsoWeekDateWithHour {
-    weekYear
-    week
-    weekDate
     hour
 }
 
-IsoWeekDateWithHour::week o-- WeekSet
-IsoWeekDateWithHour::weekDate o-- WeekDateSet
-IsoWeekDateWithHour::hour o-- HourSet
+IsoWeekDateWithHour --|> IsoWeekDate
+IsoWeekDateWithHour o--- HourSet
 
 ' Sets
 

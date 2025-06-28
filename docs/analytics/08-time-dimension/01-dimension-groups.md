@@ -47,3 +47,11 @@ these as a base to create your own custom dimension groups.
 
 ![Dimension groups](./diagrams/dimension-group.light.svg#light)
 ![Dimension groups](./diagrams/dimension-group.dark.svg#dark)
+
+:::note
+
+In the diagram above, inheritance is conceptual, and implemented using a trait.
+Doctrine does not support inheritance in embedded objects, so any inheritance
+must be done using traits and interfaces.
+
+:::
