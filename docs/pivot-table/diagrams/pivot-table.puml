@@ -1,7 +1,6 @@
 @startuml pivot-table
 
 abstract Block {
-    #level
     #headerRows
     #dataRows
 }
@@ -25,8 +24,6 @@ BlockGroup <|-- VerticalBlockGroup
 
 abstract NodeBlock {
     #treeNode
-    #branchNode
-    #leafNode
 }
 
 Block <|---- NodeBlock
@@ -49,12 +46,17 @@ NodeBlock <|---- PivotBlock
 class PivotLeafBlock {
 }
 
-NodeBlock <|---- PivotLeafBlock
+NodeBlock <|----- PivotLeafBlock
 
 class RootBlock {
 }
 
-NodeBlock <|--- RootBlock
+NodeBlock <|---- RootBlock
+
+class EmptyBlock {
+}
+
+NodeBlock <|--- EmptyBlock
 
 class SingleNodeLeafBlock {
 }
