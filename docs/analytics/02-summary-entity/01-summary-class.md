@@ -58,7 +58,7 @@ use Rekalogika\Analytics\Core\AggregateFunction\Count;
 use Rekalogika\Analytics\Core\AggregateFunction\Sum;
 use Rekalogika\Analytics\Core\Metadata as Analytics;
 use Rekalogika\Analytics\Core\Partition\DefaultIntegerPartition;
-use Rekalogika\Analytics\Core\Entity\Summary;
+use Rekalogika\Analytics\Core\Entity\BaseSummary;
 use Rekalogika\Analytics\Core\ValueResolver\IdentifierValue;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 use Rekalogika\Analytics\Time\Dimension\System\GregorianDateWithHour
@@ -70,7 +70,7 @@ use Symfony\Component\Translation\TranslatableMessage;
     sourceClass: Order::class,
     label: new TranslatableMessage('Orders'),
 )]
-class OrderSummary extends Summary
+class OrderSummary extends BaseSummary
 {
     // 1. Partition
 

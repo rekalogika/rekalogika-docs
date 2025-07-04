@@ -8,20 +8,19 @@ following pattern:
 ```php
 use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\Core\Metadata as Analytics;
-use Rekalogika\Analytics\Core\Entity\Summary;
+use Rekalogika\Analytics\Core\Entity\BaseSummary;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 use Rekalogika\Analytics\Time\ValueResolver\TimeBinValueResolver;
 use Rekalogika\Analytics\Time\Metadata\TimeProperties;
 use Rekalogika\Analytics\Time\Bin\Date;
-use Rekalogika\Analytics\Time\TimeBinType;
 
-class OrderSummary extends Summary
+class OrderSummary extends BaseSummary
 {
-    #[ORM\Column(type: TimeBinType::TypeDate, nullable: true)]
+    #[ORM\Column(type: Date::TYPE, nullable: true)]
     #[Analytics\Dimension(
         source: new TimeBinValueResolver(
+            binClass: Date::class,
             input: new PropertyValue('time'),
-            type: TimeBinType::Date,
         ),
     )]
     #[TimeProperties(
@@ -40,13 +39,9 @@ class OrderSummary extends Summary
 }
 ```
 
-The enum `TimeBinType` contains all the available time bin types, and all
-their differences. Here, we use `TimeBinType::Date` to bin the input time to a
-date.
-
-`ORM\Column(type: TimeBinType::TypeDate`) is the Doctrine column type. The
-enum `TimeBinType` contains the suitable Doctrine column type for each time
-bin type, which may be `integer` or `smallint`, depending on the type.
+`ORM\Column(type: Date::TYPE`) is the Doctrine column type. The `TYPE` constant
+contains the suitable Doctrine column type for each time bin type, which may be
+`integer` or `smallint`, depending on the type.
 
 The `source` is an instance of `TimeBinValueResolver`, which takes the input,
 then bins it to the specified time bin type. Here we take the property `time`,

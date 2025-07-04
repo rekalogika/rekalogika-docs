@@ -16,10 +16,10 @@ use Rekalogika\Analytics\Core\AggregateFunction\Average;
 use Rekalogika\Analytics\Core\AggregateFunction\Count;
 use Rekalogika\Analytics\Core\AggregateFunction\Sum;
 use Rekalogika\Analytics\Core\Metadata as Analytics;
-use Rekalogika\Analytics\Core\Entity\Summary;
+use Rekalogika\Analytics\Core\Entity\BaseSummary;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 
-class OrderSummary extends Summary
+class OrderSummary extends BaseSummary
 {
     #[ORM\Column(type: Types::INTEGER)]
     #[Analytics\Measure(

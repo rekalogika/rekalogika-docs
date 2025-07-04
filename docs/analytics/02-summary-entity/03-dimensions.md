@@ -61,11 +61,12 @@ example uses a `TimeDimensionHierarchy`.
 
 ```php
 use Doctrine\ORM\Mapping as ORM;
+use Rekalogika\Analytics\Core\Entity\BaseSummary;
 use Rekalogika\Analytics\Core\Metadata as Analytics;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 use Rekalogika\Analytics\Time\Dimension\System\GregorianDateWithHour;
 
-class YourSummary extends Summary
+class YourSummary extends BaseSummary
 {
     #[ORM\Embedded()]
     #[Analytics\Dimension(
@@ -77,4 +78,4 @@ class YourSummary extends Summary
 
 Read more about hierarchical dimensions in the [Dimension
 Hierarchy](../dimension-hierarchy) section, and specifically about the time
-dimensions in the [Time Dimensions](../time-dimensions) section.
+dimensions in the [Time Dimensions](../time-dimension) section.

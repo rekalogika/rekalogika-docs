@@ -36,8 +36,8 @@ class IsoWeekDate {
     weekDate
 }
 
-IsoWeekDate::week o-- WeekSet
-IsoWeekDate::weekDate o-- WeekDateSet
+IsoWeekDate::week o-- IsoWeekWeekSet
+IsoWeekDate::weekDate o-- IsoWeekDateSet
 
 class IsoWeekDateWithHour {
     hour
@@ -58,10 +58,9 @@ class MonthSet {
     monthOfYear
 }
 
-class WeekSet {
+class IsoWeekWeekSet {
     week
     weekOfYear
-    weekOfMonth
 }
 
 class DateSet {
@@ -71,7 +70,7 @@ class DateSet {
     dayOfYear
 }
 
-class WeekDateSet {
+class IsoWeekDateSet {
     weekDate
     dayOfWeek
     dayOfWeekYear

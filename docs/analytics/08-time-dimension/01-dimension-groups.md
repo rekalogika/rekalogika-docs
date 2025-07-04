@@ -12,12 +12,12 @@ data by year, month, day, hour, and other time units.
 use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\Core\Metadata as Analytics;
-use Rekalogika\Analytics\Core\Entity\Summary;
+use Rekalogika\Analytics\Core\Entity\BaseSummary;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 use Rekalogika\Analytics\Time\Dimension\System\GregorianDateWithHour;
 use Symfony\Component\Translation\TranslatableMessage;
 
-class OrderSummary extends Summary
+class OrderSummary extends BaseSummary
 {
     #[ORM\Embedded()]
     // highlight-start

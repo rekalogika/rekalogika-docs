@@ -125,13 +125,13 @@ Then in the summary class, the user will be able to do something like this:
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Types\Types;
 use Rekalogika\Analytics\Core\Metadata as Analytics;
-use Rekalogika\Analytics\Core\Entity\Summary;
+use Rekalogika\Analytics\Core\Entity\BaseSummary;
 
 #[ORM\Entity()]
 #[Analytics\Summary(
     sourceClass: Order::class,
 )]
-class OrderSummary extends Summary
+class OrderSummary extends BaseSummary
 {
     #[ORM\Column(type: Types::INTEGER)]
     #[Analytics\Dimension(
@@ -141,11 +141,12 @@ class OrderSummary extends Summary
 
     public function getQuality(): ?Quality
     {
+        // highlight-start
         return $this->getContext()->getUserValue(
             property: 'quality',
-            rawValue: $this->quality,
             class: Quality::class,
         );
+        // highlight-end
     }
 }
 ```
