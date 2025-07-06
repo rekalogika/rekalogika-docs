@@ -27,6 +27,9 @@ Currently none.
 
 * Postgres `GROUP BY` maximum grouping set limit of 4096, can be circumvented by
   using multiple queries.
+* to-many joins are not yet supported. It can be implemented using subselects in
+  the SELECT clause (not very efficient), or subselects in the LEFT JOIN clause
+  (not supported by Doctrine, needs a custom output walker).
 
 ## Spinoffs
 
