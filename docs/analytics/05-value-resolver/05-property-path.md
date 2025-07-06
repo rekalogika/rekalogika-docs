@@ -49,6 +49,21 @@ use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 $valueResolver = new PropertyValue('customer.country.name');
 ```
 
+## Resolve to the Identifier of the Current Entity
+
+You can resolve to the identifier of the current entity using the special `__id`
+property:
+
+```php
+use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
+
+// This will resolve to the identifier of the root entity
+$valueResolver = new PropertyValue('__id');
+
+// This will resolve to the identifier of the customer entity, e.g. Customer.id
+$valueResolver = new PropertyValue('customer.__id');
+```
+
 ## Getting the Alias of a Related Entity
 
 Some DQL clauses expect the alias of a related entity to be passed as an
