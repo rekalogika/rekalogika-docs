@@ -1,15 +1,16 @@
 ---
-title: Pivot Table & Regular Table
+title: Table Renderer
 ---
 
 To transform the query result into a table or a pivot table, you can use the
 `TableRenderer` service.
 
-## Rendering to a Pivot Table or Regular Table
+## Rendering a Pivot Table or Regular Table
 
-The `render()` method will return an HTML string that you can use in your view.
-If the query does not have a hierarchical ordering, then it is not possible to
-render to a pivot table. Instead, `render` will fall back to a regular table.
+The `render()` method will return a pivot table in HTML string that you can use
+in your view. If the query does not have a hierarchical ordering, then it is not
+possible to render to a pivot table. Instead, `render` will fall back to a
+regular table.
 
 There are also the `renderPivotTable()` and `renderTable()` methods, which allow
 you to explicitly render the result to a pivot table or regular table,
@@ -30,7 +31,7 @@ $result = $summaryManager
     // ...
     ->getResult();
 
-// renderPivotTable() returns a pivot table
+// renderPivotTable() returns a pivot table (or throws an exception if it cannot)
 $table = $tableRenderer->renderPivotTable(
     result: $result,
     pivotedDimensions: ['@values']

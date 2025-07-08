@@ -1,30 +1,30 @@
 ---
-title: Chart
+title: Chart Generator
 ---
 
-To render the query result as a chart, you can use the `ChartBuilder` service.
-It returns a `Chart` instance of the `symfony/ux-chartjs` package.
+To render the query result as a chart, you can use the `ChartGenerator` service.
+It returns a `Chart` instance from the `symfony/ux-chartjs` package.
 
-`ChartBuilder` is meant to be a simple service that tries to automatically
+`ChartGenerator` is meant to be a simple service that tries to automatically
 build a chart from a query result without requiring too much configuration.
-While it is convenient, it is currently not very flexible.
+While it is convenient, it is also not very flexible.
 
 Example:
 
 ```php
 use Rekalogika\Analytics\Contracts\SummaryManager;
-use Rekalogika\Analytics\Frontend\Chart\ChartBuilder;
+use Rekalogika\Analytics\Frontend\Chart\ChartGenerator;
 use Rekalogika\Analytics\Frontend\Chart\ChartType;
 
 /** @var SummaryManager $summaryManager */
-/** @var ChartBuilder $chartBuilder */
+/** @var ChartGenerator $chartGenerator */
 
 $result = $summaryManager
     ->createQuery()
     // ...
     ->getResult();
 
-$chart = $chartBuilder->createChart(
+$chart = $chartGenerator->createChart(
     result: $result,
     chartType: ChartType::Auto,
 );
