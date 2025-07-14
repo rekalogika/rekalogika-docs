@@ -66,7 +66,7 @@ Configure Symfony Messenger routing configuration. For example:
 framework:
     messenger:
         routing:
-            Rekalogika\Analytics\RefreshWorker\RefreshCommand: async
+            Rekalogika\Analytics\Engine\RefreshAgent\RefreshAgentStartCommand: async
 ```
 
 ## License
