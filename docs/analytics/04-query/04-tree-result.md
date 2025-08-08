@@ -5,6 +5,13 @@ title: Tree Result
 To get the result in a tree format, call the `getTree()` method on the `Result`
 object. Each node in the tree represents a dimension.
 
+:::danger
+
+Tree result is under consideration to be deprecated. Use the cube result
+instead.
+
+:::
+
 ## Class Diagram
 
 ![Tree result class diagram](./diagrams/tree.light.svg#light)

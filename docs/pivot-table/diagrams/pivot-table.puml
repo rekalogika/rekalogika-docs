@@ -1,16 +1,26 @@
 @startuml pivot-table
 
 abstract Block {
-    #headerRows
-    #dataRows
+    +getHeaderRows()
+    +getDataRows()
+    +getDataPaddingRows()
+    +getSubtotalHeaderRows()
+    +getSubtotalDataRows()
 }
 
 abstract BlockGroup {
-    #children
-    #balancedChildren
+    #getParentNode()
+    #getChildBlocks()
+    #getBalancedChildBlocks()
+    #getOneChildBlock()
+    #getOneBalancedChildBlock()
+    #getChildren()
+    #getBalancedChildren()
+    #getOneChild()
 }
 
 Block <|-- BlockGroup
+Block --o BlockGroup
 
 class HorizontalBlockGroup {
 }
@@ -20,47 +30,67 @@ BlockGroup <|-- HorizontalBlockGroup
 class VerticalBlockGroup {
 }
 
-BlockGroup <|-- VerticalBlockGroup
+BlockGroup <|--- VerticalBlockGroup
 
-abstract NodeBlock {
-    #treeNode
+class EmptyBlockGroup {
 }
 
-Block <|---- NodeBlock
+BlockGroup <|-- EmptyBlockGroup
+
+abstract NodeBlock {
+    +getTreeNode()
+    +getParentBlock()
+}
+
+BlockGroup --o NodeBlock
+
+abstract LeafBlock {
+}
+
+NodeBlock <|----- LeafBlock
+
+class BranchBlock {
+    +getChildrenBlockGroup()
+}
+
+NodeBlock <|-- BranchBlock
+BlockGroup --o BranchBlock
+
+Block <|----- NodeBlock
 
 class NormalBlock {
 }
 
-NodeBlock <|-- NormalBlock
+BranchBlock <|-- NormalBlock
 
 class NormalLeafBlock {
 }
 
-NodeBlock <|--- NormalLeafBlock
+LeafBlock <|-- NormalLeafBlock
 
 class PivotBlock {
 }
 
-NodeBlock <|---- PivotBlock
+BranchBlock <|-- PivotBlock
 
 class PivotLeafBlock {
 }
 
-NodeBlock <|----- PivotLeafBlock
+LeafBlock <|--- PivotLeafBlock
 
 class RootBlock {
 }
 
-NodeBlock <|---- RootBlock
+BranchBlock <|--- RootBlock
 
 class EmptyBlock {
 }
 
-NodeBlock <|--- EmptyBlock
+BranchBlock <|--- EmptyBlock
 
 class SingleNodeLeafBlock {
 }
 
-NodeBlock <|-- SingleNodeLeafBlock
+LeafBlock <|-- SingleNodeLeafBlock
 
 @enduml

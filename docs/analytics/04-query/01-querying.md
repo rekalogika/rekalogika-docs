@@ -73,12 +73,10 @@ user's preferred format.
 use Rekalogika\Analytics\Contracts\Result\Result;
 
 /** @var Result $result */
+
+// Get the result in the data cube format
+$tree = $result->getCube();
+
 // Get the result in the table format
 $table = $result->getTable();
-
-// Get the result in the normal table format
-$normalTable = $result->getNormalTable();
-
-// Get the result in the tree format
-$tree = $result->getTree();
 ```

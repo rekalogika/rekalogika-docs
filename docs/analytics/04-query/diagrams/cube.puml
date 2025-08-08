@@ -1,0 +1,64 @@
+@startuml
+
+interface Result {
+    summaryClass: string
+    cube: CubeCell
+}
+
+Result o-- CubeCell
+
+interface Cell {
+    tuple: Tuple
+    measures: Measures
+    measure: Measure
+}
+
+Cell o-- Tuple
+Cell o-- Measures
+
+interface CubeCell {
+    summaryClass: string
+    apex: CubeCell
+    null: bool
+    rollUp(string): CubeCell
+    drillDown(string): CubeCells
+}
+
+Cell <|- CubeCell
+CubeCell o-- CubeCell
+
+interface Property {
+    name: string
+    label: TranslatableInterface
+}
+
+interface Dimension {
+    member: mixed
+    rawMember: mixed
+    displayMember: mixed
+}
+
+Property <|-- Dimension
+
+interface Measure {
+    value: mixed
+    rawValue: mixed
+    unit: ?Unit
+}
+
+Property <|-- Measure
+
+interface Tuple {
+    summaryClass: string
+    condition: ?Expression
+    dimensionality: <string>
+}
+
+Tuple o--- Dimension
+
+interface Measures {
+}
+
+Measures o--- Measure
+
+@endu

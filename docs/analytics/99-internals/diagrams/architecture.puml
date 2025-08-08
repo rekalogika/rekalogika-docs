@@ -1,0 +1,68 @@
+@startuml architecture
+skinparam componentStyle rectangle
+
+component {
+    [analytics-contracts]
+    [analytics-metadata]
+}
+
+[doctrine-advanced-group-by] <-- [analytics-contracts]
+[analytics-simple-query-builder] <-- [analytics-contracts]
+[analytics-metadata] <- [analytics-contracts]
+[rekapager] <-- [analytics-contracts]
+
+[analytics-metadata] <-- [analytics-core]
+[analytics-contracts] <-- [analytics-core]
+[doctrine-advanced-group-by] <-- [analytics-core]
+
+[analytics-core] <-- [analytics-engine]
+[analytics-contracts] <-- [analytics-engine]
+[analytics-metadata] <-- [analytics-engine]
+' [analytics-ux-panel] <..[analytics-engine]
+[analytics-simple-query-builder] <-- [analytics-engine]
+[rekapager] <-- [analytics-engine]
+[doctrine-advanced-group-by] <-- [analytics-engine]
+
+[analytics-core] <-- [analytics-bundle]
+[analytics-contracts] <-- [analytics-bundle]
+[analytics-metadata] <-- [analytics-bundle]
+[analytics-engine] <-- [analytics-bundle]
+[pivot-table] <-- [analytics-bundle]
+' [analytics-uuid] <.. [analytics-bundle]
+' [analytics-time] <.. [analytics-bundle]
+' [analytics-postgresql-hll] <.. [analytics-bundle]
+' [analytics-frontend] <.. [analytics-bundle]
+' [analytics-pivot-table] <.. [analytics-bundle]
+
+[analytics-contracts] <-- [analytics-frontend]
+[analytics-core] <-- [analytics-frontend]
+[analytics-metadata] <-- [analytics-frontend]
+[analytics-pivot-table] <-- [analytics-frontend]
+[pivot-table] <-- [analytics-frontend]
+
+[analytics-bundle] <-- [analytics-ux-panel]
+[analytics-contracts] <-- [analytics-ux-panel]
+[analytics-frontend] <-- [analytics-ux-panel]
+[analytics-metadata] <-- [analytics-ux-panel]
+
+[analytics-contracts] <- [analytics-metadata]
+[doctrine-advanced-group-by] <-- [analytics-metadata]
+
+[analytics-contracts] <-- [analytics-serialization]
+[analytics-metadata] <-- [analytics-serialization]
+
+[analytics-core] <-- [analytics-time]
+[analytics-contracts] <-- [analytics-time]
+[analytics-metadata] <-- [analytics-time]
+' [analytics-ux-panel] <.. [analytics-time]
+' [analytics-frontend] <.. [analytics-time]
+
+[analytics-contracts] <-- [analytics-postgresql-hll]
+
+[analytics-contracts] <-- [analytics-uuid]
+[analytics-core] <-- [analytics-uuid]
+
+[analytics-contracts] <-- [analytics-pivot-table]
+[pivot-table] <-- [analytics-pivot-table]
+
+@enduml
