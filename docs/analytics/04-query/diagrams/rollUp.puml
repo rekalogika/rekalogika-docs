@@ -1,0 +1,30 @@
+@startuml
+
+
+json france2025 {
+    "dimensions": {
+        "time.year":"2025",
+        "country":"FR"
+    }
+    ,
+    "measures": {
+        "count": 6,
+        "cost": 300
+    }
+}
+
+json france {
+    "dimensions": {
+        "country":"FR"
+    }
+    ,
+    "measures": {
+        "count": 12,
+        "cost": 450
+    }
+}
+
+france2025 -> france : rollUp("time.year")
+
+
+@endu

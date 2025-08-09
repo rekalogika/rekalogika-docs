@@ -1,0 +1,30 @@
+@startuml
+
+json france {
+    "dimensions": {
+        "country":"FR"
+    }
+    ,
+    "measures": {
+        "count": 12,
+        "cost": 450
+    }
+}
+
+json france2025 {
+    "dimensions": {
+        "time.year":"2025",
+        "country":"FR"
+    }
+    ,
+    "measures": {
+        "count": 6,
+        "cost": 300
+    }
+}
+
+
+
+france -> france2025 : slice("time.year", "2025")
+
+@endu

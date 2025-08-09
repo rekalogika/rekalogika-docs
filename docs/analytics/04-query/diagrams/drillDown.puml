@@ -1,0 +1,62 @@
+@startuml
+!pragma layout smetana
+
+json source {
+    "dimensions": {
+        "time.year":"2025"
+    },
+    "measures": {
+        "count": 20,
+        "cost": 1000
+    }
+}
+
+package result <<Rectangle>> {
+    json result1 {
+        "dimensions": {
+            "time.year":"2025",
+            "country":"FR"
+        },
+        "measures": {
+            "count": 6,
+            "cost": 300
+        }
+    }
+
+    json result2 {
+        "dimensions": {
+            "time.year":"2025",
+            "country":"DE"
+        },
+        "measures": {
+            "count": 5,
+            "cost": 250
+        }
+    }
+
+    json result3 {
+        "dimensions": {
+            "time.year":"2025",
+            "country":"IT"
+        },
+        "measures": {
+            "count": 3,
+            "cost": 250
+        }
+    }
+
+    json result4 {
+        "dimensions": {
+            "time.year":"2025",
+            "country":"UK"
+        },
+        "measures": {
+            "count": 6,
+            "cost": 200
+        }
+    }
+}
+
+source -down--> result : drillDown("country")
+
+@endu

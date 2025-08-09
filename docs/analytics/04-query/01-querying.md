@@ -25,16 +25,11 @@ $result = $summaryManager
     ->getResult();
 ```
 
-The result is an instance of `Result`. It presents the query result in three
+The result is an instance of `Result`. It presents the query result in two
 shapes, for user convenience:
 
-1. Table format, similar to a SQL result set. A record contains one or more
-   measures.
-
-2. Normal table format, similar to the table format, but only contains one
-   measure per record.
-
-3. Tree format.
+1. Data cube format
+2. Table format.
 
 ## Query Methods
 
