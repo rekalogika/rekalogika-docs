@@ -35,6 +35,14 @@ In such a `CubeCell`, the measures might contain values of:
 It means that in the year 2023, there were 20 orders from Germany in the
 electronics category, with a total price of 1000.00.
 
+:::info
+
+The dimensions in the tuple are not in a particular order. The order of
+dimensions in the tuple does not matter.
+
+
+:::
+
 ## Example Query
 
 ```php
