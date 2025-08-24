@@ -143,6 +143,16 @@ const libraries = [
     ),
   },
   {
+    title: 'rekalogika/pivot-table',
+    link: 'pivot-table',
+    tags: ['php'],
+    description: (
+      <>
+        A PHP library for transforming multidimensional data into a pivot table.
+      </>
+    ),
+  },
+  {
     title: 'rekalogika/psr-16-simple-cache-bundle',
     link: 'psr-16-simple-cache-bundle',
     tags: ['symfony'],
