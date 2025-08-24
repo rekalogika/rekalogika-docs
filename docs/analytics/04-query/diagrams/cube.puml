@@ -15,6 +15,7 @@ interface Cell {
 
 Cell o-- Tuple
 Cell o-- Measures
+Cell o-- Measure
 
 interface CubeCell {
     summaryClass: string
