@@ -1,0 +1,17 @@
+@startuml flow
+hide empty description
+state startFromArray <<start>>
+state startFromTabularData <<start>>
+state startFromCubeData <<start>>
+
+startFromArray --> SourceArray
+SourceArray --> Table : using\nArrayTable
+startFromTabularData --> SourceTabularData
+SourceTabularData --> Table : using\na custom\nTable adapter
+startFromCubeData --> SourceCubeData
+SourceCubeData ---> Cube : using\na custom\nCube adapter
+Table --> Cube : using\nTableToCubeAdapter
+Cube --> HtmlTable : using\nPivotTableTransformer
+HtmlTable --> string : using\nBasicTableRenderer\nor a custom TableVisitor
+string --> [*]
+@enduml
