@@ -52,9 +52,9 @@ and they must be used in the same ordering:
 
 * The dimensions and their ordering in the `GROUP BY ROLLUP`.
 * The `dimensionFields` argument of `ArrayTableFactory::createCube()`.
-* The `unpivoted` and `pivoted` arguments of
-  `ArrayTableFactory::createPivotTable()`. The order is `unpivoted` first, then
-  `pivoted`.
+* The `rows` and `columns` arguments of
+  `ArrayTableFactory::createPivotTable()`. The order is `rows` first, then
+  `columns`.
 
 :::
 
