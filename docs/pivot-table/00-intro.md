@@ -55,3 +55,15 @@ Install via Composer:
 ```bash
 composer require rekalogika/pivot-table
 ```
+
+## Related Packages
+
+If you are using Doctrine ORM, you might be interested in
+[`rekalogika/doctrine-advanced-group-by`](/doctrine-advanced-group-by). The
+package allows you to use `CUBE()`, `GROUPING()` and other grouping sets
+functions in DQL queries and `QueryBuilder`.
+
+The package [`rekalogika/analytics`](https://rekalogika.dev/analytics) is a
+full-fledged analytical solution for Doctrine ORM. This package originated as a
+component of that package, but was later generalized to be useful in other
+use-cases.
