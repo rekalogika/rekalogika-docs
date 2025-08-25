@@ -112,11 +112,11 @@ use Rekalogika\PivotTable\Contracts\Cube\Cube;
 $htmlTable = PivotTableTransformer::transform(
     cube: $cube,
 
-    // Unpivoted dimensions go to the rows
-    unpivoted: ['country', 'month'],
+    // Dimensions that go to the rows.
+    rows: ['country', 'month'],
 
-    // Pivoted dimensions go to the columns.
-    pivoted: ['@values', 'name'],
+    // Dimensions that go to the columns.
+    columns: ['@values', 'name'],
 
     // Which measures to include
     measures: ['count', 'sum'],
