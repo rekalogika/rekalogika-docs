@@ -45,6 +45,19 @@ GROUP BY ROLLUP(name, country, month)
 ORDER BY name, country, month
 ```
 
+:::warning
+
+If `ROLLUP` is used, then all the specified dimensions must be used everywhere,
+and they must be used in the same ordering:
+
+* The dimensions and their ordering in the `GROUP BY ROLLUP`.
+* The `dimensionFields` argument of `ArrayTableFactory::createCube()`.
+* The `unpivoted` and `pivoted` arguments of
+  `ArrayTableFactory::createPivotTable()`. The order is `unpivoted` first, then
+  `pivoted`.
+
+:::
+
 ## No Grouping
 
 The framework can also work with data that is only grouped by the full set of
