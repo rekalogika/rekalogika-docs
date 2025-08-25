@@ -26,7 +26,7 @@ ORDER BY name, country, month
 
 Even if the database does not support `CUBE`, it may be possible to emulate
 `CUBE`. The technique is beyond the scope of this documentation, but if you can
-do it, the result will be the same as using `CUBE`.
+do it, the result should be the same as using `CUBE`.
 
 :::
 

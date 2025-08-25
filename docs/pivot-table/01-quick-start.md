@@ -1,9 +1,9 @@
 ---
-title: Basic Usage
+title: Quick Start
 ---
 
 First, we need to procure the data. For maximum functionality, the result should
-be properly cubed. The following is an example SQL query for PostgreSQL.
+be cubed. The following is an example SQL query for PostgreSQL.
 
 ```sql
 -- name, country, and month are the dimensions, count and sum are the measures.

@@ -15,11 +15,11 @@ HTML string.
 ## Integration Options
 
 If you already have the data in an array format, or can be converted into an
-array, you can use the `ArrayTable` adapter to create a `Table` instance. The
-array must be in the format of `iterable<array<string,mixed>>`.
+array, you can just use the `ArrayTable` adapter to create a `Table` instance.
+The array must be in the format of `iterable<array<string,mixed>>`.
 
-If you have the data in a different format, you can create an adapter to a
-`Table` by implementing the `Rekalogika\PivotTable\Contracts\Table\Table`
+If you have the data in a different, tabular format, you can create an adapter
+to a `Table` by implementing the `Rekalogika\PivotTable\Contracts\Table\Table`
 interface.
 
 If your data is already in the form of a data cube, it might be possible to
