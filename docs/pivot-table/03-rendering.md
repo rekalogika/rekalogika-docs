@@ -10,3 +10,22 @@ To customize the rendering, the easiest way is to extend the
 `BasicTableRenderer` class and override the relevant methods. Usually you will
 want to override the `visitContent()` method to customize the rendering of any
 cell content.
+
+Example:
+
+```php
+use Rekalogika\PivotTable\TableRenderer\BasicTableRenderer;
+
+class CustomTableRenderer extends BasicTableRenderer
+{
+    #[\Override]
+    public function visitContent(mixed $content): string
+    {
+        if ($content instanceof Country) {
+            return $country->getFlagEmoji() . ' ' . htmlspecialchars($country->getName());
+        }
+
+        return parent::visitContent($content);
+    }
+}
+```

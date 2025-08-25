@@ -131,6 +131,13 @@ $htmlTable = PivotTableTransformer::transform(
 );
 ```
 
+:::note
+
+`@values` is a special dimension that represents the measures. You can regard it
+as a dimension that has as many values as the number of measures.
+
+:::
+
 ## Rendering the Pivot Table
 
 Finally, we need to render the pivot table. The library provides a default
