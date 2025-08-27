@@ -19,9 +19,8 @@ use Rekalogika\Analytics\Contracts\SummaryManager;
 $result = $summaryManager
     ->createQuery()
     ->from(OrderSummary::class) // the summary entity class name
-    ->groupBy('time.year', 'customerCountry') // property names of the dimension
-    ->select('price', 'count') // property names of the measures
-    ->where(Criteria::expr()->eq('time.year', 2023))
+    ->withDimensions('time.year', 'customerCountry') // property names of the dimension
+    ->dice(Criteria::expr()->eq('time.year', 2023))
     ->getResult();
 ```
 
@@ -42,22 +41,15 @@ style.
 The `from` method is used to specify the summary entity class that you want to
 query.
 
-### `groupBy` and `addGroupBy`
+### `withDimensions` and `addDimension`
 
-The `groupBy` method is used to specify the dimensions of the query. The
-dimension name is the same as the property name of your summary class. The order
-in `groupBy` is important, and will be used to determine the order of the
-dimensions in the result.
+These methods are used to specify the dimensions to include in the result. The
+dimension name is the same as the property name of your summary class.
 
-### `select` and `addSelect`
+### `dice` and `andDice`
 
-The `select` method is used to specify the measures of the query. Again, the
-measure name is the name of the property in the summary class.
-
-### `where` and `andWhere`
-
-The `where` method is used to filter the data. The method accepts a Doctrine
-Criteria `Expression` object.
+These methods are used to filter the data. They accept a Doctrine Criteria
+`Expression` object.
 
 ## The `Result` Object
 

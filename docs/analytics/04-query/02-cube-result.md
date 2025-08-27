@@ -6,8 +6,8 @@ To get the result in the data cube format, call the `getCube()` method on the
 `Result` object. It returns the apex `CubeCell` that has no dimension and thus
 represents the entire data cube.
 
-A `CubeCell` represents a single cell in the data cube. Each cell contains a
-tuple of dimensions and measures. You can drill down from a cube cell into
+A `CubeCell` represents a single cell in the data cube. Each cell contains
+coordinates of dimensions and measures. You can drill down from a cube cell into
 a more specific cube by calling the `drillDown()` or `slice()` method.
 
 ## Class Diagram
@@ -17,11 +17,12 @@ a more specific cube by calling the `drillDown()` or `slice()` method.
 
 ## Definition
 
-A `CubeCell` contains a tuple and measures. A tuple is a collection of
-dimensions, each of which is a property of the summary entity. Measures are
-the properties that represent the aggregated values, such as `count`, `price`.
+A `CubeCell` contains coordinates of dimension and measures. Coordinates are a
+collection of dimensions, each of which is a property of the summary entity.
+Measures are the properties that represent the aggregated values, such as
+`count`, `price`.
 
-Example: A `CubeCell` may contain a tuple with dimensions like:
+Example: A `CubeCell` may contain coordinates with dimensions like:
 
  * `time.year` = `2023`
  * `country` = `DE`
@@ -37,8 +38,8 @@ electronics category, with a total price of 1000.00.
 
 :::info
 
-The dimensions in the tuple are not in a particular order. The order of
-dimensions in the tuple does not matter.
+The dimensions in the coordinates are not in a particular order. The order of
+dimensions in the coordinates does not matter.
 
 :::
 
@@ -53,21 +54,20 @@ use Rekalogika\Analytics\Contracts\SummaryManager;
 $apexCube = $summaryManager
     ->createQuery()
     ->from(OrderSummary::class) // the summary entity class name
-    ->groupBy('time.year', 'country', 'category') // dimensions
-    ->select('price', 'count') // measures
+    ->withDimensions('time.year', 'country', 'category') // dimensions
     ->getResult()
     ->getCube();
 ```
 
 The `getCube()` method of the query result returns the apex `CubeCell` that
 aggregates the entire data cube. The apex `CubeCell` has no dimensions in its
-tuple. You can then drill down or slice to get more specific cube cells.
+coordinates. You can then drill down or slice to get more specific cube cells.
 
 ## `drillDown()` method
 
 The `drillDown()` method allows you to drill down into a specific dimension. It
-adds a new dimension to the tuple and returns all the possible `CubeCell`, each
-with a unique value for the specified dimension.
+adds a new dimension to the coordinates and returns all the possible `CubeCell`,
+each with a unique value for the specified dimension.
 
 ```php
 use Rekalogika\Analytics\Contracts\Result\CubeCell;
@@ -100,7 +100,7 @@ their count values adding to exactly 20.
 The `rollUp()` method is the reverse of `drillDown()`. It allows you to roll up
 the data cube to a higher level of aggregation. It returns the `CubeCell` that
 represents the rolled-up data. `rollUp()` basically removes the specified
-dimension from the tuple and aggregates the measures accordingly.
+dimension from the coordinates and aggregates the measures accordingly.
 
 ```php
 use Rekalogika\Analytics\Contracts\Result\CubeCell;
@@ -116,8 +116,8 @@ $germany = $year2025InGermany->rollUp('time.year');
 ## `slice()` method
 
 The `slice()` method allows you to slice the data cube by a specific dimension
-and member. It adds a new dimension to the tuple and returns the corresponding
-`CubeCell`.
+and member. It adds a new dimension to the coordinates and returns the
+corresponding `CubeCell`.
 
 ```php
 use Rekalogika\Analytics\Contracts\Result\CubeCell;

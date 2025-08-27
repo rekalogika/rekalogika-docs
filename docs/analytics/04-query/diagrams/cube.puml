@@ -8,12 +8,12 @@ interface Result {
 Result o-- CubeCell
 
 interface Cell {
-    tuple: Tuple
+    coordinates: Coordinates
     measures: Measures
     measure: Measure
 }
 
-Cell o-- Tuple
+Cell o-- Coordinates
 Cell o-- Measures
 Cell o-- Measure
 
@@ -49,13 +49,13 @@ interface Measure {
 
 Property <|-- Measure
 
-interface Tuple {
+interface Coordinates {
     summaryClass: string
     condition: ?Expression
     dimensionality: <string>
 }
 
-Tuple o--- Dimension
+Coordinates o--- Dimension
 
 interface Measures {
 }
