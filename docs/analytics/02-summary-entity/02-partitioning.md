@@ -23,7 +23,7 @@ partitioning scheme:
 use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\Core\Metadata as Analytics;
 use Rekalogika\Analytics\Core\Entity\BaseSummary;
-use Rekalogika\Analytics\Partition\DefaultIntegerPartition;
+use Rekalogika\Analytics\Core\Partition\DefaultIntegerPartition;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 
 class YourSummary extends BaseSummary
