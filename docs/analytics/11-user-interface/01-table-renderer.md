@@ -7,14 +7,8 @@ To transform the query result into a table or a pivot table, you can use the
 
 ## Rendering a Pivot Table or Regular Table
 
-The `render()` method will return a pivot table in HTML string that you can use
-in your view. If the query does not have a hierarchical ordering, then it is not
-possible to render to a pivot table. Instead, `render` will fall back to a
-regular table.
-
-There are also the `renderPivotTable()` and `renderTable()` methods, which allow
-you to explicitly render the result to a pivot table or regular table,
-respectively, without autodetection done by `render()`.
+The `renderPivotTable()` and `renderTable()` methods will return a pivot table
+and regular table, respectively, in HTML string that you can use in your view.
 
 ```php
 use Rekalogika\Analytics\Contracts\SummaryManager;
@@ -33,31 +27,27 @@ $result = $summaryManager
 
 // renderPivotTable() returns a pivot table (or throws an exception if it cannot)
 $table = $tableRenderer->renderPivotTable(
-    result: $result,
-    pivotedDimensions: ['@values']
+    cube: $result->getCube(),
+    rows: ['time.year', 'category'],
+    columns: ['@values'],
+    measures: ['price', 'count'],
 );
 
 // renderTable() returns a regular table
 $table = $tableRenderer->renderTable(
-    result: $result,
-);
-
-// render() autodetects whether to render a pivot table or a regular table
-$table = $tableRenderer->render(
-    result: $result,
-    pivotedDimensions: ['@values']
+    table: $result->getTable(),
+    measures: ['price', 'count'],
 );
 ```
 
-The `pivotedDimensions` parameter is an array of dimension names that you want
-to pivot into columns. `@values` is a special dimension value that represents
-the measures of the query.
+`@values` is a special dimension value that represents the measures of the
+query.
 
 ## Exception Handling
 
 By default, any error message will be rendered in the resulting HTML. If you
 want to handle exceptions yourself, you can add the argument `throwException:
-true` to the `render()`, `renderPivotTable()`, or `renderTable()` methods.
+true` to the `renderPivotTable()` or `renderTable()` methods.
 
 The rendering methods may throw an `AnalyticsFrontendException` if the rendering
 fails. `AnalyticsFrontendException` is guaranteed to have a user-friendly,
@@ -83,8 +73,8 @@ use Rekalogika\Analytics\Frontend\Html\TableRenderer;
 
 /** @var TableRenderer $tableRenderer */
 
-$table = $tableRenderer->render(
-    result: $result,
+$table = $tableRenderer->renderPivotTable(
+    cube: $cube,
     // highlight-next-line
     theme: '@RekalogikaAnalyticsFrontend/bootstrap_5_renderer.html.twig'
 );

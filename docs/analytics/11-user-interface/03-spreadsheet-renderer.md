@@ -13,12 +13,16 @@ use Rekalogika\Analytics\Frontend\Spreadsheet\SpreadsheetRenderer;
 /** @var SummaryManager $summaryManager */
 /** @var SpreadsheetRenderer $spreadsheetRenderer */
 
-$result = $summaryManager
+$table = $summaryManager
     ->createQuery()
     // ...
-    ->getResult();
+    ->getResult()
+    ->getTable();
 
-$spreadsheet = $spreadsheetRenderer->render($result);
+$spreadsheet = $spreadsheetRenderer->render(
+    table: $table
+    measures: ['price', 'count'],
+);
 ```
 
 Then, you can save the spreadsheet to a file or output it to the browser:

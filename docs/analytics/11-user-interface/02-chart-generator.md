@@ -19,13 +19,16 @@ use Rekalogika\Analytics\Frontend\Chart\ChartType;
 /** @var SummaryManager $summaryManager */
 /** @var ChartGenerator $chartGenerator */
 
-$result = $summaryManager
+$cube = $summaryManager
     ->createQuery()
     // ...
-    ->getResult();
+    ->getResult()
+    ->getCube();
 
 $chart = $chartGenerator->createChart(
-    result: $result,
+    cube: $cube,
+    dimensions: ['time.month'],
+    measures: ['price'],
     chartType: ChartType::Auto,
 );
 ```

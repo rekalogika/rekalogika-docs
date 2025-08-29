@@ -6,7 +6,6 @@ A summary table can have one or more dimensions. Dimensions are properties of
 the source entity that are used to group the data. They have distinct,
 descriptive values.
 
-
 ## Dimension Definition
 
 In a summary table, a dimension is marked by the `#[Analytics\Dimension]`
@@ -29,10 +28,16 @@ class YourSummary extends Summary
     )]
     // highlight-end
     private ?string $status = null;
+
+    // The getter allows you to optionally transform the property above if needed
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
 }
 ```
 
-Arguments:
+Arguments of the `#[Analytics\Dimension]` attribute:
 
 * `source`: A [`ValueResolver`](../value-resolver) or a string that defines how
   to get the value from the source entity. A string will be converted to a
@@ -48,6 +53,8 @@ Arguments:
   name of the relation and the value is the order direction.
 * `nullLabel`: Describes the dimension value when the source value is `null`, so
   the final output can be made more readable.
+* `hidden`: If set to `true`, user interface may choose to hide this dimension
+  from the user.
   
 ## Hierarchical Dimensions
 
