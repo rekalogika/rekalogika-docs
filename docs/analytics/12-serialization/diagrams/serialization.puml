@@ -1,0 +1,16 @@
+@startuml
+hide empty members
+
+interface Cell {
+}
+
+Cell *- Coordinates
+
+interface Coordinates {
+}
+
+class CoordinatesDto {
+}
+
+Coordinates --> CoordinatesDto : toDto()
+CoordinatesDto --> Cell : fromDto()
