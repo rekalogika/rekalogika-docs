@@ -12,5 +12,6 @@ interface Coordinates {
 class CoordinatesDto {
 }
 
+Cell --> CoordinatesDto : toDto()
 Coordinates --> CoordinatesDto : toDto()
 CoordinatesDto --> Cell : fromDto()
