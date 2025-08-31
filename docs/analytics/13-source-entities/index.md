@@ -3,9 +3,9 @@ title: Source Entities
 ---
 
 When working with a cell, it is possible to easily access the source entities
-that were aggregated to form the measures in the cell. This functionality uses
-our [`rekalogika/rekapager`](../../rekapager/index.md) package to efficiently
-handle large datasets.
+that were previously aggregated into the cell. This functionality uses our
+[`rekalogika/rekapager`](../../rekapager/index.md) package to efficiently handle
+large datasets.
 
 ## Iterating Over the Source Entities
 
@@ -31,6 +31,8 @@ foreach ($sourceEntities->withItemsPerPage(1000)->getPages() as $page) {
         // Do something with $entity
     }
 
+    // Flush changes to the database if needed.
+    $entityManager->flush();
     // Clear the EntityManager to free up memory.
     $entityManager->clear();
 }
