@@ -5,17 +5,18 @@ interface Result {
     cube: CubeCell
 }
 
-Result o-- CubeCell
+Result *-- CubeCell
 
 interface Cell {
     coordinates: Coordinates
     measures: Measures
     measure: Measure
+    sourceEntities: ?PageableInterface
 }
 
-Cell o-- Coordinates
-Cell o-- Measures
-Cell o-- Measure
+Cell *-- Coordinates
+Cell *-- Measures
+Cell *-- Measure
 
 interface CubeCell {
     summaryClass: string
@@ -23,31 +24,29 @@ interface CubeCell {
     null: bool
     rollUp(string): CubeCell
     drillDown(string): CubeCells
+    slice(string, mixed): CubeCell
+    find(string, mixed): ?CubeCell
+    dice(?Expression): CubeCell
 }
 
 Cell <|- CubeCell
 CubeCell o-- CubeCell
 
-interface Property {
+interface Dimension {
     name: string
     label: TranslatableInterface
-}
-
-interface Dimension {
     member: mixed
     rawMember: mixed
     displayMember: mixed
 }
 
-Property <|-- Dimension
-
 interface Measure {
+    name: string
+    label: TranslatableInterface
     value: mixed
     rawValue: mixed
     unit: ?Unit
 }
-
-Property <|-- Measure
 
 interface Coordinates {
     summaryClass: string
@@ -55,11 +54,11 @@ interface Coordinates {
     dimensionality: <string>
 }
 
-Coordinates o--- Dimension
+Coordinates *--- Dimension
 
 interface Measures {
 }
 
-Measures o--- Measure
+Measures *--- Measure
 
 @endu
