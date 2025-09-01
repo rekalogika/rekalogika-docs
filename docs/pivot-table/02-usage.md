@@ -127,7 +127,10 @@ $htmlTable = PivotTableTransformer::transform(
 
     // Add subtotals for these dimensions. Subtotals will only be added if they
     // exist here.
-    withSubtotal: ['name', 'country'],
+    subtotals: [
+        'name' => true,
+        'country' => true,
+    ],
 );
 ```
 

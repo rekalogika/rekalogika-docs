@@ -59,7 +59,11 @@ $htmlTable = PivotTableTransformer::transform(
     rows: ['country', 'month'],    // Rows
     columns: ['@values', 'name'],       // Columns  
     measures: ['count', 'sum'],         // Which measures to include
-    withSubtotal: ['name', 'country'],  // Add subtotals for these dimensions
+    // Add subtotals for these dimensions
+    subtotals: [
+      'name' => true,
+      'country' => true,
+    ],
 );
 
 // Render to HTML string
