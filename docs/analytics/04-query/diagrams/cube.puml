@@ -9,7 +9,7 @@ interface CubeCell {
     sourceEntities: ?PageableInterface
     apex: CubeCell
     null: bool
-    pivot(...string): CubeCell
+    pivot(list): CubeCell
     rollUp(string|list): CubeCell
     drillDown(string|list): CubeCells
     slice(string, mixed): CubeCell

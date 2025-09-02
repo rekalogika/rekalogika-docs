@@ -15,7 +15,7 @@ the result.
 A `CubeCell` contains coordinates of dimension and a collection of measures.
 
 Coordinates are a collection of dimensions, each of which is a property of the
-summary entity. The coordinates instance also contains the cube predicate, which
+summary entity. The coordinates instance also contains the dice predicate, which
 is the filter expression applied to the query.
 
 Measures are the properties that represent the aggregated values, such as
@@ -46,13 +46,20 @@ use Rekalogika\Analytics\Contracts\SummaryManager;
 $apexCube = $summaryManager
     ->createQuery()
     ->from(OrderSummary::class) // the summary entity class name
-    ->withDimensions('time.year', 'country', 'category') // dimensions
+    ->withDimensions('country', 'category') // dimensions
+    ->dice(Criteria::expr()->gte('time.year', 2023)) // filter expression
     ->getResult();
 ```
 
-The `getResult()` method of the query result returns the apex `CubeCell` that
-aggregates the entire data cube. The apex `CubeCell` has no dimensions in its
-coordinates. You can then drill down or slice to get more specific cube cells.
+The `getResult()` method above returns the apex `CubeCell` that aggregates all
+data in the year 2023 and beyond. Then, you can drill down or slice the cube to
+get more specific `CubeCell` objects that involve the country and category
+dimensions.
+
+Because the query above only specifies the `country` and `category` dimensions,
+you may only drill down or slice by those dimensions. If you try to drill down
+or slice by a dimension that is not included in the query, it will throw an
+exception.
 
 ## `drillDown()` method
 
@@ -79,12 +86,20 @@ assert($totalCount === $year2025Count);
 ```
 
 In the above example, if the `$year2025Cube` contains the number 20 as the count
-value, the `$year2025InCountries` might contain several `CubeCell` objects,
-each having a different country, such as `DE`, `US`, and `FR`, with
-their count values adding to exactly 20.
+value, the `$year2025InCountries` might contain several `CubeCell` objects, each
+having a different country, such as `DE`, `US`, and `FR`, with their count
+values adding to exactly 20.
 
 ![drillDown()](./diagrams/drillDown.light.svg#light)
 ![drillDown()](./diagrams/drillDown.dark.svg#dark)
+
+:::tip
+
+The `drillDown()` method can also accept an array of dimension names to drill
+down multiple dimensions at once. You will get a cartesian product of all the
+possible combinations of the specified dimensions.
+
+:::
 
 ## `rollUp()` method
 
@@ -103,6 +118,13 @@ $germany = $year2025InGermany->rollUp('time.year');
 
 ![rollUp()](./diagrams/rollUp.light.svg#light)
 ![rollUp()](./diagrams/rollUp.dark.svg#dark)
+
+:::tip
+
+The `rollUp()` method can also accept an array of dimension names to roll up
+multiple dimensions at once.
+
+:::
 
 ## `slice()` method
 
