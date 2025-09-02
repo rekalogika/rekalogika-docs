@@ -24,12 +24,6 @@ $result = $summaryManager
     ->getResult();
 ```
 
-The result is an instance of `Result`. It presents the query result in two
-shapes, for user convenience:
-
-1. Data cube format
-2. Table format.
-
 ## Query Methods
 
 The methods of the `Query` object are modeled after the Doctrine `QueryBuilder`
@@ -51,19 +45,7 @@ dimension name is the same as the property name of your summary class.
 These methods are used to filter the data. They accept a Doctrine Criteria
 `Expression` object.
 
-## The `Result` Object
+## The `CubeCell` Object
 
-The `Result` object provides the user with methods to get the data in the
-user's preferred format.
-
-```php
-use Rekalogika\Analytics\Contracts\Result\Result;
-
-/** @var Result $result */
-
-// Get the result in the data cube format
-$tree = $result->getCube();
-
-// Get the result in the table format
-$table = $result->getTable();
-```
+The method `Query::getResult()` returns a `CubeCell` instance, which is the apex
+cell that aggregates all the data in the result.

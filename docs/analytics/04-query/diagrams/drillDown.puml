@@ -2,7 +2,7 @@
 !pragma layout smetana
 
 json source {
-    "dimensions": {
+    "coordinates": {
         "time.year":"2025"
     },
     "measures": {
@@ -13,7 +13,7 @@ json source {
 
 package result <<Rectangle>> {
     json result1 {
-        "dimensions": {
+        "coordinates": {
             "time.year":"2025",
             "country":"FR"
         },
@@ -24,7 +24,7 @@ package result <<Rectangle>> {
     }
 
     json result2 {
-        "dimensions": {
+        "coordinates": {
             "time.year":"2025",
             "country":"DE"
         },
@@ -35,7 +35,7 @@ package result <<Rectangle>> {
     }
 
     json result3 {
-        "dimensions": {
+        "coordinates": {
             "time.year":"2025",
             "country":"IT"
         },
@@ -46,7 +46,7 @@ package result <<Rectangle>> {
     }
 
     json result4 {
-        "dimensions": {
+        "coordinates": {
             "time.year":"2025",
             "country":"UK"
         },

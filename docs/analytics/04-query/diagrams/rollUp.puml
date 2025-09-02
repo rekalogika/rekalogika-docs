@@ -1,8 +1,8 @@
 @startuml
 
 
-json france2025 {
-    "dimensions": {
+json source {
+    "coordinates": {
         "time.year":"2025",
         "country":"FR"
     }
@@ -13,8 +13,8 @@ json france2025 {
     }
 }
 
-json france {
-    "dimensions": {
+json result {
+    "coordinates": {
         "country":"FR"
     }
     ,
@@ -24,7 +24,7 @@ json france {
     }
 }
 
-france2025 -> france : rollUp("time.year")
+source -> result : rollUp("time.year")
 
 
 @endu

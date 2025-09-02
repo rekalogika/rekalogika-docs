@@ -1,13 +1,15 @@
 @startuml
 
+
 json source {
     "coordinates": {
+        "time.year":"2025",
         "country":"FR"
     }
     ,
     "measures": {
-        "count": 12,
-        "cost": 450
+        "count": 6,
+        "cost": 300
     }
 }
 
@@ -23,8 +25,7 @@ json result {
     }
 }
 
+source -> result : pivot("country", "time.year")
 
-
-source -> result : slice("time.year", "2025")
 
 @endu

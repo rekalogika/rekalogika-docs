@@ -1,35 +1,25 @@
 @startuml
 
-interface Result {
+interface CubeCell {
     summaryClass: string
-    cube: CubeCell
-}
-
-Result *-- CubeCell
-
-interface Cell {
+    summaryLabel: TranslatableInterface
     coordinates: Coordinates
     measures: Measures
     measure: Measure
     sourceEntities: ?PageableInterface
-}
-
-Cell *-- Coordinates
-Cell *-- Measures
-Cell *-- Measure
-
-interface CubeCell {
-    summaryClass: string
     apex: CubeCell
     null: bool
-    rollUp(string): CubeCell
-    drillDown(string): CubeCells
+    pivot(...string): CubeCell
+    rollUp(string|list): CubeCell
+    drillDown(string|list): CubeCells
     slice(string, mixed): CubeCell
     find(string, mixed): ?CubeCell
     dice(?Expression): CubeCell
 }
 
-Cell <|- CubeCell
+CubeCell *-- Coordinates
+CubeCell *-- Measures
+CubeCell *-- Measure
 CubeCell o-- CubeCell
 
 interface Dimension {
@@ -50,7 +40,7 @@ interface Measure {
 
 interface Coordinates {
     summaryClass: string
-    condition: ?Expression
+    predicate: ?Expression
     dimensionality: <string>
 }
 

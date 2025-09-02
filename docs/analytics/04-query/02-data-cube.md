@@ -1,14 +1,9 @@
 ---
-title: Data Cube Result
+title: Data Cube
 ---
 
-To get the result in the data cube format, call the `getCube()` method on the
-`Result` object. It returns the apex `CubeCell` that has no dimension and thus
-represents the entire data cube.
-
-A `CubeCell` represents a single cell in the data cube. Each cell contains
-coordinates of dimensions and measures. You can drill down from a cube cell into
-a more specific cube by calling the `drillDown()` or `slice()` method.
+The result of a `Query` is the apex `CubeCell` that aggregates all the data in
+the result.
 
 ## Class Diagram
 
@@ -17,8 +12,12 @@ a more specific cube by calling the `drillDown()` or `slice()` method.
 
 ## Definition
 
-A `CubeCell` contains coordinates of dimension and measures. Coordinates are a
-collection of dimensions, each of which is a property of the summary entity.
+A `CubeCell` contains coordinates of dimension and a collection of measures.
+
+Coordinates are a collection of dimensions, each of which is a property of the
+summary entity. The coordinates instance also contains the cube predicate, which
+is the filter expression applied to the query.
+
 Measures are the properties that represent the aggregated values, such as
 `count`, `price`.
 
@@ -36,13 +35,6 @@ In such a `CubeCell`, the measures might contain values of:
 It means that in the year 2023, there were 20 orders from Germany in the
 electronics category, with a total price of 1000.00.
 
-:::info
-
-The dimensions in the coordinates are not in a particular order. The order of
-dimensions in the coordinates does not matter.
-
-:::
-
 ## Example Query
 
 ```php
@@ -55,11 +47,10 @@ $apexCube = $summaryManager
     ->createQuery()
     ->from(OrderSummary::class) // the summary entity class name
     ->withDimensions('time.year', 'country', 'category') // dimensions
-    ->getResult()
-    ->getCube();
+    ->getResult();
 ```
 
-The `getCube()` method of the query result returns the apex `CubeCell` that
+The `getResult()` method of the query result returns the apex `CubeCell` that
 aggregates the entire data cube. The apex `CubeCell` has no dimensions in its
 coordinates. You can then drill down or slice to get more specific cube cells.
 
@@ -131,9 +122,9 @@ $year2025InFrance = $year2025->slice('country', $france);
 ![slice()](./diagrams/slice.light.svg#light)
 ![slice()](./diagrams/slice.dark.svg#dark)
 
-## `fuzzySlice()` method
+## `find()` method
 
-`fuzzySlice()` is similar to `slice()`, but it matches the value using a
+`find()` is similar to `slice()`, but it matches the value using a
 "fuzzy", non-exact comparison.
 
 ```php
@@ -141,9 +132,26 @@ use Rekalogika\Analytics\Contracts\Result\CubeCell;
 
 /** @var CubeCell $year2025 */
 
-$year2025InFrance = $year2025->fuzzySlice('country', 'fr');
+$year2025InFrance = $year2025->find('country', 'fr');
 ```
 
-In the above example, the entity `Country` has its `__toString()` method defined
-to return the country code. Therefore, the `fuzzySlice()` method will match the
-value 'fr' to the `Country` entity representing France.
+In the above example, if the entity `Country` has its `__toString()` method
+defined to return the country code, `find()` will try to match the value 'fr' to
+that.
+
+`find()` also accepts a callable as the second argument. The callable should
+take a single argument and return a boolean value indicating whether the value
+matches the criteria.
+
+## `pivot()` method
+
+The `pivot()` method allows you to change the order of dimensions in the
+coordinates. It takes one or more dimension names as arguments and rearranges
+the dimensions in the specified order.
+
+![pivot()](./diagrams/pivot.light.svg#light)
+![pivot()](./diagrams/pivot.dark.svg#dark)
+
+## `dice()` method
+
+The `dice()` method is meant to allow you to remove or update the dice predicate. However, it is not implemented yet.
