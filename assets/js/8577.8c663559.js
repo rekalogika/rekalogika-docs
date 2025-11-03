@@ -1,0 +1,1 @@
+(globalThis.webpackChunkrekalogika_docs=globalThis.webpackChunkrekalogika_docs||[]).push([[8577],{549:(a,k,s)=>{"use strict";s.d(k,{A:()=>c});var o=s(8291);const c=o},5741:()=>{}}]);
