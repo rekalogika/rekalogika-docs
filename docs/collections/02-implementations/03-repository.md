@@ -201,15 +201,26 @@ you need it.
 
 ## Coexisting with Doctrine's Standard Repository
 
-It should be technically possible to implement this repository in the same class
-as Doctrine's standard repository, but we don't have an implementation for that
-yet.
-
-If you no longer use the default Doctrine's repository, you can safely remove
-the 'repository' argument in your entity configuration, and remove Doctrine's
+If you no longer use the default Doctrine's repository, you can safely skip the
+'repository' argument in your entity configuration, and remove Doctrine's
 repository class to reduce confusion. The default Doctrine's repository is still
 available by calling `$entityManager->getRepository(Entity::class)`, it is just
 you no longer have the option to add custom methods to it.
 
 This implementation of repository sits above Doctrine's Entity Manager. The
 entity manager does not have the knowledge of the repository.
+
+## `DatabaseSession` Service as an Alternative to `EntityManager`
+
+Doctrine's `EntityManager` is somewhat a god object. This package provides a
+minimal alternative `DatabaseSession` that provides only the `flush()` and
+`clear()` methods. With persistence and removal handled by the repository,
+`DatabaseSession` will be sufficient for maybe 99% of use cases.
+
+The idea is that you can disallow the use of `EntityManager` in controllers or
+other frontend objects through architectural constraints. Then programmers (and
+especially AI agents) are forced to use the repository for all object retrieval
+and persistence. No more `QueryBuilder`, DQL, or transactions in controllers. If
+they need a more complex query, they have to add a custom method to the
+repository or move the logic to a service class. This will promote code reuse
+and better organization of code.
