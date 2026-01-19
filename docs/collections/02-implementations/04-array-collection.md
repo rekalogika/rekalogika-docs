@@ -6,6 +6,14 @@ Modification to Doctrine's `ArrayCollection`, so that it does `matching()`
 against the private properties directly, not against the return values of their
 getters.
 
+:::warning
+
+This package is deprecated because the standard `ArrayCollection` in
+`doctrine/collections` >= 2.4 now provides the same behavior. Read [PR
+#472](https://github.com/doctrine/collections/pull/472) for more details.
+
+:::
+
 ## Installation
 
 ```bash

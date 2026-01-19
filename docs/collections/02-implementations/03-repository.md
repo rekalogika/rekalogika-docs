@@ -17,6 +17,10 @@ Your `CitizenRepository` will work practically the same way as
 `$country->getCitizens()`, except that the former contains all citizens, while
 the latter contains citizens of a specific country.
 
+Your paginated view, batch processing, and other operation will work the same
+way for both collections. You can simply swap one with the other without
+changing your code.
+
 ## Installation
 
 ```bash
@@ -136,6 +140,13 @@ the methods in the concrete repository implementation:
 + // alternative that throws an exception if the entity is not found:
 + $entity = $repository->fetch($id);
 ```
+
+:::tip
+
+`get()` and `fetch()` methods also support an optional lock mode parameter if
+you need it.
+
+:::
 
 ### Removing an entity
 

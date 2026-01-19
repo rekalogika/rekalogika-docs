@@ -72,11 +72,15 @@ interface. You can treat the repository like a regular collection.
 ![Repository classes](./diagrams/repository.light.svg#light)
 ![Repository classes](./diagrams/repository.dark.svg#dark)
 
-It adds one new method:
+It adds one new method and extends two existing methods:
 
 * `reference($key)`: Creates a reference, or a proxy object, to the object
   identified by the given key. This method has the same function as the
   `EntityManagerInterface::getReference()` method.
+* `get($key, $lockMode)`: Same as the `ReadableCollection::get($key)`, but with an
+  optional lock mode parameter.
+* `fetch($key, $lockMode)`: Same as the `ReadableRecollection::fetch($key)`, but
+  with an optional lock mode parameter.
 
 ## `MinimalRepository`
 

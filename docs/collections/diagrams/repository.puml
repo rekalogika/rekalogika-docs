@@ -25,6 +25,8 @@ package "rekalogika/collections-contracts" {
 
     interface ReadableRepository {
         +reference($key)
+        +get($key, $lockMode)
+        +fetch($key, $lockMode)
     }
 
     ReadableRecollection <|-- ReadableRepository
