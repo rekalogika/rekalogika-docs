@@ -22,8 +22,7 @@ use Rekalogika\Analytics\Frontend\Chart\ChartType;
 $cube = $summaryManager
     ->createQuery()
     // ...
-    ->getResult()
-    ->getCube();
+    ->getResult();
 
 $chart = $chartGenerator->createChart(
     cube: $cube,

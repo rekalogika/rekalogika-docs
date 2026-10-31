@@ -17,15 +17,12 @@ Currently none.
 * Auto-dashboard
 * Lower & upper bound limit in queries.
 
-## Performance
-
-* Metadata caching
-
 ## Limitations
 
 * Postgres `GROUP BY` maximum grouping set limit of 4096, can be circumvented by
   using multiple queries (done, but has massive performance penalty, look into
-  this further).
+  this further). Can be avoided by limiting the stored grouping sets using
+  `ExplicitGroupingSetsStrategy`.
 * to-many joins are not yet supported. It can be implemented using subselects in
   the SELECT clause (not very efficient), or subselects in the LEFT JOIN clause
   (not supported by Doctrine, needs a custom output walker).

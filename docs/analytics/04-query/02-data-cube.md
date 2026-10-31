@@ -176,4 +176,23 @@ the dimensions in the specified order.
 
 ## `dice()` method
 
-The `dice()` method is meant to allow you to remove or update the dice predicate. However, it is not implemented yet.
+The `dice()` method replaces the dice predicate, the filter expression of the
+query. It runs the query again with the new predicate, and returns the
+`CubeCell` with the same coordinates in the new result. Pass `null` to remove
+the predicate.
+
+```php
+use Doctrine\Common\Collections\Criteria;
+use Rekalogika\Analytics\Contracts\Result\CubeCell;
+
+/** @var CubeCell $germany */
+
+// only the orders in 2024 and later
+$germanySince2024 = $germany->dice(Criteria::expr()->gte('time.year', 2024));
+
+// all the orders, without any filter
+$germanyAllTime = $germany->dice(null);
+```
+
+The new predicate replaces the original predicate entirely, it is not combined
+with it. The dimensions of the query stay the same.

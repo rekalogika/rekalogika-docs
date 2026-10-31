@@ -27,7 +27,7 @@ $result = $summaryManager
 
 // renderPivotTable() returns a pivot table (or throws an exception if it cannot)
 $table = $tableRenderer->renderPivotTable(
-    cube: $result->getCube(),
+    cube: $result,
     rows: ['time.year', 'category'],
     columns: ['@values'],
     measures: ['price', 'count'],
@@ -35,10 +35,15 @@ $table = $tableRenderer->renderPivotTable(
 
 // renderTable() returns a regular table
 $table = $tableRenderer->renderTable(
-    table: $result->getTable(),
+    cell: $result,
+    dimensions: ['time.year', 'category'],
     measures: ['price', 'count'],
 );
 ```
+
+Both methods accept a `CubeCell`, usually the apex cell returned by
+`Query::getResult()`. `renderTable()` drills down the cell into the specified
+dimensions, and renders a row for each of the resulting cells.
 
 `@values` is a special dimension value that represents the measures of the
 query.
@@ -75,6 +80,8 @@ use Rekalogika\Analytics\Frontend\Html\TableRenderer;
 
 $table = $tableRenderer->renderPivotTable(
     cube: $cube,
+    rows: ['time.year', 'category'],
+    measures: ['price', 'count'],
     // highlight-next-line
     theme: '@RekalogikaAnalyticsFrontend/bootstrap_5_renderer.html.twig'
 );

@@ -3,7 +3,7 @@ title: Spreadsheet Renderer
 ---
 
 To render the query result as a spreadsheet, you can use the
-`SpreadsheetRenderer::render()` method. It returns an instance of `Spreadsheet`
+`SpreadsheetRenderer` service. Its methods return an instance of `Spreadsheet`
 from the `phpoffice/phpspreadsheet` package.
 
 ```php
@@ -13,14 +13,23 @@ use Rekalogika\Analytics\Frontend\Spreadsheet\SpreadsheetRenderer;
 /** @var SummaryManager $summaryManager */
 /** @var SpreadsheetRenderer $spreadsheetRenderer */
 
-$table = $summaryManager
+$result = $summaryManager
     ->createQuery()
     // ...
-    ->getResult()
-    ->getTable();
+    ->getResult();
 
+// render() returns a regular table
 $spreadsheet = $spreadsheetRenderer->render(
-    table: $table
+    cell: $result,
+    dimensions: ['time.year', 'category'],
+    measures: ['price', 'count'],
+);
+
+// renderPivotTable() returns a pivot table
+$spreadsheet = $spreadsheetRenderer->renderPivotTable(
+    cube: $result,
+    rows: ['time.year', 'category'],
+    columns: ['@values'],
     measures: ['price', 'count'],
 );
 ```
