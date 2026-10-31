@@ -130,5 +130,7 @@ $queryBuilder
     // highlight-end
 ```
 
+[Reference](https://stackoverflow.com/questions/7720138/doctrine2-polymorphic-queries-searching-on-properties-of-subclasses)
+
 :::
 
