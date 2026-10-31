@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">Refresh Mechanism | Rekalogika.DEV</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://rekalogika.dev/img/social.png"><meta data-rh="true" name="twitter:image" content="https://rekalogika.dev/img/social.png"><meta data-rh="true" property="og:url" content="https://rekalogika.dev/analytics/internals/refresh"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Refresh Mechanism | Rekalogika.DEV"><meta data-rh="true" name="description" content="DirtyFlag"><meta data-rh="true" property="og:description" content="DirtyFlag"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://rekalogika.dev/analytics/internals/refresh"><link data-rh="true" rel="alternate" href="https://rekalogika.dev/analytics/internals/refresh" hreflang="en"><link data-rh="true" rel="alternate" href="https://rekalogika.dev/analytics/internals/refresh" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"rekalogika/analytics","item":"https://rekalogika.dev/analytics/"},{"@type":"ListItem","position":2,"name":"Internals","item":"https://rekalogika.dev/analytics/internals/"},{"@type":"ListItem","position":3,"name":"Refresh Mechanism","item":"https://rekalogika.dev/analytics/internals/refresh"}]}</script><link rel="stylesheet" href="/assets/css/styles.fb4d4ece.css">
-<script src="/assets/js/runtime~main.542f07d4.js" defer="defer"></script>
-<script src="/assets/js/main.abb24f81.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.9cc29a48.js" defer="defer"></script>
+<script src="/assets/js/main.4d8965bb.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
@@ -34,6 +34,138 @@ for each of the summary tables that need to be refreshed.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="dirtysummaryeventlistener"><code>DirtySummaryEventListener</code><a href="#dirtysummaryeventlistener" class="hash-link" aria-label="Direct link to dirtysummaryeventlistener" title="Direct link to dirtysummaryeventlistener" translate="no">​</a></h2>
 <p>Listens on the <code>DirtySummaryEvent</code> event. It calls
 <code>RefreshAgentRunner::refresh()</code> to run the refresh agent for the summary table,
-if one is not already running.</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/rekalogika/rekalogika-docs/edit/main/docs/analytics/99-internals/02-refresh.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/analytics/internals/partitioning"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Partitioning</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/analytics/internals/todo"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Current To-do List</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#dirtyflag" class="table-of-contents__link toc-highlight"><code>DirtyFlag</code></a></li><li><a href="#sourceentitylistener" class="table-of-contents__link toc-highlight"><code>SourceEntityListener</code></a></li><li><a href="#dirtysummaryeventlistener" class="table-of-contents__link toc-highlight"><code>DirtySummaryEventListener</code></a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2016-2026 Rekalogika.DEV</div></div></div></footer></div>
+if one is not already running.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="refresh-agent">Refresh Agent<a href="#refresh-agent" class="hash-link" aria-label="Direct link to Refresh Agent" title="Direct link to Refresh Agent" translate="no">​</a></h2>
+<p>The refresh agent runs in the background, in a separate process from the one
+that modified the source entities. It is dispatched by <code>RefreshAgentRunner</code> as
+a <code>RefreshAgentStartCommand</code> to be executed by <code>RefreshAgent</code>. Only one refresh
+agent can run for a summary class at a time. This is enforced by
+<code>RefreshAgentLock</code>. The lock is always released after the agent finishes, even
+if the refresh fails. The manual refresh commands and <code>SummaryManager::refresh()</code>
+also wait for and hold the same lock, because concurrent refreshes of the same
+partition produce duplicate rows.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="debouncing-source-changes">Debouncing Source Changes<a href="#debouncing-source-changes" class="hash-link" aria-label="Direct link to Debouncing Source Changes" title="Direct link to Debouncing Source Changes" translate="no">​</a></h3>
+<p>Refreshing a partition every time its source records change would be wasteful
+if the records are changed frequently. Instead, the refresh of the lowest-level
+partitions is debounced according to the <code>RefreshAgentStrategy</code>:</p>
+<ul>
+<li class=""><code>minimumAge</code>: a dirty partition is not refreshed until its oldest dirty flag
+is at least this old. Defaults to 10 minutes.</li>
+<li class=""><code>minimumIdleDelay</code>: a dirty partition is not refreshed until there have been
+no new dirty flags for it for this long. Defaults to 5 minutes.</li>
+<li class=""><code>maximumAge</code>: once the oldest dirty flag of a partition is this old, the
+<code>minimumIdleDelay</code> requirement is waived, so that a partition that is
+continuously receiving changes is not postponed indefinitely. Defaults to 30
+minutes.</li>
+</ul>
+<p>Multiple changes to the same partition are coalesced into a single refresh. In
+a busy table, a partition receiving continuous changes is refreshed at most
+once every <code>maximumAge</code>, and its summary lags behind the source by at most the
+same amount.</p>
+<p>New records are recorded as dirty flags without partition information, because
+they might not have an ID before the flush. The refresh agent converts them to
+dirty flags of the partitions of the new records. The converted flags inherit
+the creation time of the original flags, so the debouncing is based on the
+time the records were created, not the time the agent converts them.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="scheduling">Scheduling<a href="#scheduling" class="hash-link" aria-label="Direct link to Scheduling" title="Direct link to Scheduling" translate="no">​</a></h3>
+<p>The refresh agent runs only when there is something to refresh:</p>
+<ul>
+<li class="">After source changes are flushed, <code>RefreshAgentRunner</code> schedules the agent
+to run when the new dirty flags will satisfy the strategy, unless the agent
+is already scheduled to run before that.</li>
+<li class="">Before exiting, the agent determines the earliest time one of the remaining
+dirty partitions will be ready to be refreshed, and schedules itself to run
+again at that time, unless it is already scheduled to run before that.
+Therefore, a refresh is never lost even if no more changes are made to the
+source.</li>
+<li class="">If the agent cannot acquire the lock because another refresh is running, it
+schedules itself to run again later. The other refresh might have missed the
+dirty flags created after it started.</li>
+</ul>
+<p>The time of the next scheduled run is stored in <code>SummaryProperties</code>. This keeps
+the number of pending runs per summary class small, regardless of how often the
+source changes. A scheduled run that is lost, for example because the worker
+crashed, does not stop the refresh permanently: once the scheduled time has
+passed, the next change to the source schedules a new run.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="propagating-to-upper-partitions">Propagating to Upper Partitions<a href="#propagating-to-upper-partitions" class="hash-link" aria-label="Direct link to Propagating to Upper Partitions" title="Direct link to Propagating to Upper Partitions" translate="no">​</a></h3>
+<p>After a partition is refreshed, its parent partition is marked as dirty, if the
+parent partition is used by queries. Queries use an upper partition only if
+it is complete, i.e. it is entirely before the latest summarized record.
+Therefore, appending new records only causes an upper partition refresh once,
+when the upper partition becomes complete. Most upper partition refreshes are
+caused by changes to older records.</p>
+<p>Unlike the lowest-level partitions, the dirty upper partitions are caused by
+the refresh itself, not by changes in the source, so they are not subject to
+the <code>RefreshAgentStrategy</code> debouncing. Instead, they are debounced using a
+cooldown period, <code>upperPartitionCooldown</code>, defaulting to 5 minutes:</p>
+<ul>
+<li class="">An upper partition is refreshed immediately after its children, in the same
+run, unless it has been refreshed within the cooldown period.</li>
+<li class="">If it has been refreshed within the cooldown period, its dirty flag is kept,
+and the agent schedules itself to refresh it when the cooldown period ends.</li>
+</ul>
+<p>The upper partitions are processed from the lowest to the highest level, so the
+propagation reaches the top level in a single run. All the partitions refreshed
+in a run share the same refresh time, so their cooldown periods end at the same
+time. Usually, the entire chain of upper partitions is refreshed in the same
+run, and the delays do not accumulate across levels. Each upper partition lags
+behind the partitions below it by at most the cooldown period, while each upper
+partition is refreshed at most once per cooldown period, regardless of how the
+changes in the source are distributed.</p>
+<p>The refresh times of the upper partitions are recorded in <code>RefreshLog</code>. Records
+older than the cooldown period are removed by the agent.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="worst-case-lag">Worst-Case Lag<a href="#worst-case-lag" class="hash-link" aria-label="Direct link to Worst-Case Lag" title="Direct link to Worst-Case Lag" translate="no">​</a></h3>
+<p>The lag is the time between a change being committed to the source table and
+the change being reflected in the query results. Its theoretical maximum is
+determined as follows.</p>
+<p><strong>Lowest-level partition.</strong> A dirty partition is ready to be refreshed at
+<code>min(latest + minimumIdleDelay, earliest + maximumAge)</code>, but not before
+<code>earliest + minimumAge</code>, where <code>earliest</code> and <code>latest</code> are the creation times
+of its oldest and newest dirty flags. The dirty flag of a change is never older
+than the oldest dirty flag of its partition, so the change is refreshed at most
+<code>max(minimumAge, maximumAge)</code> after it is made. The agent is scheduled to run
+exactly at that time.</p>
+<p><strong>Upper partitions.</strong> After a partition is refreshed, its parent is refreshed
+in the same run, or at most <code>upperPartitionCooldown</code> later if the parent is in
+its cooldown period. Usually, the entire chain is refreshed in the same run.
+But in the worst case, every level waits for a full cooldown period: the parent
+was refreshed just before the child, the grandparent was refreshed, through
+another child, just before the parent, and so on. It requires frequent changes
+to many partitions, which is the case in a busy table. Therefore, the upper
+partitions add at most <code>(L - 1) × upperPartitionCooldown</code>, where <code>L</code> is the
+number of partition levels.</p>
+<p>Combined:</p>
+<div class="language-text codeBlockContainer_APcc theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_m3Ux"><pre tabindex="0" class="prism-code language-text codeBlock_qGQc thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_p187"><span class="token-line" style="color:#393A34"><span class="token plain">maximum lag = max(minimumAge, maximumAge)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">            + (L - 1) × upperPartitionCooldown</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">            + overhead</span><br></span></code></pre><div class="buttonGroup_6DOT"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_FhaS" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_phi_"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_FfTR"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>With the default strategy:</p>
+<table><thead><tr><th>Partition class</th><th style="text-align:right">Levels</th><th>Maximum lag (excluding overhead)</th></tr></thead><tbody><tr><td><code>UuidV7IntegerPartition</code></td><td style="text-align:right">4</td><td>30 + 3 × 5 = 45 minutes</td></tr><tr><td><code>DefaultIntegerPartition</code></td><td style="text-align:right">5</td><td>30 + 4 × 5 = 50 minutes</td></tr><tr><td><code>SingleLevelIntegerPartition</code></td><td style="text-align:right">1</td><td>30 minutes</td></tr></tbody></table>
+<p>The upper partition term only applies to changes to older records. New records
+only affect upper partitions that are not complete yet, and are not used by
+queries. When an upper partition becomes complete, it has never been refreshed,
+so it is not in the cooldown period. Therefore, new records are reflected in
+the query results at most <code>max(minimumAge, maximumAge)</code> plus overhead after
+they are created.</p>
+<p>The overhead is not bounded by the framework:</p>
+<ul>
+<li class="">The time the agent takes to refresh the partitions, including waiting for
+another refresh to finish. A run refreshes all the partitions that are ready,
+so this grows with the number of partitions ready at the same time.</li>
+<li class="">The delivery latency of Symfony Messenger, e.g. the availability of the
+workers, the backlog of the queue, and the polling interval of the transport.</li>
+<li class="">Up to one second, because the timestamps are stored with second precision.</li>
+<li class="">If the lock is held by the manual <code>rekalogika:analytics:refresh</code> command,
+which does not reschedule the agent, up to the initial scheduling delay after
+the command finishes, i.e. <code>max(minimumAge, min(minimumIdleDelay, maximumAge))</code>, which is 10 minutes by default.</li>
+</ul>
+<p>The lag is unbounded if:</p>
+<ul>
+<li class=""><code>maximumAge</code> is null while <code>minimumIdleDelay</code> is not. A partition that
+receives changes more often than <code>minimumIdleDelay</code> is never refreshed.</li>
+<li class="">No worker is consuming the messages.</li>
+<li class="">A scheduled run is lost, and no more changes are made to the source. The
+remaining dirty partitions are refreshed only after the next change, or by
+the manual refresh command.</li>
+</ul>
+<p>The manual <code>rekalogika:analytics:refresh</code> command does not use the debouncing
+nor the cooldown period, it refreshes all the dirty partitions immediately.</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/rekalogika/rekalogika-docs/edit/main/docs/analytics/99-internals/02-refresh.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/analytics/internals/partitioning"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Partitioning</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/analytics/internals/todo"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Current To-do List</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#dirtyflag" class="table-of-contents__link toc-highlight"><code>DirtyFlag</code></a></li><li><a href="#sourceentitylistener" class="table-of-contents__link toc-highlight"><code>SourceEntityListener</code></a></li><li><a href="#dirtysummaryeventlistener" class="table-of-contents__link toc-highlight"><code>DirtySummaryEventListener</code></a></li><li><a href="#refresh-agent" class="table-of-contents__link toc-highlight">Refresh Agent</a><ul><li><a href="#debouncing-source-changes" class="table-of-contents__link toc-highlight">Debouncing Source Changes</a></li><li><a href="#scheduling" class="table-of-contents__link toc-highlight">Scheduling</a></li><li><a href="#propagating-to-upper-partitions" class="table-of-contents__link toc-highlight">Propagating to Upper Partitions</a></li><li><a href="#worst-case-lag" class="table-of-contents__link toc-highlight">Worst-Case Lag</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2016-2026 Rekalogika.DEV</div></div></div></footer></div>
 </body>
 </html>
