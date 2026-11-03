@@ -2,7 +2,7 @@
 title: Predetermined Mapping Preset
 ---
 
-The user can provide a list of predetermined mapping between objects to Mapper.
+The user can provide a list of predetermined mappings between objects to Mapper.
 If Mapper encounters an object in the list, that matches the provided target
 class, it will use the preset value.
 

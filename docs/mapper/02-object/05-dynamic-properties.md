@@ -10,7 +10,7 @@ only classes extending `stdClass` and those marked with
 ## Mapper Semantic for Dynamic Properties
 
 Mapper supports classes with `#[AllowDynamicProperties]`, including `stdClass`
-and all classes that extends `stdClass`, with the following semantics.
+and all classes that extend `stdClass`, with the following semantics.
 
 If the target is `stdClass` (or an object with `#[AllowDynamicProperties]`),
 then all properties of the source will be mapped to the target. If the target

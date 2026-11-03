@@ -70,7 +70,7 @@ class BookCollectionProvider extends AbstractProvider
         $this->denyAccessUnlessGranted('view', $this->bookRepository);
 
         // A Doctrine repository implements Selectable, and our PaginatorApplier
-        // supports Selectable, so we can convieniently use it as a collection
+        // supports Selectable, so we can conveniently use it as a collection
         // of entities to map. Here we map the Books to BookDtos, and return
         // them.
         return $this->mapCollection(

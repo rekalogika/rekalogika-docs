@@ -107,7 +107,7 @@ implementing `PaginatorApplierInterface`.
 ## Use Case: Doctrine Repository
 
 Doctrine repositories implement `Selectable`, so you can conveniently do the
-following in the state provider, and avoid the nee d to create queries:
+following in the state provider, and avoid the need to create queries:
 
 ```php
 use ApiPlatform\Metadata\Operation;

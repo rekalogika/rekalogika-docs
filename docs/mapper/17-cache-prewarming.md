@@ -35,7 +35,7 @@ cache over the network, and pre-warming can help to reduce the overhead.
 ## How to Pre-warm the Cache
 
 Mapper cannot possibly know beforehand which mapping you are going to do in the
-application. So, you need to inform Mapper the list of the mappings. To do so,
+application. So, you need to inform Mapper of the list of the mappings. To do so,
 you can create a mapping collection file and store it in the
 `config/rekalogika-mapper` directory, any filename is fine.
 
@@ -83,7 +83,7 @@ includes:
 :::note
 
 The automatic PHPStan mapping generation is not foolproof. It cannot detect
-every possible use cases. You might still need to add some of the mappings
+every possible use case. You might still need to add some of the mappings
 manually.
 
 :::

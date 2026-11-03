@@ -6,7 +6,7 @@ A domain event can optionally implement `EquatableDomainEventInterface` which
 requires the method `getSignature()`. Two objects with the same signature will
 be considered identical and won't be dispatched twice.
 
-This is useful if your entity is working with a million of related objects. By
+This is useful if your entity is working with a million related objects. By
 implementing `EquatableDomainEventInterface`, you can have your `ObjectChanged`
 event dispatched only once and occupy only a single spot in the memory,
 instead of a million times.
@@ -39,7 +39,7 @@ class Post implements DomainEventEmitterInterface
     {
         // ...
 
-        // the PostCommentAdded event will only get dispatched once despite of
+        // the PostCommentAdded event will only get dispatched once despite
         // addComment being called multiple times.
         $this->recordEvent(new PostCommentAdded($this->id));
     }

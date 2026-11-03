@@ -118,7 +118,7 @@ class PostEventListener
 }
 ```
 
-To choose different dispatching strategy, you can use different attributes:
+To choose a different dispatching strategy, you can use different attributes:
 
 ```php
 use Rekalogika\Contracts\DomainEvent\Attribute\AsImmediateDomainEventListener;

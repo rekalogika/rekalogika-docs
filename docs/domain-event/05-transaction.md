@@ -2,7 +2,7 @@
 title: Transactions
 ---
 
-The framework fully supports transaction, as long as the caller uses the
+The framework fully supports transactions, as long as the caller uses the
 methods provided by the entity manager.
 
 ## Semantics

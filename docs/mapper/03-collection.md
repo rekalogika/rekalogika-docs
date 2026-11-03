@@ -106,7 +106,7 @@ Supported types of the target side:
 
 ## Mapping Using Adder and Remover Methods
 
-Mapper supports mapping using adder and remover method on the target side.
+Mapper supports mapping using adder and remover methods on the target side.
 Example:
 
 ```php
@@ -215,7 +215,7 @@ Using `Traversable` type hint also works.
 ## Lazy Loading
 
 The mapper supports lazy-loading, and will instantiate a lazy-loading object on
-the target size if the conditions are met.
+the target side if the conditions are met.
 
 * The target must be type-hinted using `Traversable`, `ArrayAccess`, the special
   `CollectionInterface`, or Doctrine's `Collection` or `ReadableCollection`.
@@ -276,7 +276,7 @@ $dto = $mapper->map($post, PostDto::class);
 :::tip Protip
 
 If your property is virtual (i.e. a getter method without an actual property),
-you may attach the `AllowDelete` attribute to to the getter or remover method,
+you may attach the `AllowDelete` attribute to the getter or remover method,
 and the `AllowTargetDelete` attribute to the getter method.
 
 :::

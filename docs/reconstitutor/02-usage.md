@@ -9,7 +9,7 @@ file uploads.
 
 :::info Shameless Plug
 
-We also provide [`rekalogika/file-bundle`](../file-bundle) framework that
+We also provide the [`rekalogika/file-bundle`](../file-bundle) framework that
 handles file uploads and so much more. It also utilizes this library behind the
 scenes.
 
@@ -140,7 +140,7 @@ final class OrderReconstitutor extends AbstractClassReconstitutor
 ## Reconstitution of Classes With a Specific PHP Attribute
 
 Alternatively, you can also target classes with a specific PHP attribute. The
-following modifies above example to use an attribute for targeting.
+following modifies the above example to use an attribute for targeting.
 
 The entity class:
 

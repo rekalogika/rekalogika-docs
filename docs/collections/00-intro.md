@@ -40,13 +40,13 @@ the problem one at a time. We need a more comprehensive solution.
   collection.
 * An alternative implementation of the repository pattern that implements
   `Collection`.
-* Modifications to `ArrayCollection` that does `matching()` against the private
+* Modifications to `ArrayCollection` that do `matching()` against the private
   properties directly, to reproduce the same behavior of `PersistentCollection`.
 
 ## Features
 
 * Safeguards against potential out-of-memory situations. Throws an exception
-  before it hits harder-to-debug out-of-memory situation.
+  before it hits a harder-to-debug out-of-memory situation.
 * Pluggable counting strategies. Work around long counting times using your own
   counting strategies.
 * Full versions of the collection classes that offer full compatibility with the

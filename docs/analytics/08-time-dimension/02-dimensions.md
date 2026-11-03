@@ -39,7 +39,7 @@ class OrderSummary extends BaseSummary
 }
 ```
 
-`ORM\Column(type: Date::TYPE`) is the Doctrine column type. The `TYPE` constant
+`ORM\Column(type: Date::TYPE)` is the Doctrine column type. The `TYPE` constant
 contains the suitable Doctrine column type for each time bin type, which may be
 `integer` or `smallint`, depending on the type.
 

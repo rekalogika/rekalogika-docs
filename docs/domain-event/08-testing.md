@@ -12,7 +12,7 @@ Our entity manager checks if there are any undispatched domain events in
 `__destroy()`. If there are, it throws an exception. This poses a problem in
 unit tests, especially with negative tests.
 
-To prevent the problem, you need to prevent entity manager from going out of
+To prevent the problem, you need to prevent the entity manager from going out of
 scope. In `setUp()`, save the entity manager to a property, then in
 `tearDown()`, call `clearUndispatchedEvents()` on the entity manager.
 

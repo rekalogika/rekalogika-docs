@@ -79,7 +79,7 @@ Available options:
 
 ## Rendering the Pager
 
-In Twig template, you can use the `rekapager()` function to render the pager.
+In a Twig template, you can use the `rekapager()` function to render the pager.
 
 ```handlebars
 {# Outputs the item from the current page #}
@@ -126,7 +126,7 @@ All options are optional.
 
 :::tip
 
-Wants to see the pager in your language? Feel free to [submit your translation](https://github.com/rekalogika/rekapager/tree/main/packages/rekapager-bundle/translations).
+Want to see the pager in your language? Feel free to [submit your translation](https://github.com/rekalogika/rekapager/tree/main/packages/rekapager-bundle/translations).
 
 :::
 
@@ -148,7 +148,7 @@ loaded. It will find the pagination element (`.pagination`), take note of the
 next page URL (from `[rel="next"]`), and remove the pagination element.
 
 When the user scrolls to the bottom of the page, it will fetch the next page,
-parse the document, get the new items, and appends them to the same element in
+parse the document, get the new items, and append them to the same element in
 the current page.
 
 ## Default Options
@@ -259,6 +259,6 @@ final readonly class RekapagerOutOfBoundsListener
 
 ## Batch Process Console Command
 
-The package provides a easy-to-use framework for creating console commands for
+The package provides an easy-to-use framework for creating console commands for
 batch processing. Read the [Simple Batch
 Command](./../batch-processing/batch-command) documentation for more information.

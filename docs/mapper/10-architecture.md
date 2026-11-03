@@ -103,7 +103,7 @@ it needs to do the mapping between two arrays or array-like objects.
 
 ### Object Mapper
 
-A custom, user-provided methods for mapping a specific object pair.
+A custom, user-provided method for mapping a specific object pair.
 
 ### Object Mapper Resolver <Badge type="danger">Internal</Badge>
 

@@ -23,7 +23,7 @@ ORDER BY name,
 ```
 
 Then, use whatever means to execute the query and fetch the result as an array
-of array. We can create a pivot table as follows:
+of arrays. We can create a pivot table as follows:
 
 
 ```php

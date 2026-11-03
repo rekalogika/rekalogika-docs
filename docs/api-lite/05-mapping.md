@@ -16,7 +16,7 @@ time. And when it doesn't, it is only a simple matter to extend it.
 
 However, when you need to map a DTO to an entity, it requires more
 consideration. Your domain model might mandate a specific way to do things,
-which might be different from than just calling the setters. If you can rely too
+which might be different from just calling the setters. If you can rely too
 much on the mapper, it might indicate that your [domain model is
 anemic](https://martinfowler.com/bliki/AnemicDomainModel.html), and you should
 look into that. The integrity of your domain model should not suffer just
@@ -104,7 +104,7 @@ If the client sent an IRI in the request, like
 `/user/books/018dda4b-1884-76ab-af9d-71ab512a0c84`, API Platform will resolve
 the IRI using a State Provider having the same URL pattern. If you are using
 the same pattern elaborated in this document, then your State Provider will
-get the entity from the database, map it to its DTO, and returns the DTO.
+get the entity from the database, map it to its DTO, and return the DTO.
 
 Once API Platform has the DTO, it will pass it as part of the input of your
 State Processor. So you are getting the DTO, not the entity you need. How would

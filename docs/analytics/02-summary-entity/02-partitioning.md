@@ -65,7 +65,7 @@ but not necessarily unique. And the key must be permanent, it must not change in
 the lifetime of the entity.
 
 Partitioning is divided into **levels**. Each level consists of multiple
-**partition** of the same length, one after the other. Levels are indicated by a
+**partitions** of the same length, one after the other. Levels are indicated by a
 number. A lower level has a shorter length than a higher level.
 
 A partition is indicated by the **level** and the **key**. A partition of a
@@ -92,7 +92,7 @@ Again, the framework does not need to reprocess the entire summary table.
 ### `DefaultIntegerPartition`
 
 Suitable for partitioning auto-incrementing integer primary keys. It partitions
-using 11, 22, 33, 44, and 55 bits of width. A 11-bit partition aggregates up to
+using 11, 22, 33, 44, and 55 bits of width. An 11-bit partition aggregates up to
 2048 records.
 
 ### `UuidV7IntegerPartition`

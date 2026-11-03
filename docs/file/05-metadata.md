@@ -88,7 +88,7 @@ use Rekalogika\Contracts\File\Metadata\HttpMetadataInterface;
 
 /** @var FileInterface $file */
 
-// Each of the following will be flush automatically individually, and will
+// Each of the following will be flushed automatically individually, and will
 // require two roundtrips to the storage backend
 $file->setType('image/jpeg');
 $file->setName('foo.jpg');

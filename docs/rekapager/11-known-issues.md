@@ -20,7 +20,7 @@ and a small page size. Or, use `QueryBuilderAdapter` instead.
 
 `QueryBuilderAdapter` and `SelectableAdapter` currently do not support
 underlying `QueryBuilder` or `Criteria` with `setFirstResult()` and
-`setMaxResults()`. If the underlying object has any these set, then the adapter
+`setMaxResults()`. If the underlying object has any of these set, then the adapter
 will throw an exception.
 
 ## `SelectableAdapter` does not Preserve Keys/Indexes

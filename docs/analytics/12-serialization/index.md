@@ -11,7 +11,7 @@ coordinates and deserialize the resulting data back into cells.
 
 ## Serialization
 
-To serialize a cell coordinates, you can use `CoordinatesMapper::toDto()`
+To serialize a cell's coordinates, you can use the `CoordinatesMapper::toDto()`
 method.
 
 ```php

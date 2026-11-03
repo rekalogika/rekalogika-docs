@@ -6,7 +6,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 Symfony bundle for creating temporary URLs to your resources. You provide the
-resource in a plain PHP object, and a service to turn it into a HTTP response.
+resource in a plain PHP object, and a service to turn it into an HTTP response.
 The framework handles the rest.
 
 ## Installation
@@ -215,9 +215,9 @@ class MyDataServer
         return new MySerializableData($data);
     }
 
-   ./**
-      * This uses the transformed data and send it to the client.
-      */
+    /**
+     * This uses the transformed data and sends it to the client.
+     */
     #[AsTemporaryUrlServer]
     public function respond(MySerializableData $data): Response
     {

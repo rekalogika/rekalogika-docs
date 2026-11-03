@@ -47,7 +47,7 @@ Arguments of the `#[Analytics\Measure]` attribute:
 * `unit`: A string or a `TranslatableInterface` instance that describes the unit
   of the measure. A user interface may use it to determine if two measures can
   be plotted together in the same chart axis.
-* `hidden`: If set to `true`, user interface may choose to hide this measure
+* `hidden`: If set to `true`, a user interface may choose to hide this measure
   from the user.
 
 ## Pseudo-Measures

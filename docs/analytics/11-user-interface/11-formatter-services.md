@@ -2,7 +2,7 @@
 title: Formatter Services
 ---
 
-Formatter services are utility services that transforms values in the query
+Formatter services are utility services that transform values in the query
 result to the format expected by other parts of the framework. There are four
 types of formatter services available:
 
@@ -14,7 +14,7 @@ types of formatter services available:
 * `Cellifier`: Converts a value to a `CellProperties` object, which is an object
   that describes a cell in a spreadsheet. Used by `SpreadsheetRenderer`.
 
-The default formatter services try to do the conversion in a best-effort basis,
+The default formatter services try to do the conversion on a best-effort basis,
 but if they can't, you need to implement the formatter service for the types
 you need.
 

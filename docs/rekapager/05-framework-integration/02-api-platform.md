@@ -91,7 +91,7 @@ Link: </api/posts?page=q1YqU7KqVsrXy0xRsjI2qNVRKlCyMtJRylGyyivNydFRyleyMtBRKlGyA
 * `PagerFactory`: creates a `PagerInterface` object from a `PageableInterface`,
   the current operation, and the context. Useful in a state provider or
   processor.
-* `RekapagerLinkProcessor`: add the links to the `Link` HTTP header.
+* `RekapagerLinkProcessor`: adds the links to the `Link` HTTP header.
 
 ## Usage in a State Provider or Processor
 

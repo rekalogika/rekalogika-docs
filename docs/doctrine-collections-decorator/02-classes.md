@@ -30,7 +30,7 @@ These will simply forward all method calls to the wrapped collection.
 * `SelectableCollectionDecorator`
 * `SelectableReadableCollectionDecorator`
 
-Also available the 'reject' decorator classes, which will throw an exception
+Also available are the 'reject' decorator classes, which will throw an exception
 when any of the methods is called:
 
 * `CollectionRejectDecorator`

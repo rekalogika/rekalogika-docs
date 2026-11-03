@@ -215,7 +215,7 @@ uninitialized.
 
 Alternatively, you can use the `ignoreUninitialized` argument of
 the `AsPropertyMapper` attribute to make Mapper ignore any uninitialized
-errors if it occurs inside your custom property mapper.
+errors if they occur inside your custom property mapper.
 
 Both property mappers below will accomplish the same thing.
 

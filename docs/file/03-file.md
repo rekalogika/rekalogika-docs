@@ -209,7 +209,7 @@ use Rekalogika\Contracts\File\FileInterface;
 
 /** @var FileInterface $file */
 
-// Setting the MIME type is usally not necessary as the framework will
+// Setting the MIME type is usually not necessary as the framework will
 // automatically detect media type
 $file->setType('image/jpeg'); // sets the media type to image/jpeg
 
@@ -283,7 +283,7 @@ use Rekalogika\Contracts\File\Metadata\HttpMetadataInterface;
 
 /** @var FileInterface $file */
 
-// Each of the following will be flush automatically individually, and will
+// Each of the following will be flushed automatically individually, and will
 // require two roundtrips to the storage backend
 $file->setType('image/jpeg');
 $file->setName('foo.jpg');

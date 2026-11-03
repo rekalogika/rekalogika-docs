@@ -28,7 +28,7 @@ This chapter describes how to easily create a form for uploading files.
   previously uploaded files when editing an entity.
 * To delete the file, users can use the remove button on the preview and submit the form.
 * Ships with the kitchen sink. Includes all the plugins that can be configured
-  without Javascript, and all the available locales.
+  without JavaScript, and all the available locales.
 
 ## Installation
 

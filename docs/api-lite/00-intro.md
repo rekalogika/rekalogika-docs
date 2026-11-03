@@ -21,15 +21,15 @@ automations in favor of better readability, simplicity, and flexibility.
 API Platform documentation encourages developers to use plain old PHP objects
 (POPOs) or data transfer objects (DTOs) as the models for API communication,
 instead of using domain entities directly for this purpose. But it does not
-establish a practical working patterns for that approach.
+establish practical working patterns for that approach.
 
 Practically all the examples and demos we find on the Internet still
 attach `ApiResource` to Doctrine entities.
 
 Sometimes API Platform can feel very rigid. It can be difficult to figure out
 how to accomplish things outside its conventions. There are ways around any
-problem, just not always immediately obvious. It can feel like that we just want
-to express what we need by writing a PHP code, not by figuring out the correct
+problem, just not always immediately obvious. It can feel like we just want
+to express what we need by writing PHP code, not by figuring out the correct
 combination of attributes to use.
 
 Those coming from Symfony controllers might find API Platform's approach very

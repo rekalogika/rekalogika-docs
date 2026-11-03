@@ -55,7 +55,7 @@ $pageable = new OffsetPageable($adapter);
 
 ### `indexBy` Parameter
 
-There is a Doctrine bug that may prevents a `matching()` call from preserving
-the keys of the collection. To workaround this issue, add the `indexBy`
+There is a Doctrine bug that may prevent a `matching()` call from preserving
+the keys of the collection. To work around this issue, add the `indexBy`
 parameter to the adapter like the example above.
 

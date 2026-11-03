@@ -10,7 +10,7 @@ call `matching()` again on the result, it will be processed from the in-memory
 :::note
 
 With `EXTRA_LAZY` fetch mode, `PersistentCollection` will return a
-`LazyCriteriaCollection`. But subsequent `matching()` call on the result
+`LazyCriteriaCollection`. But subsequent `matching()` calls on the result
 will still be processed immediately.
 
 :::

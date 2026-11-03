@@ -3,7 +3,7 @@ title: Mapping Table
 ---
 
 When we tell the mapper to map a source to a target, it will look up the mapping
-table to find the correct transformer for the job, then tells the transformer to
+table to find the correct transformer for the job, then tell the transformer to
 do the mapping. It does that first for the root source and target pair, then
 traverses down the properties and does the same for each property.
 

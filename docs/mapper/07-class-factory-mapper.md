@@ -8,7 +8,7 @@ This mapping method is deprecated.
 
 This mapping method is deprecated as it is not considered a good practice.
 
-You should instead use `AsObjectMapper` explained in [Manual Mapping using an
+You should instead use `AsObjectMapper` explained in the [Manual Mapping using an
 Object Mapper](object-mapper) chapter. You will be able to map third-party
 classes, separate the logic from the model, and inject other services into the
 mapper.
@@ -89,8 +89,8 @@ buried within the object you are mapping from.
 
 ## Mapping to Another Object
 
-You can also get the reverse of the above by implement the
-`MapToObjectInterface` and create the `mapToObject()` method.
+You can also get the reverse of the above by implementing the
+`MapToObjectInterface` and creating the `mapToObject()` method.
 
 ```php title="src/Dto/MoneyDto.php"
 namespace App\Dto;

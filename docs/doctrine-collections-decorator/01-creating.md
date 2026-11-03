@@ -20,7 +20,7 @@ class BookCollection extends CollectionDecorator
 }
 ```
 
-Then add your methods to override the existing one. In your methods, you can
+Then add your methods to override the existing ones. In your methods, you can
 access the wrapped collection object by calling `$this->getWrapped()`.
 
 :::tip Protip

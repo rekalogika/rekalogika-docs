@@ -53,7 +53,7 @@ Arguments of the `#[Analytics\Dimension]` attribute:
   name of the relation and the value is the order direction.
 * `nullLabel`: Describes the dimension value when the source value is `null`, so
   the final output can be made more readable.
-* `hidden`: If set to `true`, user interface may choose to hide this dimension
+* `hidden`: If set to `true`, a user interface may choose to hide this dimension
   from the user.
   
 ## Hierarchical Dimensions

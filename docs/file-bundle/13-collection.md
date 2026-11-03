@@ -111,7 +111,7 @@ class Image implements FileInterface
 ```
 
 If you don't use attributes to configure your Doctrine mappings, you will need
-to add the following configuration to the Doctrine's mapping configuration.
+to add the following configuration to Doctrine's mapping configuration.
 
 <Tabs>
 

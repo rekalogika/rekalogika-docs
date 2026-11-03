@@ -17,7 +17,7 @@ take up a lot of space and may cause fragmentation.
 The following table shows how the records are partitioned using the hypothetical
 `IntegerPartition` with 1-2-3-4-5-6 bits of partitioning width. The leftmost
 column indicates the level. Other cells are the partitions of that level.
-Numbers in the cells indicate the partitioning key range that are rolled-up in
+Numbers in the cells indicate the partitioning key range that is rolled-up in
 the partition.
 
 <table class="partitioning">
@@ -113,7 +113,7 @@ the partition.
 
 ## Example of Partitioning
 
-With the above partitioning scheme above, now suppose our source entity has the
+With the above partitioning scheme, now suppose our source entity has the
 following records:
 
 | ID | Value |
@@ -160,7 +160,7 @@ integer partition, the key is the same as the first possible source ID in the pa
 
 ## Queries
 
-If we currently have 21 records already rolled-up, these are the partition that
+If we currently have 21 records already rolled-up, these are the partitions that
 we will have. If we were to perform a query, the framework will union the
 records from the highlighted partitions to get the result:
 
@@ -272,4 +272,4 @@ Having a partitioning scheme with 1-bit width as above is useful for
 explanation, but will be pretty inefficient. Our default integer partition is
 using 11-22-33-44-55 bits of partitioning width. This means that the first level
 contains the data rolled-up from up to 2048 records, the second level contains 4
-millions records that are rolled-up from the first level, and so on.
+million records that are rolled-up from the first level, and so on.

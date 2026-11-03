@@ -8,9 +8,9 @@ one of these things happens:
 
 1. If the derived file does not exist, process the source and create the
    derived file, then save it.
-2. If the derived file exists and newer than the source file, return the
+2. If the derived file exists and is newer than the source file, return the
    existing derived file.
-3. If the derived file exists and older than the source file, then it is stale,
+3. If the derived file exists and is older than the source file, then it is stale,
    the filter will create a derivation out of the source file, then overwrite
    the old derived file.
 

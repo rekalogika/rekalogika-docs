@@ -15,6 +15,7 @@ Symfony Bundle for generating PDF using Gotenberg.
   package, and don't need to change our code.
 * Abstractions for paper sizes and page layouts.
 * Leverages Symfony HTTP Client. See the requests and responses in Symfony
+  Profiler.
 * With the heavy lifting already done by Gotenberg, there is no need to deal
   with Chrome instances, CLI tools, Puppeteer, NodeJS, etc.
 * Scalable architecture. Suitable for low-volume development and high-volume

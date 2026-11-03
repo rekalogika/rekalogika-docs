@@ -10,7 +10,7 @@ it to the mapping table.
 
 Note that in this case, we don't decorate the transformer to replace the
 original transformer in the dependency injection container. Instead, we are
-"duplicating" an existing transformer, override its type mapping information,
+"duplicating" an existing transformer, overriding its type mapping information,
 and putting it earlier in the mapping table.
 
 :::

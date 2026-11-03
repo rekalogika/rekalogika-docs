@@ -33,7 +33,7 @@ These DTOs act as the output of the endpoints.
 
 An entity can be mapped to one or more DTOs if we need different API
 representations of a specific entity. For example, we can use a specific DTO
-for a class of user, and a different DTO for another class or user.
+for a class of user, and a different DTO for another class of user.
 
 ### Input DTOs
 
@@ -44,7 +44,7 @@ POST, PUT, and PATCH.
 
 ### State Provider
 
-Used to get the output of a GET operations. Using our guidelines, you will
+Used to get the output of a GET operation. Using our guidelines, you will
 implement a state provider for every GET operation that you define. The state
 provider will be responsible for fetching the entity from the domain layer,
 mapping it to the DTO, and returning it.
@@ -58,7 +58,7 @@ operation that modifies the state of the entity.
 ### Paginator
 
 A paginator is an API Platform interface used to paginate the results of a GET
-operations. If your endpoint is a GET operation that is supposed to return a
+operation. If your endpoint is a GET operation that is supposed to return a
 collection of objects, you should return a paginator object instead of an array
 or a collection. By doing so, you will get proper paging of the results.
 
@@ -78,4 +78,4 @@ generate IRIs without causing the hydration of the entire object graph.
 A service provided by `rekalogika/api-lite` to automatically transform
 a collection of objects to a paginator. It ships with paginator appliers for
 Doctrine Collection, Selectable, Query, QueryBuilder, as well as Pagerfanta and
-Pagerfanta adapter..
+Pagerfanta adapter.

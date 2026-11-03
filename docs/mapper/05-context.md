@@ -73,5 +73,5 @@ mapping process. The following options are available:
 
 * `lazyLoading`: Enable lazy-loading.
 * `readTargetValue`: If true, the mapper will get the existing value from the
-  target. If exists, it will be used as the target. If false, the mapper will
+  target. If it exists, it will be used as the target. If false, the mapper will
   always create a new target object.

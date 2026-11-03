@@ -222,7 +222,7 @@ updating, or deleting a summary entity.
 
 ## `HasQueryBuilderModifier`
 
-The framework works by creating a `QueryBuilder` to roll-up the data from the
+The framework works by creating a `QueryBuilder` to roll up the data from the
 source table to the summary table. If you need to modify this `QueryBuilder`, you
 can make the summary entity implement the `HasQueryBuilderModifier` interface.
 

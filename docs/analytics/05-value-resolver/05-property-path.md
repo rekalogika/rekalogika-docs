@@ -2,7 +2,7 @@
 title: Property Path
 ---
 
-Some `ValueResolver`s accept property path as their argument. This allows you to
+Some `ValueResolver`s accept a property path as their argument. This allows you to
 specify a path to a specific property from the root entity, traversing through
 related entities. The framework will automatically make the necessary joins
 behind the scenes.

@@ -26,7 +26,7 @@ the source is an instance of `ConcreteClassA`, and so on.
 
 :::info
 
-This only applies if there is no a preexisting object on the target side. If
+This only applies if there is no preexisting object on the target side. If
 there is already an object on the target side, Mapper will map to that object
 instead.
 

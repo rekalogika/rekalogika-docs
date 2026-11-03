@@ -59,7 +59,7 @@ on the source side.
 
 These identifier properties will not be lazy, and will be mapped immediately
 after the instantiation of the target proxy object. This should not cause the
-hydration of the source side because a Doctrine proxy already hold the
+hydration of the source side because a Doctrine proxy already holds the
 identifier, even when uninitialized.
 
 If your application needs to have a custom logic for determining the identifier

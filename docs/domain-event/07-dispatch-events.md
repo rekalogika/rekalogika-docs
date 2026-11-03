@@ -18,7 +18,7 @@ These events are dispatched using the default Symfony event dispatcher.
 :::note
 
 `DomainEventPreFlushDispatchEvent` and `DomainEventPostFlushDispatchEvent` also
-includes the `ObjectManager` (`EntityManager`) instance that manages the object
+include the `ObjectManager` (`EntityManager`) instance that manages the object
 that emitted the domain event.
 
 :::

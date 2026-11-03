@@ -4,7 +4,7 @@ title: Repository
 
 An implementation of the repository pattern. This is an alternative to
 Doctrine's standard `EntityRepository`. Unlike Doctrine's, our repository
-implements `Collection` interface, so you can work with the repository like any
+implements the `Collection` interface, so you can work with the repository like any
 other implementation of `Collection`.
 
 ## Why?
@@ -17,7 +17,7 @@ Your `CitizenRepository` will work practically the same way as
 `$country->getCitizens()`, except that the former contains all citizens, while
 the latter contains citizens of a specific country.
 
-Your paginated view, batch processing, and other operation will work the same
+Your paginated view, batch processing, and other operations will work the same
 way for both collections. You can simply swap one with the other without
 changing your code.
 

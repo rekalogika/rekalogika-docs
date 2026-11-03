@@ -26,7 +26,7 @@ Handling](01-oom.md) section. It will stop you before it becomes an
 out-of-memory problem.
 
 All of our classes implement higher-level `PageableInterface` from our
-`rekalogika/rekapager-contracts` which add keyset pagination feature to the
+`rekalogika/rekapager-contracts` which adds keyset pagination feature to the
 underlying data. Unlike offset pagination, keyset pagination does not have the
 aforementioned drawbacks.
 

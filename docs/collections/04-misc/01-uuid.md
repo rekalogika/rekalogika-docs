@@ -2,8 +2,8 @@
 title: UUID Primary Keys
 ---
 
-If you need UUID primary keys, we highly recommend using string-based UUIDs
-primary key instead of object-based UUIDs (like Symfony or Ramsey's `UuidType`).
+If you need UUID primary keys, we highly recommend using string-based UUID
+primary keys instead of object-based UUIDs (like Symfony or Ramsey's `UuidType`).
 
 Note that it does not mean you are storing the UUIDs as `CHAR(36)` in the
 database. It means your entity uses `string` instead of `Uuid` as the type of

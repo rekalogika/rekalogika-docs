@@ -2,7 +2,7 @@
 title: Using Pageable for Batch Processing
 ---
 
-Any `PageableInterface` objects can be used to iterate its underlying data page
+Any `PageableInterface` object can be used to iterate its underlying data page
 by page. Rather than loading the entire data set into memory, you can process
 the data in multiple batches (or pages, or chunks, or slices).
 
@@ -63,7 +63,7 @@ to iterate over large result sets. This, however, has several drawbacks:
 * With `toIterable()`, during the `postLoad` event, the state of the entity is
   [not guaranteed to be
   consistent](https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#postload)
-  as when loading the entity normally. So, if you have `postLoad` listener on
+  as when loading the entity normally. So, if you have a `postLoad` listener on
   your entities, your entities might not behave the same way as when you load
   them normally.
 

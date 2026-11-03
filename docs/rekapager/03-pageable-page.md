@@ -69,7 +69,7 @@ assume the count is unknown), fetch the count from the underlying data, or
 supplied by the caller. By default, all implementations use 'ignore' because it
 is the safest option.
 
-All pageables accepts the `$count` parameter in the constructor. The parameter
+All pageables accept the `$count` parameter in the constructor. The parameter
 accepts integer or bool. `false` means the count is unknown, `true` means the
 count is fetched from the underlying data, and an integer is the count value
 supplied by the caller.
@@ -92,7 +92,7 @@ use Rekalogika\Contracts\Rekapager\PageableInterface;
 // Getting the first page
 $firstPage = $pageable->getFirstPage();
 
-// Getting the last page. Some pageable does not support seeking to the last
+// Getting the last page. Some pageables do not support seeking to the last
 // page, and will return null.
 $lastPage = $pageable->getLastPage();
 

@@ -6,7 +6,7 @@ When creating a pivot table, first the data source is converted into a `Table`
 instance, usually using the provided `ArrayTable` adapter. Then the `Table` is
 transformed into a `Cube` instance, which is then used by the framework to
 generate the pivot table in the `HtmlTable\Table` instance. Finally, the
-`HtmlTable\Table` instance is rendered into the desired output format, usually a
+`HtmlTable\Table` instance is rendered into the desired output format, usually an
 HTML string.
 
 ![Flow](./diagrams/flow.light.svg#light)
@@ -14,7 +14,7 @@ HTML string.
 
 ## Integration Options
 
-If you already have the data in an array format, or can be converted into an
+If you already have the data in an array format, or it can be converted into an
 array, you can just use the `ArrayTable` adapter to create a `Table` instance.
 The array must be in the format of `iterable<array<string,mixed>>`.
 

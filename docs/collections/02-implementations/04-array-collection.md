@@ -63,13 +63,13 @@ the same behavior.
 
 ## Limitation
 
-This problem will also happen when `fetch` set to `EAGER`, or when the
+This problem will also happen when `fetch` is set to `EAGER`, or when the
 collection is initialized before the `matching()` is called. Unfortunately, it
 is impossible to work around this problem outside Doctrine.
 
 However, if you can afford to fetch the collection eagerly, then you can afford
 to use `filter()` instead. Unlike `matching()`, `filter()` is always consistent
-in every cases.
+in every case.
 
 ## Example
 

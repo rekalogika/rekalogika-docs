@@ -2,7 +2,7 @@
 title: Loading Prevention in Extra Lazy Collections
 ---
 
-Suppose you have an entity that has a one-to-many relation with a million of
+Suppose you have an entity that has a one-to-many relation with a million
 related entities. The solution is to use [`fetch: 'EXTRA_LAZY'`](https://www.doctrine-project.org/projects/doctrine-orm/en/latest/tutorials/extra-lazy-associations.html) and `indexBy:
 'id'`.
 
@@ -31,7 +31,7 @@ This package already comes with `ExtraLazyCollection` for this purpose.
 
 :::info
 
-While `ExtraLazyCollection` only allows the safe methods, they still implement
+While `ExtraLazyCollection` only allows the safe methods, it still implements
 the `Collection` interface so that the object can still be used in places where
 a `Collection` is expected.
 
@@ -47,7 +47,7 @@ use Rekalogika\Collections\Decorator\ExtraLazy\ExtraLazyCollection;
 #[ORM\Entity()]
 class BookShelf
 {
-    // our bookshelf has a million of books...
+    // our bookshelf has a million books...
     #[ORM\OneToMany(
         targetEntity: Book::class,
         fetch: 'EXTRA_LAZY', // needs this, or the safe methods become unsafe

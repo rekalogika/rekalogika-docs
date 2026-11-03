@@ -6,10 +6,10 @@ title: Key Type Widening
 
 :::warning
 
-Previously, this feature is used to convert UUID objects to string before it is
+Previously, this feature was used to convert UUID objects to string before it was
 used as a key in a `Collection`. Unfortunately, we found out afterward that
 Doctrine's behavior regarding UUID keys is undefined and inconsistent. For
-example, UUID primary keys is converted into 8-4-4-4-12 format with PostgreSQL,
+example, UUID primary keys are converted into 8-4-4-4-12 format with PostgreSQL,
 but become binary strings with SQLite.
 
 We retain this feature because there are other benefits to it.
@@ -26,11 +26,11 @@ the database doesn't like it. They should be 404 errors instead.
 
 In some cases, the caller cannot know the type of the key, and must perform type
 checking to ensure it is `int|string` before using it in a `Collection`. This
-result in unnecessary boilerplate code.
+results in unnecessary boilerplate code.
 
 ## Solution
 
-Our interfaces extends `Collection` and overrides the following methods to widen
+Our interfaces extend `Collection` and override the following methods to widen
 the key type to `mixed`:
 
 * `containsKey($key)`

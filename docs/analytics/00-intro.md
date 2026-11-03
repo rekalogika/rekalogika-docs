@@ -6,7 +6,7 @@ Creates and maintains pre-aggregated summary tables for Doctrine entities.
 Provides a fast and easy way to perform analytical queries.
 
 This package works using the classical OLAP cube approach of data warehousing.
-It processes data from the source table and pre-aggregate it in a summary table.
+It processes data from the source table and pre-aggregates it in a summary table.
 This summary table is then used to perform analytical queries.
 
 :::danger

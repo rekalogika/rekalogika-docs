@@ -6,7 +6,7 @@ Common issues and how to solve them.
 
 :::note
 
-For clarity, the examples below uses plain SQL queries. The same principles
+For clarity, the examples below use plain SQL queries. The same principles
 apply to any database-backed adapters.
 
 :::

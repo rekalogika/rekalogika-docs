@@ -18,7 +18,7 @@ When `flush()` or `commit()` is finally called, Doctrine will save the
 the domain entities. This guarantees that the events are published only if the
 transaction is successful.
 
-When the message relay is executed. It reads the outbox table, publishes the
+When the message relay is executed, it reads the outbox table, publishes the
 events to the event bus, and removes the events from the outbox table.
 
 ## Comparison with the Post-Flush Strategy

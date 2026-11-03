@@ -40,7 +40,7 @@ $queryBuilder = $postRepository
     ->addOrderBy('p.title', 'ASC')
     ->addOrderBy('p.id', 'ASC');
 
-// The adapter provides an uniform interface for the different types of
+// The adapter provides a uniform interface for the different types of
 // underlying data collection
 
 $adapter = new QueryBuilderAdapter(

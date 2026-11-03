@@ -65,7 +65,7 @@ class BusinessContractCollectionDecorator extends CollectionDecorator
         }
     }
 
-    // We should override all the other methods that returns
+    // We should override all the other methods that return
     // BusinessContractInterface, but for conciseness, we skip them here.
 }
 ```

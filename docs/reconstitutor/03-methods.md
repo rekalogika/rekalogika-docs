@@ -16,7 +16,7 @@ call Doctrine's `EntityManager::persist()` on the object.
 Implementors should generally avoid using this method for initializing the
 object, and instead initialize the object using a factory. Changing the object's
 behavior in this method can be surprising to the caller and can be considered
-anti-pattern.
+an anti-pattern.
 
 :::
 
@@ -60,7 +60,7 @@ mark the object to be removed using `EntityManager::remove()`, then call
 If the object is an uninitialized proxy when you call `EntityManager::remove()`,
 the framework will initialize the object before calling `onRemove()`. So
 `onRemove()` will always get an initialized object, but already removed from
-database by Doctrine.
+the database by Doctrine.
 
 :::
 

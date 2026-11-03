@@ -44,7 +44,7 @@ class TextAppender extends AbstractFileFilter
     }
 
     /**
-     * This method return the derivation ID from the filtering parameters the
+     * This method returns the derivation ID from the filtering parameters the
      * caller provided.
      */
     #[\Override]

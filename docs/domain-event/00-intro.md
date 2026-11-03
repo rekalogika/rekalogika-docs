@@ -23,7 +23,7 @@ A domain event represents a business event that has happened. It is a good way
 to model the business requirements that say "when something happens, do this".
 
 A domain event is raised by the part of your code where the event is actually
-happening. Different part of your application might call the same method on an
+happening. Different parts of your application might call the same method on an
 entity. In some cases, the method is called indirectly, and the caller has no
 idea that it is being called. By using domain events, the event will be
 dispatched in all the cases. No need to make sure to dispatch the event from all

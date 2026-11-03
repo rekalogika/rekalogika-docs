@@ -48,7 +48,7 @@ Avoid using the same DTO as both input and output, and using serialization
 groups to define the differences between the two. Instead, we use a separate DTO
 for input and output.
 
-The `ApiResource` DTOs defines the output data structure. In POST, PUT, and
+The `ApiResource` DTOs define the output data structure. In POST, PUT, and
 PATCH endpoints, we create another DTO to represent the input data structure. In
 the `ApiResource` DTO, we use the `input` argument to point to the input DTO.
 
@@ -59,7 +59,7 @@ for `Get` and `GetCollection`. All processors get their data directly from the
 repository. We find this degree of explicitness helps with DX, readability, and
 flexibility.
 
-`Get` and `GetCollection` also gets a separate provider each for more
+`Get` and `GetCollection` also get a separate provider each for more
 explicitness.
 
 `Put`, `Patch`, and `Delete` will require a `read: false` option to prevent
@@ -69,10 +69,10 @@ explicitness.
 
 Because of the nature of our provider-less operations above, the `security`
 property in `ApiResource` and its operations will be less useful, as `object`
-will either be `null` or points to the DTO, not the entity.
+will either be `null` or point to the DTO, not the entity.
 
 Instead, our `AbstractState` provides `isGranted()` and
-`denyAccessUnlessGranted()` methods that most of us are already familiar.
+`denyAccessUnlessGranted()` methods that most of us are already familiar with.
 Security checks involving an action toward an object should be done next to the
 action anyway, not in a separate class. Otherwise, it reduces readability, and
 can easily lead to coding errors.
