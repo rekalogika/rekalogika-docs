@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkrekalogika_docs||=[]).push([[9278],{9278(s,a,k){k.r(a)}}]);

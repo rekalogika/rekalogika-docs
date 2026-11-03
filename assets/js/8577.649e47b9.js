@@ -1,0 +1,1 @@
+(globalThis.webpackChunkrekalogika_docs||=[]).push([[8577],{549(a,s,k){"use strict";k.d(s,{A:()=>c});var c=k(8291)},5741(){}}]);
