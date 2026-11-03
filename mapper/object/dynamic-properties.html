@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.10.2">
 <title data-rh="true">Dynamic Properties &amp; Property Overloading | Rekalogika.DEV</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://rekalogika.dev/img/social.png"><meta data-rh="true" name="twitter:image" content="https://rekalogika.dev/img/social.png"><meta data-rh="true" property="og:url" content="https://rekalogika.dev/mapper/object/dynamic-properties"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Dynamic Properties &amp; Property Overloading | Rekalogika.DEV"><meta data-rh="true" name="description" content="Dynamic properties are properties that are not explicitly declared in the class"><meta data-rh="true" property="og:description" content="Dynamic properties are properties that are not explicitly declared in the class"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://rekalogika.dev/mapper/object/dynamic-properties"><link data-rh="true" rel="alternate" href="https://rekalogika.dev/mapper/object/dynamic-properties" hreflang="en"><link data-rh="true" rel="alternate" href="https://rekalogika.dev/mapper/object/dynamic-properties" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"rekalogika/mapper","item":"https://rekalogika.dev/mapper/"},{"@type":"ListItem","position":2,"name":"Mapping Object to Object","item":"https://rekalogika.dev/mapper/object/"},{"@type":"ListItem","position":3,"name":"Dynamic Properties & Property Overloading","item":"https://rekalogika.dev/mapper/object/dynamic-properties"}]}</script><link rel="stylesheet" href="/assets/css/styles.61cc8cd6.css">
-<script src="/assets/js/runtime~main.527ec7a8.js" defer="defer"></script>
-<script src="/assets/js/main.949ddb8d.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.8cc66a3c.js" defer="defer"></script>
+<script src="/assets/js/main.8bdb04b7.js" defer="defer"></script>
 </head>
 <body>
 <svg style="display: none;"><defs>
@@ -17,7 +17,7 @@ only classes extending <code>stdClass</code> and those marked with
 <code>#[AllowDynamicProperties]</code> have dynamic properties.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="mapper-semantic-for-dynamic-properties">Mapper Semantic for Dynamic Properties<a href="#mapper-semantic-for-dynamic-properties" class="hash-link" aria-label="Direct link to Mapper Semantic for Dynamic Properties" title="Direct link to Mapper Semantic for Dynamic Properties" translate="no">​</a></h2>
 <p>Mapper supports classes with <code>#[AllowDynamicProperties]</code>, including <code>stdClass</code>
-and all classes that extends <code>stdClass</code>, with the following semantics.</p>
+and all classes that extend <code>stdClass</code>, with the following semantics.</p>
 <p>If the target is <code>stdClass</code> (or an object with <code>#[AllowDynamicProperties]</code>),
 then all properties of the source will be mapped to the target. If the target
 has explicit properties, then they will be respected as usual.</p>

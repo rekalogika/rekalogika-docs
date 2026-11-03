@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.10.2">
 <title data-rh="true">Partitioning | Rekalogika.DEV</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://rekalogika.dev/img/social.png"><meta data-rh="true" name="twitter:image" content="https://rekalogika.dev/img/social.png"><meta data-rh="true" property="og:url" content="https://rekalogika.dev/analytics/summary-entity/partitioning"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Partitioning | Rekalogika.DEV"><meta data-rh="true" name="description" content="For performance and to facilitate incremental updates, the summary table is"><meta data-rh="true" property="og:description" content="For performance and to facilitate incremental updates, the summary table is"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://rekalogika.dev/analytics/summary-entity/partitioning"><link data-rh="true" rel="alternate" href="https://rekalogika.dev/analytics/summary-entity/partitioning" hreflang="en"><link data-rh="true" rel="alternate" href="https://rekalogika.dev/analytics/summary-entity/partitioning" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"rekalogika/analytics","item":"https://rekalogika.dev/analytics/"},{"@type":"ListItem","position":2,"name":"Summary Entity","item":"https://rekalogika.dev/analytics/summary-entity/"},{"@type":"ListItem","position":3,"name":"Partitioning","item":"https://rekalogika.dev/analytics/summary-entity/partitioning"}]}</script><link rel="stylesheet" href="/assets/css/styles.61cc8cd6.css">
-<script src="/assets/js/runtime~main.527ec7a8.js" defer="defer"></script>
-<script src="/assets/js/main.949ddb8d.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.8cc66a3c.js" defer="defer"></script>
+<script src="/assets/js/main.8bdb04b7.js" defer="defer"></script>
 </head>
 <body>
 <svg style="display: none;"><defs>
@@ -31,7 +31,7 @@ entity, but not necessarily so. The key must be monotonic, or always increasing,
 but not necessarily unique. And the key must be permanent, it must not change in
 the lifetime of the entity.</p>
 <p>Partitioning is divided into <strong>levels</strong>. Each level consists of multiple
-<strong>partition</strong> of the same length, one after the other. Levels are indicated by a
+<strong>partitions</strong> of the same length, one after the other. Levels are indicated by a
 number. A lower level has a shorter length than a higher level.</p>
 <p>A partition is indicated by the <strong>level</strong> and the <strong>key</strong>. A partition of a
 level consists of several partitions of the lower level, except the lowermost
@@ -51,7 +51,7 @@ Again, the framework does not need to reprocess the entire summary table.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="available-partitioning-strategies">Available Partitioning Strategies<a href="#available-partitioning-strategies" class="hash-link" aria-label="Direct link to Available Partitioning Strategies" title="Direct link to Available Partitioning Strategies" translate="no">​</a></h2>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="defaultintegerpartition"><code>DefaultIntegerPartition</code><a href="#defaultintegerpartition" class="hash-link" aria-label="Direct link to defaultintegerpartition" title="Direct link to defaultintegerpartition" translate="no">​</a></h3>
 <p>Suitable for partitioning auto-incrementing integer primary keys. It partitions
-using 11, 22, 33, 44, and 55 bits of width. A 11-bit partition aggregates up to
+using 11, 22, 33, 44, and 55 bits of width. An 11-bit partition aggregates up to
 2048 records.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="uuidv7integerpartition"><code>UuidV7IntegerPartition</code><a href="#uuidv7integerpartition" class="hash-link" aria-label="Direct link to uuidv7integerpartition" title="Direct link to uuidv7integerpartition" translate="no">​</a></h3>
 <p>Suitable for partitioning UUIDv7 (also ULID) primary keys. It should be coupled
