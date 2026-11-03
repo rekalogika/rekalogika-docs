@@ -84,7 +84,6 @@ export function diffHighlight(Prism: PrismLib) {
         newTokens.push(token);
       }
     });
-    console.log(newTokens);
     env.tokens = newTokens;
   });
 }
