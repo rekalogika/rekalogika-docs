@@ -40,6 +40,9 @@ minutes. Changes to new records are not affected by
 `maximum_age` to null while keeping `minimum_idle_delay` makes the lag
 unbounded if the source changes continuously.
 
+To find out how fresh a particular query result is, use
+[`CubeCell::getValidAsOf()`](../04-query/01-querying.md#freshness-of-the-result).
+
 The refresh agent logs its activity to the `rekalogika.analytics` Monolog
 channel. The [`rekalogika:analytics:status`](../14-console-commands.md#rekalogikaanalyticsstatus)
 command shows the pending dirty flags and the scheduled refresh of each

@@ -13,6 +13,30 @@ A `DirtyFlag` can have null partition information. In this case, it means there
 are new persisted entities that need to be summarized. New entities need to be
 handled differently because they are not guaranteed to have an ID before flush.
 
+The creation time of a dirty flag is the time of the earliest change not yet
+reflected in its partition. The debouncing of the refresh, the status command,
+and `CubeCell::getValidAsOf()` depend on it. The time columns of the engine
+tables, `rekalogika_summary_dirty.created`,
+`rekalogika_summary_refresh_log.refreshed`,
+`rekalogika_summary_properties.scheduled_refresh`, and
+`rekalogika_summary_properties.source_checked`, are `TIMESTAMP WITH TIME ZONE`,
+so the times written by the application and by the database triggers are
+absolute, regardless of the time zone of PHP and of the database session.
+
+## `SummaryProperties`
+
+Stores the state of the refresh of a summary class, in the
+`rekalogika_summary_properties` table:
+
+* `lastId`: the latest partitioning key that has been summarized. The new
+  records are the source records with a greater key.
+* `sourceChecked`: the time just before the refresh last read the latest key of
+  the source, to update `lastId`, or to find that there are no new records.
+  Every source record with a key greater than `lastId` was inserted after this
+  time.
+* `scheduledRefresh`: the time the refresh agent is scheduled to run next, see
+  [Scheduling](#scheduling).
+
 ## `SourceEntityListener`
 
 Detects the changes to the source entities, and to the entities the summaries
@@ -140,6 +164,14 @@ dirty flags of the partitions of the new records. The converted flags inherit
 the creation time of the original flags, so the debouncing is based on the
 time the records were created, not the time the agent converts them.
 
+To find the new records, the agent reads the latest key of the source, bypassing
+any cache, and records the time just before it in `sourceChecked`. New records
+without any dirty flag, e.g. inserted using native SQL without the database
+triggers, are converted to dirty flags with the time of the previous check of
+the source, because they were inserted after it. If the source has never been
+checked, their time is unknown, and the earliest possible time is used, so they
+are refreshed without waiting for `minimumAge`.
+
 ### Scheduling
 
 The refresh agent runs only when there is something to refresh:
@@ -213,6 +245,12 @@ run, and the delays do not accumulate across levels. Each upper partition lags
 behind the partitions below it by at most the cooldown period, while each upper
 partition is refreshed at most once per cooldown period, regardless of how the
 changes in the source are distributed.
+
+The dirty flag of an upper partition, created when a partition below it is
+refreshed, inherits the creation time of the earliest dirty flag of that
+partition, not the time of the refresh. Therefore, the time of every dirty flag
+is the time of the earliest change not yet reflected in its partition, at every
+level.
 
 The refresh times of the upper partitions are recorded in `RefreshLog`. Records
 older than the cooldown period are removed by the agent.
@@ -294,3 +332,31 @@ The lag is unbounded if:
 
 The manual `rekalogika:analytics:refresh` command does not use the debouncing
 nor the cooldown period, it refreshes all the dirty partitions immediately.
+
+## Validity Time
+
+`CubeCell::getValidAsOf()` returns the time before which every change to the
+source is known to be reflected in a query result. It is determined by
+`ValidAsOfQuery`, once for each query, before querying the summary table. It is
+the earliest of:
+
+* the time of the query,
+* the creation time of the earliest dirty flag of the summary class,
+* if the source has records with a key greater than `lastId`, the
+  `sourceChecked` time.
+
+The reads are ordered so that a refresh running concurrently can only make the
+time earlier than necessary, never later:
+
+1. The time of the query. A change made before it is visible to the following
+   reads.
+2. `lastId` and `sourceChecked`, read together.
+3. The latest key of the source. If it is greater than `lastId`, the records
+   after `lastId` were inserted after `sourceChecked`, and may have no dirty
+   flags.
+4. The dirty flags. The records up to `lastId` are either flagged, or already
+   reflected in the summary table, which is read last.
+
+If there are new records, but `sourceChecked` is null, the time cannot be
+determined, and the method returns null. The changes that have no dirty flags,
+other than the new records, are not taken into account.

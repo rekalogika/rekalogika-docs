@@ -123,6 +123,15 @@ Only to-one associations are followed. Casts on the path, e.g.
 `customer(IndividualCustomer).gender`, and embeddables of related entities are
 supported.
 
+A path can also go through the inverse side of a one-to-one association, e.g.
+`profile.tier`, where the foreign key is in the table of the profile, owned by
+`AccountProfile::$account`. Changes to `tier`, and the deletion of a profile,
+are detected. But because the reference is stored in the related entity, not in
+the source entity, inserting a new profile for an existing account, or
+attaching a profile to another account, does not change the source entity, and
+is not reliably detected. Report these changes using
+[`markDirty()`](#reporting-changes-using-markdirty).
+
 ### Disabling Association Tracking
 
 If the related entities change often, and each of them is referred to by many
@@ -161,6 +170,8 @@ a flush. These changes are not detected:
   joins](../06-aggregate-function/05-to-many-joins.md) are not supported in
   aggregations either.
 * Changes to related entities of a summary with `trackAssociations: false`.
+* Inserting a related entity on the inverse side of a one-to-one association,
+  or attaching it to another source entity, as described above.
 * Changes to paths that a value resolver or an aggregate function does not
   report in `getInvolvedProperties()`, including the paths that are not in
   square brackets in a `CustomExpression` or a `SourceCondition`.
@@ -260,12 +271,16 @@ Keep in mind:
   agent. Run `rekalogika:analytics:sweep` periodically, e.g. every minute, to
   dispatch the refresh agent for the summaries that have dirty flags but no
   pending refresh.
-* The triggers write the time of the flags in the time zone PHP uses when the
-  SQL is generated. This must be the time zone the application runs with.
 * The triggers are generated from the summary metadata. Regenerate them after
   changing a summary.
 * Class table inheritance, composite identifiers, `TRUNCATE`, and updates of
   primary keys are not supported.
+* Through the inverse side of a one-to-one association, the foreign key is in
+  the table of the related entity. Inserting or deleting a related row, or
+  changing its foreign key, is not detected.
+* The filter of the summary is not applied. A change to a row outside the
+  filter creates a dirty flag anyway, which only causes an unnecessary refresh
+  of its partition.
 
 ## Verifying a Summary
 

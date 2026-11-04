@@ -60,3 +60,11 @@ $dto = CoordinatesDto::fromArray($array);
 /** @var CoordinatesDto $dto */
 $cell = $mapper->fromDto($summaryClass, $dto);
 ```
+
+:::tip
+
+The [`rekalogika:analytics:debug:cell`](../14-console-commands.md#rekalogikaanalyticsdebugcell)
+command takes the coordinates serialized as JSON, and shows the cell, along with
+the SQL computing it from the source table and from the summary table.
+
+:::

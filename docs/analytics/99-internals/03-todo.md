@@ -9,7 +9,6 @@ Currently none.
 ## Features
 
 * Support for MS SQL Server
-* Binning value resolver
 * Auto-dashboard
 * Lower & upper bound limit in queries.
 
@@ -26,6 +25,9 @@ Currently none.
   filter cannot use a to-many path.
 * The database triggers do not support class table inheritance, composite
   identifiers, `TRUNCATE`, and updates of primary keys.
+* Inserting a related entity on the inverse side of a one-to-one association,
+  or attaching it to another source entity, is not detected. With the database
+  triggers, deleting it is not detected either.
 
 ## Spinoffs
 

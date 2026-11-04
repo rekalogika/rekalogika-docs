@@ -18,6 +18,7 @@ Quote it, so that the shell does not interpret the backslashes.
 | [`rekalogika:analytics:trigger:install`](#rekalogikaanalyticstriggerinstall) | Installs the PostgreSQL triggers.                                 |
 | [`rekalogika:analytics:trigger:drop`](#rekalogikaanalyticstriggerdrop)    | Drops the PostgreSQL triggers.                                       |
 | [`rekalogika:analytics:debug:summary`](#rekalogikaanalyticsdebugsummary)  | Shows the metadata of a summary.                                     |
+| [`rekalogika:analytics:debug:cell`](#rekalogikaanalyticsdebugcell)        | Shows a cell of a query result, and the SQL computing it.            |
 | [`rekalogika:analytics:debug:source`](#rekalogikaanalyticsdebugsource)    | Shows which changes to a source class refresh which summaries.       |
 | [`rekalogika:analytics:uuid:summary-to-source`](#rekalogikaanalyticsuuidsummary-to-source) | Converts a UUIDv7 partition key to a source key.    |
 
@@ -189,6 +190,41 @@ its measures.
 | ----------------- | ------------------------------------------------------------------------------------------------------------ |
 | `summaryClass`    | The summary class. If omitted, the command asks you to choose one. Required in non-interactive mode.         |
 | `--query`         | Also shows the SQL used to delete the summary partitions, to roll up the source, and to roll up each level of the summary. |
+
+### `rekalogika:analytics:debug:cell`
+
+```bash
+php bin/console rekalogika:analytics:debug:cell [<summaryClass> [<coordinates>]]
+```
+
+Shows a cell of a query result, identified by its serialized coordinates:
+
+* the serialized coordinates,
+* the members of its coordinates,
+* its measures,
+* the [time the result is valid as of](./04-query/01-querying.md#freshness-of-the-result),
+* the predicates of the coordinates,
+* the SQL computing the measures from the source table,
+* the SQL computing the same measures from the summary table.
+
+The two SQL queries can be run and compared, e.g. to investigate a value that
+looks wrong. The query against the summary table only covers the source records
+that have been summarized, so the results only match if the summary is up to
+date. The members and the values are formatted like in the frontend, if
+`rekalogika/analytics-frontend` is installed.
+
+| Argument       | Description                                                                                                  |
+| -------------- | ------------------------------------------------------------------------------------------------------------ |
+| `summaryClass` | The summary class. If omitted, the command asks you to choose one. Required in non-interactive mode.         |
+| `coordinates`  | The coordinates of the cell, serialized as JSON. If omitted, the apex cell is shown.                         |
+
+The coordinates are a `CoordinatesDto` encoded as JSON, see
+[Serialization](./12-serialization/index.md). For example:
+
+```bash
+php bin/console rekalogika:analytics:debug:cell 'App\Entity\OrderSummary' \
+    '{"class":"coordinates","members":{"time.civil.month.month":"202603"},"predicate":null}'
+```
 
 ### `rekalogika:analytics:debug:source`
 
