@@ -38,11 +38,18 @@ class Order
 
 The source entity must have a key field that has the following properties:
 
-* Permanent, the value never changes in the lifetime of the entity.
-* Monotonic, always increases.
+* Permanent, the value should not change in the lifetime of the entity. If it
+  is changed through the ORM, both the old and the new partition are refreshed,
+  but a change made outside the ORM is not detected.
+* Monotonic, new entities get increasing values. Entities committed slightly
+  out of order, e.g. by concurrent transactions, are still summarized.
 
 Most of the time, you should be able to use the primary key of the entity as the
 key field.
+
+The source entity and its summary entities must be managed by the same entity
+manager. Otherwise, a `MetadataException` is thrown when the metadata of the
+summary is built.
 
 ## The Summary Entity
 
@@ -56,12 +63,13 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\Core\AggregateFunction\Count;
 use Rekalogika\Analytics\Core\AggregateFunction\Sum;
-use Rekalogika\Analytics\Core\Metadata as Analytics;
+use Rekalogika\Analytics\Metadata\Attribute as Analytics;
 use Rekalogika\Analytics\Core\Partition\DefaultIntegerPartition;
 use Rekalogika\Analytics\Core\Entity\BaseSummary;
 use Rekalogika\Analytics\Core\ValueResolver\IdentifierValue;
+use Rekalogika\Analytics\Core\ValueResolver\IntegerValue;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
-use Rekalogika\Analytics\Time\Dimension\System\GregorianDateWithHour
+use Rekalogika\Analytics\Time\Dimension\System\GregorianDateWithHour;
 use Rekalogika\Analytics\Time\Metadata\TimeProperties;
 use Symfony\Component\Translation\TranslatableMessage;
 
@@ -75,7 +83,7 @@ class OrderSummary extends BaseSummary
     // 1. Partition
 
     #[ORM\Embedded()]
-    #[Analytics\Partition(new PropertyValue('id'))]
+    #[Analytics\Partition(new IntegerValue('id'))]
     private DefaultIntegerPartition $partition;
 
     // 2. Dimensions
@@ -220,30 +228,87 @@ form of a summary entity.
 An event listener is installed to prevent you from accidentally persisting,
 updating, or deleting a summary entity.
 
-## `HasQueryBuilderModifier`
+## Filtering the Source Entities
 
-The framework works by creating a `QueryBuilder` to roll up the data from the
-source table to the summary table. If you need to modify this `QueryBuilder`, you
-can make the summary entity implement the `HasQueryBuilderModifier` interface.
+By default, a summary covers every source entity. To summarize only some of
+them, use the `filter` argument of the `Summary` attribute. It takes a Doctrine
+Collections expression whose fields are [property
+paths](../05-value-resolver/05-property-path.md) of the source entity:
 
 ```php
-use Doctrine\ORM\QueryBuilder;
-use Rekalogika\Analytics\Contracts\Summary\HasQueryBuilderModifier;
+use Doctrine\Common\Collections\Expr\Comparison;
 
-class OrderSummary extends Summary implements HasQueryBuilderModifier
+#[ORM\Entity()]
+#[Analytics\Summary(
+    sourceClass: Order::class,
+    // highlight-next-line
+    filter: new Comparison('status', '<>', 'cancelled'),
+)]
+class OrderSummary extends BaseSummary
 {
-    // ...
-
-    // highlight-start
-    public function modifyQueryBuilder(QueryBuilder $queryBuilder): void
-    {
-        $queryBuilder->andWhere('o.id > 100000');
-    }
-    // highlight-end
-
     // ...
 }
 ```
 
-With the above example, the resulting summary table will only consider the
-orders with an ID greater than 100000.
+Use `CompositeExpression` to combine several conditions. A condition that is
+not a comparison, e.g. `INSTANCE OF` or a comparison between two properties,
+can be written in DQL using `SourceCondition`. As in a
+[`CustomExpression`](../05-value-resolver/02-custom-expression.md), property
+paths go in square brackets:
+
+```php
+use Doctrine\Common\Collections\Expr\Comparison;
+use Doctrine\Common\Collections\Expr\CompositeExpression;
+use Rekalogika\Analytics\Core\Filter\SourceCondition;
+
+#[ORM\Entity()]
+#[Analytics\Summary(
+    sourceClass: Order::class,
+    // highlight-start
+    filter: new CompositeExpression(CompositeExpression::TYPE_AND, [
+        new Comparison('status', '<>', 'cancelled'),
+        new Comparison('customer.country.id', 'IN', ['ID', 'SG']),
+        new SourceCondition('[customer.*] INSTANCE OF App\Entity\IndividualCustomer'),
+        new SourceCondition('[paidAt] > [createdAt]'),
+    ]),
+    // highlight-end
+)]
+class OrderSummary extends BaseSummary
+{
+    // ...
+}
+```
+
+PHP attribute arguments must be constant expressions, so build the expression
+with `new Comparison(...)` and `new CompositeExpression(...)`.
+`Criteria::expr()` cannot be used here. The values must be constants.
+
+A `Comparison` supports the operators `=`, `<>`, `<`, `<=`, `>`, `>=`, `IN`,
+`NIN`, `CONTAINS`, `STARTS_WITH`, and `ENDS_WITH`. Other operators and
+expression types cause a `MetadataException`.
+
+The filter applies to every query the framework makes against the source
+entities. That includes rolling up the data into the summary table,
+determining the key range to refresh, and
+[getting the source entities](../13-source-entities/index.md) of a cell.
+
+### Change Detection
+
+The properties the filter reads are [tracked](../03-housekeeping/01-change-detection.md)
+in the same way as the properties used by the dimensions and measures. If a
+change moves a source entity into or out of the filter, the affected partition
+is refreshed.
+
+In a `SourceCondition`, only the paths in square brackets are tracked. If you
+write a path without brackets, for example inside a subquery, changes to it are
+not detected.
+
+### Limitations
+
+* A comparison through an association, e.g. `customer.country.id`, excludes
+  the source entities whose association is null, unless the filter allows null
+  explicitly.
+* A filter cannot read a path through a to-many association, because the join
+  would count a source entity more than once. Such a filter causes a
+  `MetadataException`. Use a `SourceCondition` with an `EXISTS` subquery
+  instead.

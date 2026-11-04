@@ -7,12 +7,12 @@ following pattern:
 
 ```php
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Core\Metadata as Analytics;
+use Rekalogika\Analytics\Metadata\Attribute as Analytics;
 use Rekalogika\Analytics\Core\Entity\BaseSummary;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 use Rekalogika\Analytics\Time\ValueResolver\TimeBinValueResolver;
 use Rekalogika\Analytics\Time\Metadata\TimeProperties;
-use Rekalogika\Analytics\Time\Bin\Date;
+use Rekalogika\Analytics\Time\Bin\Gregorian\Date;
 
 class OrderSummary extends BaseSummary
 {

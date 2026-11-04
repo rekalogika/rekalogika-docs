@@ -331,7 +331,7 @@ php bin/console messenger:consume async
 ```
 
 The updates are debounced, so changes appear in the summary within 30 minutes
-by default. See [housekeeping](./03-housekeeping.md) to adjust this.
+by default. See [Refreshing](./03-housekeeping/02-refreshing.md) to adjust this.
 
 ## Creating the Pivot Table Page
 

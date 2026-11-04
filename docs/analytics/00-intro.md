@@ -41,16 +41,38 @@ Understands Doctrine's metadata, unlike external solutions that work directly
 with the database. No need to duplicate the knowledge about your database
 schema between your application and the external analytical system.
 
-Detects if an entity is added, modified, or deleted. It can then automatically
-update the summary table accordingly. No need to devise a way to signal an
-external system that the data has changed. Or even to blindly recalculate all
-data up to 5 years ago periodically, just because you fear some process might
-have changed records that old, but you can't know for certain.
+Detects if an entity is added, modified, or deleted, including changes to the
+related entities that a summary reads through an association. It can then
+automatically update the summary table accordingly. No need to devise a way to
+signal an external system that the data has changed. Or even to blindly
+recalculate all data up to 5 years ago periodically, just because you fear some
+process might have changed records that old, but you can't know for certain.
+Changes made outside the ORM, like DQL `UPDATE` or native SQL, can be reported
+manually, or recorded using database triggers.
 
 ## Requirements
 
-Only works with PostgreSQL for now. Only the usage under Symfony is supported
-for now.
+* PHP 8.2 or later.
+* Symfony 6.4, 7.x, or 8.x. Only the usage under Symfony is supported for now.
+* Doctrine ORM 2.20 or later, or 3.x, with DoctrineBundle and
+  DoctrineMigrationsBundle.
+* PostgreSQL. Other databases are not supported yet. The
+  [`hll`](https://github.com/citusdata/postgresql-hll) extension is required
+  if you use [approximate distinct
+  counts](./06-aggregate-function/03-count-distinct.md).
+* Symfony Messenger, with a worker consuming an asynchronous transport, for the
+  background refreshes.
+
+## Demo
+
+A self-contained demo image, including PostgreSQL, sample data, and
+pre-populated summary tables, is available:
+
+```bash
+docker run --rm -p 8123:8000 ghcr.io/rekalogika/analytics-demo
+```
+
+Then open `http://localhost:8123` in your browser.
 
 ## Installation
 
@@ -60,6 +82,16 @@ Install the bundle using Composer:
 composer require rekalogika/analytics-bundle
 ```
 
+Optionally, install the frontend, which renders the results as pivot tables,
+charts, and spreadsheets, and the UX panel, which lets users choose the
+parameters of a pivot table interactively:
+
+```bash
+composer require rekalogika/analytics-frontend rekalogika/analytics-ux-panel
+```
+
+The [quickstart](./01-quickstart.md) walks through a complete setup.
+
 Configure Symfony Messenger routing configuration. For example:
 
 ```yaml title="config/packages/messenger.yaml"
@@ -68,6 +100,14 @@ framework:
         routing:
             Rekalogika\Analytics\Engine\RefreshAgent\RefreshAgentStartCommand: async
 ```
+
+The message is dispatched on the default message bus of your application, the
+`messenger.default_bus` service. If you have configured several buses, it is
+the one set as `default_bus` in the Messenger configuration.
+
+To recover from lost messages, and to process the dirty flags created by the
+database triggers, also run the [sweeper](./03-housekeeping/02-refreshing.md#sweeper)
+periodically.
 
 ## License
 

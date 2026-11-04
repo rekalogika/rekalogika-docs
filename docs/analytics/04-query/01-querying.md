@@ -44,6 +44,9 @@ dimension name is the same as the property name of your summary class.
 
 These methods are used to filter the data. They accept a Doctrine Criteria
 `Expression` object.
+`dice()` replaces the existing filter, while `andDice()` combines the new
+expression with the existing one using `AND`. An `in()` with an empty list
+matches nothing, while a `notIn()` with an empty list matches everything.
 
 ## The `CubeCell` Object
 

@@ -9,14 +9,15 @@ to perform complex calculations to get the value.
 ```php
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Core\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Entity\BaseSummary;
+use Rekalogika\Analytics\Metadata\Attribute as Analytics;
 use Rekalogika\Analytics\Core\ValueResolver\CustomExpression;
 
 #[ORM\Entity()]
 #[Analytics\Summary(
     sourceClass: Order::class,
 )]
-class OrderSummary extends Summary
+class OrderSummary extends BaseSummary
 {
     #[ORM\Column(enumType: Gender::class, nullable: true)]
     #[Analytics\Dimension(

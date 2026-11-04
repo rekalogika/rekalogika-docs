@@ -15,7 +15,7 @@ use Doctrine\ORM\Types\Types;
 use Rekalogika\Analytics\Core\AggregateFunction\Average;
 use Rekalogika\Analytics\Core\AggregateFunction\Count;
 use Rekalogika\Analytics\Core\AggregateFunction\Sum;
-use Rekalogika\Analytics\Core\Metadata as Analytics;
+use Rekalogika\Analytics\Metadata\Attribute as Analytics;
 use Rekalogika\Analytics\Core\Entity\BaseSummary;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 

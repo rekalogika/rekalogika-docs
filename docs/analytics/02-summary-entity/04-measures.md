@@ -14,10 +14,11 @@ Measures are defined using the `#[Analytics\Measure]` attribute.
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Brick\Money\Money;
-use Rekalogika\Analytics\Core\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Entity\BaseSummary;
+use Rekalogika\Analytics\Metadata\Attribute as Analytics;
 use Symfony\Component\Translation\TranslatableMessage;
 
-class YourSummary extends Summary
+class YourSummary extends BaseSummary
 {
     #[ORM\Column(type: Types::INTEGER)]
     // highlight-start
@@ -61,11 +62,12 @@ a pivot table.
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Brick\Money\Money;
-use Rekalogika\Analytics\Core\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Entity\BaseSummary;
+use Rekalogika\Analytics\Metadata\Attribute as Analytics;
 use Rekalogika\Analytics\Core\PseudoMeasure\CoordinatesMeasure;
 use Symfony\Component\Translation\TranslatableMessage;
 
-class YourSummary extends Summary
+class YourSummary extends BaseSummary
 {
     #[Analytics\Measure(
         function: new CoordinatesMeasure(),

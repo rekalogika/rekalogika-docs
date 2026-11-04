@@ -5,7 +5,10 @@ class SummaryMetadata {
     sourceClass: class-string
     label: TranslatableInterface
     attributes: AttributeCollection
-    involvedProperties: <string>
+    involvedSourceProperties: <string>
+    involvedSourcePaths: <string>
+    filter: ?Expression
+    trackAssociations: bool
     groupByExpression: GroupBy
     ---
     properties: <string,PropertyMetadata>

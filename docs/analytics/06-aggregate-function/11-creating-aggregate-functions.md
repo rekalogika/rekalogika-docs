@@ -112,7 +112,7 @@ Then in the summary class, the user will be able to do something like this:
 ```php
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Types\Types;
-use Rekalogika\Analytics\Core\Metadata as Analytics;
+use Rekalogika\Analytics\Metadata\Attribute as Analytics;
 use Rekalogika\Analytics\Core\Entity\BaseSummary;
 
 #[ORM\Entity()]

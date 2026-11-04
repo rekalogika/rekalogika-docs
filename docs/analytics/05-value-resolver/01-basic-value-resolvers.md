@@ -12,14 +12,15 @@ value from the source entity.
 ```php
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Core\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Entity\BaseSummary;
+use Rekalogika\Analytics\Metadata\Attribute as Analytics;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 
 #[ORM\Entity()]
 #[Analytics\Summary(
     sourceClass: Order::class,
 )]
-class OrderSummary extends Summary
+class OrderSummary extends BaseSummary
 {
     #[ORM\Column(type: Types::STRING)]
     #[Analytics\Dimension(
@@ -39,14 +40,15 @@ the value is not a simple property, but a related entity.
 ```php
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Core\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Entity\BaseSummary;
+use Rekalogika\Analytics\Metadata\Attribute as Analytics;
 use Rekalogika\Analytics\Core\ValueResolver\IdentifierValue;
 
 #[ORM\Entity()]
 #[Analytics\Summary(
     sourceClass: Order::class,
 )]
-class OrderSummary extends Summary
+class OrderSummary extends BaseSummary
 {
     #[ORM\ManyToOne()]
     #[Analytics\Dimension(
@@ -67,14 +69,15 @@ source property key is an integer.
 ```php
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Core\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Entity\BaseSummary;
+use Rekalogika\Analytics\Metadata\Attribute as Analytics;
 use Rekalogika\Analytics\Core\Partition\DefaultIntegerPartition;
 
 #[ORM\Entity()]
 #[Analytics\Summary(
     sourceClass: Order::class,
 )]
-class OrderSummary extends Summary
+class OrderSummary extends BaseSummary
 {
     #[ORM\Embedded()]
     // highlight-next-line

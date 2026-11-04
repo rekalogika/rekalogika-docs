@@ -35,18 +35,20 @@ interface ValueResolver
 }
 ```
 
-## Hierarchy Awareness
+## Usage in Dimension Groups
 
-If you need the value resolver to be usable in a hierarchy context, you also
-need to implement the `HierarchyAware` interface. It allows the framework to
-inject the input `ValueResolver` defined in the parent summary object.
+If you need the value resolver to be usable inside a [dimension
+group](../08-time-dimension/01-dimension-groups.md), you also need to implement
+the `DimensionGroupAware` interface. It allows the framework to inject the input
+`ValueResolver` defined in the dimension holding the group, from which your
+value resolver derives its own value, e.g. by extracting the year from a date.
 
 ```php
-namespace Rekalogika\Analytics\Contracts\Hierarchy;
+namespace Rekalogika\Analytics\Contracts\DimensionGroup;
 
 use Rekalogika\Analytics\Contracts\Summary\ValueResolver;
 
-interface HierarchyAware
+interface DimensionGroupAware
 {
     public function withInput(ValueResolver $input): static;
 }
@@ -124,7 +126,7 @@ Then in the summary class, the user will be able to do something like this:
 ```php
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Types\Types;
-use Rekalogika\Analytics\Core\Metadata as Analytics;
+use Rekalogika\Analytics\Metadata\Attribute as Analytics;
 use Rekalogika\Analytics\Core\Entity\BaseSummary;
 
 #[ORM\Entity()]

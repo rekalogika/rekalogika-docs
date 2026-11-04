@@ -7,6 +7,9 @@ that were previously aggregated into the cell. This functionality uses our
 [`rekalogika/rekapager`](../../rekapager/index.md) package to efficiently handle
 large datasets.
 
+If the summary has a [filter](../02-summary-entity/01-summary-class.md#filtering-the-source-entities),
+only the source entities that match the filter are returned.
+
 ## Iterating Over the Source Entities
 
 To iterate over the source entities of a cell, you can do something like this:

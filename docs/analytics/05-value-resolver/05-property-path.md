@@ -14,14 +14,15 @@ This is how you can use a property path in a dimension:
 ```php
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Core\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Entity\BaseSummary;
+use Rekalogika\Analytics\Metadata\Attribute as Analytics;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 
 #[ORM\Entity()]
 #[Analytics\Summary(
     sourceClass: Order::class,
 )]
-class OrderSummary extends Summary
+class OrderSummary extends BaseSummary
 {
     #[ORM\Column(type: Types::STRING)]
     #[Analytics\Dimension(
@@ -35,6 +36,9 @@ class OrderSummary extends Summary
 
 In this example, from the root `Order` object, we traverse the `customer`
 relation, and then the `country` relation to get the `name` property.
+
+The segments of a path are separated by dots, and none of them can be empty.
+A path like `customer..name` is rejected.
 
 In the following sections, we will only include how to use property paths in
 `ValueResolver` objects, omitting the rest of the code for brevity.
@@ -134,3 +138,11 @@ $queryBuilder
 
 :::
 
+
+## Change Detection
+
+The framework tracks the property paths used by a summary, so that a change to
+the data they read refreshes the affected part of the summary. This includes
+the paths through to-one associations, class casts, and fields of embeddables.
+Changes read through a to-many association are not detected. See [Change
+Detection](../03-housekeeping/01-change-detection.md) for the details.

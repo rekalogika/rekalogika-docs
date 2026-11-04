@@ -20,9 +20,10 @@ use Rekalogika\Analytics\Core\AggregateFunction\Count;
 use Rekalogika\Analytics\Core\AggregateFunction\StdDev;
 use Rekalogika\Analytics\Core\AggregateFunction\Sum;
 use Rekalogika\Analytics\Core\AggregateFunction\SumSquare;
-use Rekalogika\Analytics\Core\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Entity\BaseSummary;
+use Rekalogika\Analytics\Metadata\Attribute as Analytics;
 
-class OrderSummary extends Summary
+class OrderSummary extends BaseSummary
 {
     #[ORM\Column(type: Types::INTEGER)]
     #[Analytics\Measure(

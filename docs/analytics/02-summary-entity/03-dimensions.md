@@ -14,11 +14,12 @@ attribute.
 ```php
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Rekalogika\Analytics\Core\Metadata as Analytics;
+use Rekalogika\Analytics\Core\Entity\BaseSummary;
+use Rekalogika\Analytics\Metadata\Attribute as Analytics;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 use Symfony\Component\Translation\TranslatableMessage;
 
-class YourSummary extends Summary
+class YourSummary extends BaseSummary
 {
     #[ORM\Column(type: Types::STRING)]
     // highlight-start
@@ -64,12 +65,13 @@ The caller will then be able to decide whether to group the time by `year`,
 `month`, or `day`, etc.
 
 A hierarchical dimension is represented by a Doctrine embeddable. The following
-example uses a `TimeDimensionHierarchy`.
+example uses `GregorianDateWithHour`, a dimension group provided by the
+framework.
 
 ```php
 use Doctrine\ORM\Mapping as ORM;
 use Rekalogika\Analytics\Core\Entity\BaseSummary;
-use Rekalogika\Analytics\Core\Metadata as Analytics;
+use Rekalogika\Analytics\Metadata\Attribute as Analytics;
 use Rekalogika\Analytics\Core\ValueResolver\PropertyValue;
 use Rekalogika\Analytics\Time\Dimension\System\GregorianDateWithHour;
 
